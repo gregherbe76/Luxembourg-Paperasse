@@ -2,6 +2,26 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.5.0] — 2026-05-09
+
+### Ajouté
+
+- **`lib/ecdf/`** — Générateur de fichier eCDF "Comptes annuels schéma abrégé" (CA-A) :
+  - `mappings.js` — Correspondance Plan Comptable Normalisé luxembourgeois → 41 rubriques eCDF (bilan actif/passif + compte de résultat). Basé sur la loi du 19 décembre 2002 (LSC) et le règlement grand-ducal du 10 juin 2009 sur le PCN.
+  - `generator.js` — Agrège les soldes PCN par préfixe de compte, calcule le résultat de l'exercice (produits classe 7 - charges classe 6), vérifie l'équilibre actif/passif, et émet un document XML structuré conforme au formulaire CA-A.
+- **`scripts/generate-ecdf.js`** — CLI `paperasse ecdf <input.json> [--out=fichier.xml] [--json]`. Sortie XML par défaut, résumé de cohérence sur stderr (équilibre du bilan, total actif/passif, résultat).
+- **`scripts/test-ecdf.js`** — 24 tests déterministes : structure des données, calculs (CA net, frais de personnel, coût matières, résultat, capital, dettes fiscales, avoirs banque), équilibre du bilan, rendu XML, cas d'erreur (RCS ou exercice manquant).
+- **`examples/ecdf-input.json`** — Exemple SARL ACME 2025 avec balance PCN équilibrée (résultat +8 500 €).
+
+### Avertissement
+
+Les codes de rubriques eCDF (101, 1101, 3001, ...) suivent la nomenclature publique du formulaire CA-A. **Avant tout dépôt légal au RCS via eCDF, le fichier généré doit être validé sur le tester officiel** https://ecdf.b2g.etat.lu/. Le mapping PCN → rubriques peut nécessiter des ajustements selon les particularités sectorielles (secteur financier, fondations, ASBL).
+
+### Modifié
+
+- `package.json` — version 0.5.0, `npm test` enchaîne maintenant 61 tests (19 calculs + 18 parseurs bancaires + 24 eCDF)
+- `bin/paperasse` — sous-commandes `ecdf` et `test:ecdf`
+
 ## [0.4.0] — 2026-05-09
 
 ### Ajouté
