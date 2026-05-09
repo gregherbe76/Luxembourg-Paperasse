@@ -1,7 +1,6 @@
 MIT License
 
 Copyright (c) 2026 Grégory Herbé and Paperasse Lux contributors
-Inspired by Paperasse (https://github.com/romainsimon/paperasse) © Romain Simon, MIT.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +22,5 @@ SOFTWARE.
 
 ---
 
-DISCLAIMER
-
-Paperasse Lux fournit des informations à titre indicatif uniquement. Il ne
-constitue pas un conseil juridique, fiscal, comptable ou notarial. Pour toute
-décision engageante, consultez un professionnel agréé au Grand-Duché de
-Luxembourg (expert-comptable OEC, réviseur d'entreprises agréé IRE, avocat
-inscrit au barreau, ou notaire). Les auteurs déclinent toute responsabilité
-en cas d'erreur, d'omission ou d'évolution de la législation postérieure à
-la publication.
+This project is inspired by Paperasse (https://github.com/romainsimon/paperasse)
+© Romain Simon, also released under the MIT License.

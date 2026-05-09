@@ -2,6 +2,21 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.7.3] — 2026-05-09
+
+### Ajouté — Standards open-source (community health 100%)
+
+- `CODE_OF_CONDUCT.md` — Contributor Covenant 2.1 en français.
+- `SECURITY.md` — politique de signalement de faille (Security Advisories privé + email).
+- `.github/ISSUE_TEMPLATE/config.yml` — désactive les issues blanches, redirige les questions vers GitHub Discussions et les failles vers les Security Advisories.
+- `.github/ISSUE_TEMPLATE/feature_request.md` — template de demande de fonctionnalité.
+- `.github/dependabot.yml` — mises à jour hebdomadaires automatiques des dépendances npm et des actions GitHub.
+- `.github/release.yml` — génération automatique des notes de release par catégorie (Nouveautés, Corrections, Données réglementaires, etc.).
+
+### Corrigé
+
+- `LICENSE` — la mention « Inspired by Paperasse » a été déplacée après le texte MIT pour que GitHub détecte correctement la licence comme MIT (et non « NOASSERTION »).
+
 ## [0.7.2] — 2026-05-09
 
 ### Documentation
