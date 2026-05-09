@@ -2,6 +2,12 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.7.1] — 2026-05-09
+
+### Documentation
+
+- `lib/templates-de/render.js` : ajout d'un bloc « LIMITATIONS CONNUES » dans l'en-tête du fichier — pas de support des blocs imbriqués (for/if dans for), pas de `{% else %}`. Les 6 templates DE livrés ont été conçus pour rester dans ce périmètre. Pour des templates plus complexes, basculer sur nunjucks.
+
 ## [0.7.0] — 2026-05-09
 
 ### Ajouté
