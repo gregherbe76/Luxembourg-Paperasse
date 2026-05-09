@@ -2,6 +2,25 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.6.0] — 2026-05-09
+
+### Ajouté
+
+- **`lib/lbr/`** — Module d'aide au Registre de Commerce et des Sociétés luxembourgeois :
+  - `index.js` — `validerRCS()` (catégories B/F/G/E/K/X), `urlRechercheLBR()` (deep-link portail public), `calendrierDepots()` (échéances annuelles AG + dépôt comptes + eCDF), `TARIFS_LBR_2026` (barème officiel TVA incluse).
+  - `checklists.js` — 8 opérations LBR documentées avec pièces à déposer, capital minimum, délais, coût indicatif, bases légales : creation_sarl, creation_sa, creation_asbl, modification_statuts, changement_dirigeant, transfert_siege, depot_comptes_annuels, dissolution_liquidation.
+- **`scripts/lbr.js`** — CLI `paperasse lbr <commande>` : `valider`, `url`, `operations`, `checklist`, `calendrier`, `tarifs`.
+- **`scripts/test-lbr.js`** — 25 tests déterministes (validation RCS multi-catégories, URL portail, checklists complètes, calendrier dépôts avec gestion du débordement de mois, tarifs 2026).
+
+### Pourquoi ce choix d'approche
+
+Le portail lbr.lu utilise des sessions JSP côté serveur, ce qui rend tout scraping fragile. Le dataset RCS complet n'est pas en open data sur data.public.lu. Plutôt que de promettre un client API qui casserait à la première mise à jour du portail, on fournit ce dont l'utilisateur a réellement besoin au quotidien : les checklists exactes des pièces à déposer, le calendrier des obligations annuelles, et l'URL du portail officiel pour finaliser la consultation manuelle.
+
+### Modifié
+
+- `package.json` — version 0.6.0, `npm test` enchaîne maintenant 86 tests (19 calculs + 18 parseurs bancaires + 24 eCDF + 25 LBR)
+- `bin/paperasse` — sous-commandes `lbr` et `test:lbr`
+
 ## [0.5.0] — 2026-05-09
 
 ### Ajouté

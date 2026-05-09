@@ -46,6 +46,8 @@ const ROUTES = {
   'test:bank':    ['scripts/test-bank-parsers.js'],
   ecdf:           ['scripts/generate-ecdf.js'],
   'test:ecdf':    ['scripts/test-ecdf.js'],
+  lbr:            ['scripts/lbr.js'],
+  'test:lbr':     ['scripts/test-lbr.js'],
 };
 
 function showHelp() {
@@ -62,6 +64,7 @@ Commandes :
   freshness       Vérifie si les chiffres (as_of) sont à jour pour l'année courante
   bank            Parse un relevé bancaire LU (BCEE/POST/BIL/CAMT.053) — auto-détection
   ecdf            Génère le fichier eCDF "Comptes annuels schéma abrégé" (CA-A) à partir d'une balance PCN
+  lbr             Aide LBR : valider RCS, checklists de dépôt, calendrier annuel, tarifs 2026
   statements      Génération des états financiers (bilan, compte de résultat)
   faia            Génération du fichier FAIA (audit fiscal AED)
   pdfs            Génération des PDF de clôture
@@ -77,6 +80,8 @@ Exemples :
   paperasse bank examples/bank-statements/bcee-sample.csv --format=table
   paperasse bank releve.xml --format=csv > normalized.csv
   paperasse ecdf examples/ecdf-input.json --out=comptes-2025.xml
+  paperasse lbr checklist creation_sarl
+  paperasse lbr calendrier 2025-12-31
   paperasse open-data search "impôt"
   paperasse validate:data
   paperasse freshness
