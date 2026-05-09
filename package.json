@@ -1,18 +1,26 @@
 {
   "name": "paperasse-lux",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Skills et outils pour la bureaucratie luxembourgeoise",
   "private": true,
   "type": "module",
+  "bin": {
+    "paperasse": "./bin/paperasse"
+  },
   "scripts": {
     "calc": "node scripts/calc.js",
+    "tva": "node scripts/calc-tva-declaration.js",
+    "test": "node scripts/test-deterministic-calculations.js",
     "test:calc": "node scripts/test-deterministic-calculations.js",
+    "validate:data": "node scripts/validate-schemas.js",
+    "freshness": "node scripts/check-data-freshness.js",
     "faia": "node scripts/generate-faia.js",
     "statements": "node scripts/generate-statements.js",
     "pdfs": "node scripts/generate-pdfs.js",
     "closing": "node scripts/generate-faia.js && node scripts/generate-statements.js && node scripts/generate-pdfs.js",
     "facture": "node scripts/generate-facture-lux.js",
     "validate:facture": "node scripts/validate-facture.js",
+    "open-data": "node scripts/fetch-open-data.js",
     "fetch": "node integrations/stripe/fetch.js; node integrations/psd2-tink/fetch.js",
     "fetch:tink": "node integrations/psd2-tink/fetch.js",
     "fetch:stripe": "node integrations/stripe/fetch.js"

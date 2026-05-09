@@ -2,6 +2,24 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.3.0] — 2026-05-09
+
+### Ajouté
+
+- **`SOURCES.md`** — Documentation officielle des 4 grandes familles de sources luxembourgeoises (PCN/CNC, fiscalité Legilux/ACD/AED, audit IRE/CSSF, open data data.public.lu/STATEC/LBR/eCDF) avec URLs canoniques et fichiers du dépôt liés.
+- **`schemas/`** — 17 schémas JSON Schema (draft-07) couvrant tous les `*/data/*.json` du dépôt. Garde-fou contre les erreurs de saisie (typo de taux, format de date) lors des mises à jour annuelles.
+- **`scripts/validate-schemas.js`** — Validateur sans dépendance externe (subset draft-07 : type/required/min/max/pattern/const/properties/patternProperties/items). Exit 1 si une donnée viole son schéma.
+- **`scripts/calc-tva-declaration.js`** — Module + CLI calculant la déclaration TVA luxembourgeoise (équivalent CA3) : ventilation HT/TVA par taux 17/14/8/3, acquisitions intracommunautaires en auto-liquidation, livraisons exonérées, lignes prêtes pour le formulaire eCDF.
+- **`scripts/check-data-freshness.js`** — Détecte les fichiers `data/*.json` obsolètes en comparant `as_of` à l'année courante. Sortie 1 si un fichier date d'avant l'année en cours, utilisable en CI annuelle pour rappeler la revue post-loi-budgétaire.
+- **`scripts/fetch-open-data.js`** — Interroge l'API udata de data.public.lu (`/api/1/`) : recherche, inspection, téléchargement vers `data-sources/` (staging, gitignored).
+- **`bin/paperasse`** — CLI unifiée routant vers tous les scripts : `paperasse calc`, `paperasse tva`, `paperasse validate:data`, `paperasse freshness`, `paperasse open-data`, `paperasse closing`, etc. Installable via `npm install -g .` puis `paperasse help`.
+- **`examples/tva-trimestre.json`** — Exemple de déclaration TVA T3 prêt à exécuter via `paperasse tva examples/tva-trimestre.json`.
+- **Scripts npm** : `validate:data`, `freshness`, `tva`, `open-data` ; entrée `bin` pour la CLI globale.
+
+### Modifié
+
+- `package.json` — version 0.3.0, ajout du champ `bin` pour exposer `paperasse` après `npm install -g`.
+
 ## [0.2.0] — 2026-05-09
 
 ### Ajouté
