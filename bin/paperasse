@@ -48,6 +48,8 @@ const ROUTES = {
   'test:ecdf':    ['scripts/test-ecdf.js'],
   lbr:            ['scripts/lbr.js'],
   'test:lbr':     ['scripts/test-lbr.js'],
+  de:             ['scripts/de.js'],
+  'test:de':      ['scripts/test-templates-de.js'],
 };
 
 function showHelp() {
@@ -65,6 +67,7 @@ Commandes :
   bank            Parse un relevé bancaire LU (BCEE/POST/BIL/CAMT.053) — auto-détection
   ecdf            Génère le fichier eCDF "Comptes annuels schéma abrégé" (CA-A) à partir d'une balance PCN
   lbr             Aide LBR : valider RCS, checklists de dépôt, calendrier annuel, tarifs 2026
+  de              Rend un template allemand (Einberufung, Mahnung, Rechnung, Kündigung) avec un JSON
   statements      Génération des états financiers (bilan, compte de résultat)
   faia            Génération du fichier FAIA (audit fiscal AED)
   pdfs            Génération des PDF de clôture
@@ -82,6 +85,8 @@ Exemples :
   paperasse ecdf examples/ecdf-input.json --out=comptes-2025.xml
   paperasse lbr checklist creation_sarl
   paperasse lbr calendrier 2025-12-31
+  paperasse de --list
+  paperasse de mahnung examples/de/mahnung-input.json --out=mahnung-001.md
   paperasse open-data search "impôt"
   paperasse validate:data
   paperasse freshness

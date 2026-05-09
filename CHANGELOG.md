@@ -2,6 +2,27 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.7.0] — 2026-05-09
+
+### Ajouté
+
+- **`templates/de/`** — 6 templates en allemand pour résidents et entreprises germanophones du Luxembourg :
+  - `einberufung-gesellschafterversammlung.md` — convocation AG SARL (loi du 10.08.1915 art. 710-15/16)
+  - `einberufung-hauptversammlung.md` — convocation AG SA (art. 450-1 ss.)
+  - `einberufung-eigentuemerversammlung.md` — convocation AG copropriété (loi du 16.05.1975)
+  - `mahnung.md` — lettre de mise en demeure avec verzugszinsen + 40 € (loi du 18.04.2004)
+  - `rechnung-luxemburg.md` — facture conforme TVA LU (mentions obligatoires, reverse charge, exonération)
+  - `kuendigung-mietvertrag.md` — résiliation de bail avec demande de restitution caution (loi du 21.09.2006)
+- **`lib/templates-de/render.js`** — Moteur de rendu minimal sans dépendance : substitutions `{{ var }}`, chemins pointés `{{ obj.sub }}`, filtre `| default('x')`, boucles `{% for x in liste %}` (avec `loop.index`), conditions `{% if cond %}`.
+- **`scripts/de.js`** — CLI `paperasse de <template> <input.json> [--out=fichier.md]` ou `paperasse de --list`.
+- **`scripts/test-templates-de.js`** — 18 tests : moteur de rendu (substitutions, défauts, boucles, conditions), rendu intégral des 3 templates principaux, vérification absence de variable non substituée, présence des mentions légales.
+- **`examples/de/`** — 3 exemples de contexte JSON (Mahnung, Rechnung, Einberufung SARL).
+
+### Modifié
+
+- `package.json` — version 0.7.0, `npm test` enchaîne maintenant 104 tests (19 + 18 + 24 + 25 + 18)
+- `bin/paperasse` — sous-commandes `de` et `test:de`
+
 ## [0.6.0] — 2026-05-09
 
 ### Ajouté
