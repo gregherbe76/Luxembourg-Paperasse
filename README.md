@@ -19,6 +19,7 @@
   <img src="https://img.shields.io/badge/veille-Légilux_RSS-008751" alt="Veille Légilux RSS">
   <a href="https://github.com/gregherbe76/paperasse-lux/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gregherbe76/paperasse-lux?style=flat&color=blue" alt="License"></a>
   <a href="https://github.com/gregherbe76/paperasse-lux/actions/workflows/validate.yml"><img src="https://github.com/gregherbe76/paperasse-lux/actions/workflows/validate.yml/badge.svg" alt="Validate"></a>
+  <a href="https://agentskill.sh/@gregherbe76"><img src="https://img.shields.io/badge/AgentSkill.sh-@gregherbe76-8b5cf6?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTUtMTAtNXptMCAxMy41TDIgMTBsMTAgNSAxMC01LTEwIDUuNXoiLz48L3N2Zz4=" alt="AgentSkill.sh"></a>
 </p>
 
 <br />
@@ -34,6 +35,16 @@ Chaque skill transforme votre agent en copilote expert d'un métier de la papera
 Les skills connaissent les textes (LIR, LITL, LCC, loi modifiée du 12 février 1979 sur la TVA, loi du 10 août 1915 sur les sociétés commerciales, loi du 19 décembre 2002 RCS, loi du 16 mai 1975 copropriété), les formulaires, les échéances, et ne se trompent pas de case dans la déclaration eCDF.
 
 Les skills sont du Markdown. Ils fonctionnent avec tout agent ou outil capable de lire des fichiers. Paperasse Lux inclut aussi un **flux de veille du Journal Officiel** (4 RSS Légilux : Mémorial A, B, A+B, projets de loi) pour rester à jour des publications légales en temps réel.
+
+---
+
+## AgentSkill.sh
+
+Profil et collection de skills publiés par l'auteur :
+
+**[https://agentskill.sh/@gregherbe76](https://agentskill.sh/@gregherbe76)**
+
+Vous y retrouvez les skills Paperasse Lux indexés et prêts à être installés en un clic dans votre agent IA, ainsi que les autres skills publiés par [@gregherbe76](https://agentskill.sh/@gregherbe76).
 
 ---
 

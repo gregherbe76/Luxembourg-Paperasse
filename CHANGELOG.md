@@ -2,6 +2,12 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.7.2] — 2026-05-09
+
+### Documentation
+
+- README : ajout du badge et d'une section dédiée pointant vers le profil **AgentSkill.sh** de l'auteur — https://agentskill.sh/@gregherbe76 — pour permettre l'installation des skills en un clic depuis l'index public.
+
 ## [0.7.1] — 2026-05-09
 
 ### Documentation
