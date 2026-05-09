@@ -2,6 +2,15 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.7.4] — 2026-05-09
+
+### Ajouté — Bonus open-source
+
+- `.github/FUNDING.yml` — active le bouton « Sponsor » sur la page du dépôt (GitHub Sponsors → @gregherbe76).
+- `CITATION.cff` — permet « Cite this repository » sur GitHub (utile vu le caractère réglementaire du projet).
+- `.github/workflows/codeql.yml` — analyse de sécurité statique automatique (CodeQL, queries `security-and-quality`) à chaque push, chaque PR, et tous les lundis à 4h32 UTC.
+- Branch protection activée sur `main` (réglage côté GitHub) : pas de force-push, pas de suppression, requiert que la CI `validate` passe avant merge.
+
 ## [0.7.3] — 2026-05-09
 
 ### Ajouté — Standards open-source (community health 100%)
