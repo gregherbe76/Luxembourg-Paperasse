@@ -2,6 +2,30 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.4.0] — 2026-05-09
+
+### Ajouté
+
+- **`lib/bank-parsers/`** — Parseurs de relevés bancaires luxembourgeois sans dépendance externe :
+  - `csv.js` — parseur CSV générique (auto-détection séparateur `;`/`,`/`\t`, formats de montants FR/LU/EN, dates multi-formats)
+  - `bcee.js` — profil BCEE / Spuerkeess (export S-Net : Date;Date valeur;Libellé;Débit;Crédit;Solde;Devise;Référence)
+  - `post.js` — profil POST Finance (CCPL : Date;Description;Montant signé;Devise;Solde)
+  - `bil.js` — profil BIL (export BILnet)
+  - `generic.js` — fallback CSV avec détection par mots-clés FR/EN/DE
+  - `camt053.js` — parseur CAMT.053 ISO 20022 (XML standard accepté par toutes les banques LU)
+  - `index.js` — auto-détection du format + agrégation des totaux
+- **`scripts/parse-bank-statement.js`** — CLI `paperasse bank <fichier> [--format=json|table|csv]`
+  - Sortie normalisée : `{ date, date_valeur, libelle, montant signé, sens, devise, solde, reference, banque }`
+  - Format `table` pour aperçu lisible, `csv` pour réimport comptable, `json` pour pipeline
+- **`scripts/test-bank-parsers.js`** — 18 tests déterministes (parseAmount FR/LU/EN, parseDate multi-formats, BCEE/POST/CAMT.053 sur fixtures)
+- **`examples/bank-statements/`** — 3 fixtures synthétiques : `bcee-sample.csv`, `post-sample.csv`, `camt053-sample.xml`
+- Avantage vs PSD2 Tink : pas d'OAuth interactif requis (ne marche pas en headless), tous les exports bancaires LU supportés en local.
+
+### Modifié
+
+- `package.json` — version 0.4.0, `npm test` enchaîne calculs + parseurs bancaires (37 tests au total)
+- `bin/paperasse` — sous-commandes `bank` et `test:bank`
+
 ## [0.3.0] — 2026-05-09
 
 ### Ajouté

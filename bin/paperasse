@@ -42,6 +42,8 @@ const ROUTES = {
   pdfs:           ['scripts/generate-pdfs.js'],
   test:           ['scripts/test-deterministic-calculations.js'],
   'open-data':    ['scripts/fetch-open-data.js'],
+  bank:           ['scripts/parse-bank-statement.js'],
+  'test:bank':    ['scripts/test-bank-parsers.js'],
 };
 
 function showHelp() {
@@ -56,6 +58,7 @@ Commandes :
   validate        Validation d'une facture (IBAN, BIC, TTC)
   validate:data   Validation des fichiers data/*.json contre leur schéma JSON
   freshness       Vérifie si les chiffres (as_of) sont à jour pour l'année courante
+  bank            Parse un relevé bancaire LU (BCEE/POST/BIL/CAMT.053) — auto-détection
   statements      Génération des états financiers (bilan, compte de résultat)
   faia            Génération du fichier FAIA (audit fiscal AED)
   pdfs            Génération des PDF de clôture
@@ -68,6 +71,8 @@ Exemples :
   paperasse calc irc 250000
   paperasse calc bellegen-akt 600000 2 lux-ville
   paperasse tva examples/tva-trimestre.json
+  paperasse bank examples/bank-statements/bcee-sample.csv --format=table
+  paperasse bank releve.xml --format=csv > normalized.csv
   paperasse open-data search "impôt"
   paperasse validate:data
   paperasse freshness
