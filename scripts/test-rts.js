@@ -131,6 +131,23 @@ test('salaire négatif rejeté', () => {
   truthy(ok);
 });
 
+test('deductionsAnnuelles non-numérique rejeté (pas de NaN silencieux)', () => {
+  let ok = false; try { calculerRTS({ salaireBrutMensuel: 5000, classe: '1', deductionsAnnuelles: 'abc' }); } catch { ok = true; }
+  truthy(ok);
+});
+
+test('deductionsAnnuelles négatif rejeté', () => {
+  let ok = false; try { calculerRTS({ salaireBrutMensuel: 5000, classe: '1', deductionsAnnuelles: -1000 }); } catch { ok = true; }
+  truthy(ok);
+});
+
+test('salaire NaN/Infinity rejeté', () => {
+  let ok1 = false, ok2 = false;
+  try { calculerRTS({ salaireBrutMensuel: NaN, classe: '1' }); } catch { ok1 = true; }
+  try { calculerRTS({ salaireBrutMensuel: Infinity, classe: '1' }); } catch { ok2 = true; }
+  truthy(ok1 && ok2);
+});
+
 test('avertissement classe 1a présent', () => {
   const r = calculerRTS({ salaireBrutMensuel: 4000, classe: '1a' });
   truthy(r.avertissements.some((a) => a.includes('1a')));

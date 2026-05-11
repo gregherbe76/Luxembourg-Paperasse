@@ -125,6 +125,24 @@ test('écriture à 1 ligne rejetée', () => {
   falsy(v.valide);
 });
 
+test('accounts non-array rejeté sans crash', () => {
+  const v = validerFAIAInput({ ...baseInput, accounts: 'pas un tableau' });
+  falsy(v.valide);
+  contains(v.erreurs.join(' '), 'accounts');
+});
+
+test('entries non-array rejeté sans crash', () => {
+  const v = validerFAIAInput({ ...baseInput, entries: { foo: 'bar' } });
+  falsy(v.valide);
+  contains(v.erreurs.join(' '), 'entries');
+});
+
+test('salesInvoices non-array rejeté sans crash', () => {
+  const v = validerFAIAInput({ ...baseInput, salesInvoices: 42 });
+  falsy(v.valide);
+  contains(v.erreurs.join(' '), 'salesInvoices');
+});
+
 test('avertissement si accountId orphelin', () => {
   const odd = {
     ...baseInput,

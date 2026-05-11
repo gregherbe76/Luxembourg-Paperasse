@@ -2,6 +2,17 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.10.1] — 2026-05-11
+
+### Corrigé — Durcissement des validateurs (revue d'architecte)
+
+- **FAIA** : `validerFAIAInput` ne crashait pas mais ne signalait pas non plus si `accounts`, `entries`, `salesInvoices` ou `purchaseInvoices` étaient passés avec un type incorrect (chaîne, objet, nombre…). Désormais : erreur explicite, pas d'exception non gérée.
+- **Bëllegen Akt** : `dateActe` n'était validée que par regex (acceptait `2024-99-99`, `2024-02-30`). Désormais validation de date réelle UTC.
+- **RTS** : `deductionsAnnuelles`, `salaireBrutMensuel` non-finis (`NaN`, `Infinity`, chaîne) produisaient des résultats `NaN` silencieux. Désormais : `Number.isFinite` + bornes, erreur explicite.
+- 12 tests de non-régression ajoutés (3 FAIA + 2 Bëllegen Akt + 3 RTS, +4 cas autour).
+
+**Tests cumulés : 173** (19 calc + 18 bank + 24 eCDF + 25 LBR + 18 templates DE + 27 FAIA + 19 Bëllegen Akt + 23 RTS).
+
 ## [0.10.0] — 2026-05-11
 
 ### Ajouté — Site documentation GitHub Pages

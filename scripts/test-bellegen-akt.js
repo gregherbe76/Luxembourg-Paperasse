@@ -132,5 +132,15 @@ test('dateActe mal formée rejetée', () => {
   truthy(ok);
 });
 
+test('dateActe impossible 2024-99-99 rejetée', () => {
+  let ok = false; try { calculerBellegenAkt({ prix: 100000, dateActe: '2024-99-99' }); } catch { ok = true; }
+  truthy(ok);
+});
+
+test('dateActe 2024-02-30 rejetée', () => {
+  let ok = false; try { calculerBellegenAkt({ prix: 100000, dateActe: '2024-02-30' }); } catch { ok = true; }
+  truthy(ok);
+});
+
 console.log(`\n${passed} passé(s), ${failed} échec(s)`);
 process.exit(failed === 0 ? 0 : 1);
