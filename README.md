@@ -51,7 +51,16 @@ Vous y retrouvez les skills Paperasse Lux indexés et prêts à être installés
 
 ## Documentation
 
-📖 **Site complet : [gregherbe76.github.io/Luxembourg-Paperasse](https://gregherbe76.github.io/Luxembourg-Paperasse/)** — démarrage rapide, fiche par module (FAIA, RTS, Bëllegen Akt, eCDF, LBR…), sources officielles, FAQ.
+📖 **Site complet : [gregherbe76.github.io/Luxembourg-Paperasse](https://gregherbe76.github.io/Luxembourg-Paperasse/)** — démarrage rapide, fiche par module (FAIA, RTS, Bëllegen Akt, eCDF, LBR, STATEC…), sources officielles, FAQ.
+
+## Installation en une commande (à venir sur npm)
+
+```bash
+npm install -g paperasse-lux
+paperasse rts --brut 5000 --classe 1
+paperasse statec ssm
+paperasse bellegen-akt --prix 600000 --acquereurs 2
+```
 
 ## Installation rapide
 

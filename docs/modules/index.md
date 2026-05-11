@@ -20,3 +20,4 @@ Chaque module est autonome : sa propre API JavaScript, sa CLI, ses tests, ses so
 | [Templates DE]({{ site.baseurl }}/modules/templates-de) | Documents en allemand | `npm run de` |
 | [Banques LU]({{ site.baseurl }}/modules/bank) | Parseurs BCEE/BIL/Spuerkeess/ING | `npm run bank` |
 | [Calc]({{ site.baseurl }}/modules/calc) | Impôts (IRC, ICC, IF, IRPP, TVA, succession) | `npm run calc` |
+| [Indice STATEC + SSM]({{ site.baseurl }}/modules/statec) | Échelle mobile, indexation, SSM | `npm run statec` |

@@ -2,6 +2,36 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.11.0] — 2026-05-11
+
+### Ajouté — Indice STATEC + SSM, prép npm publish, veille Légilux
+
+**Module `lib/indice-statec/`** — suivi de l'échelle mobile des salaires LU et du Salaire Social Minimum.
+
+- `getSSMCourant({ qualifie, date })` — SSM mensuel et horaire (base 173 h) en vigueur à toute date.
+- `getSSMJeune({ tranche })` — SSM jeune travailleur (15-17 ans : 75 % ; 17-18 ans : 80 %).
+- `derniereTranche(date)` + `nbTranchesDepuis(since)` — historique des indexations déclenchées.
+- `indexerSalaire({ brutReference, dateReference, dateCible })` — recalcule le brut courant d'un salaire signé à une date passée (+2,5 % par tranche).
+- Données : 6 tranches d'indexation (oct 2021 → mai 2025), 4 entrées historiques SSM avec sources Mémorial A.
+- CLI : `paperasse statec ssm`, `statec tranches`, `statec indexer --brut 5000 --depuis 2022-01-01`.
+- 20 tests.
+
+**Distribution** — package préparé pour publication npm publique.
+
+- `private: true` retiré, `license`, `author`, `repository`, `bugs`, `homepage`, `keywords`, `files` ajoutés.
+- `prepublishOnly: npm test` (impossible de publier sans 173 tests verts).
+- Dépendances lourdes (`puppeteer`, `pdf-lib`, `stripe`) déplacées en `optionalDependencies` (réduit la taille d'install par 10).
+- Reste à faire par Grégory : `npm publish` (nécessite un compte npm et `npm login`).
+
+**Veille Légilux** — workflow GitHub Actions hebdomadaire.
+
+- `.github/workflows/legilux-watch.yml` : tous les lundis à 8h UTC, scan du flux Atom officiel du Mémorial A.
+- Filtrage par mots-clés fiscaux/sociaux (TVA, RTS, SSM, indexation, succession, FAIA, eCDF, etc.).
+- Ouverture automatique d'une issue GitHub si nouveautés détectées.
+- À pousser manuellement par Grégory (token Replit sans scope `workflow`).
+
+**Tests cumulés : 257** (19+18+24+25+18+27+19+23+64+20).
+
 ## [0.10.1] — 2026-05-11
 
 ### Corrigé — Durcissement des validateurs (revue d'architecte)

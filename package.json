@@ -1,16 +1,51 @@
 {
   "name": "paperasse-lux",
-  "version": "0.10.1",
-  "description": "Skills et outils pour la bureaucratie luxembourgeoise",
-  "private": true,
+  "version": "0.11.0",
+  "description": "Skills et outils pour la bureaucratie luxembourgeoise (FAIA, RTS, Bëllegen Akt, eCDF, LBR, frontaliers, indice STATEC + SSM).",
   "type": "module",
+  "license": "MIT",
+  "author": "Grégory Herbé <gregherbe76@users.noreply.github.com>",
+  "homepage": "https://gregherbe76.github.io/Luxembourg-Paperasse/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gregherbe76/Luxembourg-Paperasse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gregherbe76/Luxembourg-Paperasse/issues"
+  },
+  "keywords": [
+    "luxembourg",
+    "fiscalite",
+    "tva",
+    "faia",
+    "saf-t",
+    "rts",
+    "ssm",
+    "bellegen-akt",
+    "frontaliers",
+    "ecdf",
+    "lbr",
+    "open-source",
+    "fintech"
+  ],
   "bin": {
     "paperasse": "./bin/paperasse"
   },
+  "files": [
+    "bin/",
+    "lib/",
+    "scripts/",
+    "data/",
+    "examples/",
+    "SKILL.md",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "calc": "node scripts/calc.js",
     "tva": "node scripts/calc-tva-declaration.js",
-    "test": "node scripts/test-deterministic-calculations.js && node scripts/test-bank-parsers.js && node scripts/test-ecdf.js && node scripts/test-lbr.js && node scripts/test-templates-de.js && node scripts/test-faia.js && node scripts/test-bellegen-akt.js && node scripts/test-rts.js",
+    "test": "node scripts/test-deterministic-calculations.js && node scripts/test-bank-parsers.js && node scripts/test-ecdf.js && node scripts/test-lbr.js && node scripts/test-templates-de.js && node scripts/test-faia.js && node scripts/test-bellegen-akt.js && node scripts/test-rts.js && node scripts/test-frontalier.js && node scripts/test-statec.js",
     "test:calc": "node scripts/test-deterministic-calculations.js",
     "test:bank": "node scripts/test-bank-parsers.js",
     "test:ecdf": "node scripts/test-ecdf.js",
@@ -19,6 +54,10 @@
     "test:faia": "node scripts/test-faia.js",
     "test:bellegen-akt": "node scripts/test-bellegen-akt.js",
     "test:rts": "node scripts/test-rts.js",
+    "test:frontalier": "node scripts/test-frontalier.js",
+    "test:statec": "node scripts/test-statec.js",
+    "frontalier": "node scripts/frontalier.js",
+    "statec": "node scripts/statec.js",
     "bellegen-akt": "node scripts/bellegen-akt.js",
     "rts": "node scripts/rts.js",
     "bank": "node scripts/parse-bank-statement.js",
@@ -36,10 +75,13 @@
     "open-data": "node scripts/fetch-open-data.js",
     "fetch": "node integrations/stripe/fetch.js; node integrations/psd2-tink/fetch.js",
     "fetch:tink": "node integrations/psd2-tink/fetch.js",
-    "fetch:stripe": "node integrations/stripe/fetch.js"
+    "fetch:stripe": "node integrations/stripe/fetch.js",
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "marked": "^15.0.0",
+    "marked": "^15.0.0"
+  },
+  "optionalDependencies": {
     "pdf-lib": "^1.17.1",
     "puppeteer": "^24.0.0",
     "stripe": "^17.0.0"

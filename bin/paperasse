@@ -55,6 +55,10 @@ const ROUTES = {
   'test:bellegen-akt': ['scripts/test-bellegen-akt.js'],
   rts:            ['scripts/rts.js'],
   'test:rts':     ['scripts/test-rts.js'],
+  frontalier:     ['scripts/frontalier.js'],
+  'test:frontalier': ['scripts/test-frontalier.js'],
+  statec:         ['scripts/statec.js'],
+  'test:statec':  ['scripts/test-statec.js'],
 };
 
 function showHelp() {
@@ -79,6 +83,10 @@ Commandes :
   closing         Pipeline complet (faia + statements + pdfs)
   test            Tests déterministes
   open-data       Recherche/téléchargement depuis data.public.lu (search|dataset|fetch)
+  rts             Calcul de la retenue à la source LU (RTS) sur salaire mensuel
+  frontalier      Net réel d'un frontalier FR/BE/DE travaillant au LU
+  test:rts        Tests du module RTS
+  test:frontalier Tests du module Frontaliers
   help            Cette aide
 
 Exemples :
