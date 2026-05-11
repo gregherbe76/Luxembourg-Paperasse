@@ -2,6 +2,12 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.7.5] — 2026-05-09
+
+### Corrigé
+
+- README : toutes les URLs GitHub pointaient vers `gregherbe76/paperasse-lux` (qui n'existe pas) au lieu de `gregherbe76/Luxembourg-Paperasse` (le vrai nom du dépôt). Badges (étoiles, licence, CI), instructions d'installation et star-history sont maintenant corrects.
+
 ## [0.7.4] — 2026-05-09
 
 ### Ajouté — Bonus open-source

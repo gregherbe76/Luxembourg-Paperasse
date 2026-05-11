@@ -1,6 +1,6 @@
 {
   "name": "paperasse-lux",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Skills et outils pour la bureaucratie luxembourgeoise",
   "private": true,
   "type": "module",

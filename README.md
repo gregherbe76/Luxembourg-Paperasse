@@ -13,12 +13,12 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/gregherbe76/paperasse-lux/stargazers"><img src="https://img.shields.io/github/stars/gregherbe76/paperasse-lux" alt="GitHub stars"></a>
+  <a href="https://github.com/gregherbe76/Luxembourg-Paperasse/stargazers"><img src="https://img.shields.io/github/stars/gregherbe76/Luxembourg-Paperasse" alt="GitHub stars"></a>
   <img src="https://img.shields.io/badge/skills-6-red" alt="6 skills">
   <img src="https://img.shields.io/badge/pays-Luxembourg-ED2939" alt="Pays Luxembourg">
   <img src="https://img.shields.io/badge/veille-Légilux_RSS-008751" alt="Veille Légilux RSS">
-  <a href="https://github.com/gregherbe76/paperasse-lux/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gregherbe76/paperasse-lux?style=flat&color=blue" alt="License"></a>
-  <a href="https://github.com/gregherbe76/paperasse-lux/actions/workflows/validate.yml"><img src="https://github.com/gregherbe76/paperasse-lux/actions/workflows/validate.yml/badge.svg" alt="Validate"></a>
+  <a href="https://github.com/gregherbe76/Luxembourg-Paperasse/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gregherbe76/Luxembourg-Paperasse?style=flat&color=blue" alt="License"></a>
+  <a href="https://github.com/gregherbe76/Luxembourg-Paperasse/actions/workflows/validate.yml"><img src="https://github.com/gregherbe76/Luxembourg-Paperasse/actions/workflows/validate.yml/badge.svg" alt="Validate"></a>
   <a href="https://agentskill.sh/@gregherbe76"><img src="https://img.shields.io/badge/AgentSkill.sh-@gregherbe76-8b5cf6?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTUtMTAtNXptMCAxMy41TDIgMTBsMTAgNSAxMC01LTEwIDUuNXoiLz48L3N2Zz4=" alt="AgentSkill.sh"></a>
 </p>
 
@@ -55,7 +55,7 @@ Vous y retrouvez les skills Paperasse Lux indexés et prêts à être installés
 Copiez-collez ces instructions dans votre agent IA :
 
 ```
-Installe tous les skills du repo github https://github.com/gregherbe76/paperasse-lux
+Installe tous les skills du repo github https://github.com/gregherbe76/Luxembourg-Paperasse
 Lance ensuite le setup pour la gestion de toute ma paperasse luxembourgeoise
 ```
 
@@ -66,9 +66,9 @@ L'agent va cloner le repo, installer les skills, et lancer le setup guidé qui v
 Clonez le repo et copiez les skills dans le dossier de votre agent :
 
 ```bash
-git clone https://github.com/gregherbe76/paperasse-lux
-cp -r paperasse-lux/{comptable,controleur-fiscal,commissaire-aux-comptes,fiscaliste,notaire,syndic} ~/.claude/skills/
-cp paperasse-lux/company.example.json ~/company.json  # à éditer ensuite
+git clone https://github.com/gregherbe76/Luxembourg-Paperasse
+cp -r Luxembourg-Paperasse/{comptable,controleur-fiscal,commissaire-aux-comptes,fiscaliste,notaire,syndic} ~/.claude/skills/
+cp Luxembourg-Paperasse/company.example.json ~/company.json  # à éditer ensuite
 ```
 
 ---
@@ -309,11 +309,11 @@ Les contributions de mises à jour de seuils légaux (suite à publication au M�
 
 ---
 
-<a href="https://www.star-history.com/?repos=gregherbe76%2Fpaperasse-lux&type=date&legend=bottom-right">
+<a href="https://www.star-history.com/?repos=gregherbe76%2FLuxembourg-Paperasse&type=date&legend=bottom-right">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=gregherbe76/paperasse-lux&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=gregherbe76/paperasse-lux&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=gregherbe76/paperasse-lux&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=gregherbe76/Luxembourg-Paperasse&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=gregherbe76/Luxembourg-Paperasse&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=gregherbe76/Luxembourg-Paperasse&type=date&legend=top-left" />
  </picture>
 </a>
 
