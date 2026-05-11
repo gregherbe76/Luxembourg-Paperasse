@@ -2,6 +2,15 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.10.0] — 2026-05-11
+
+### Ajouté — Site documentation GitHub Pages
+
+- Dossier `docs/` Jekyll prêt à déployer sur GitHub Pages (Settings → Pages → Source : `main` / `/docs`).
+- Thème **just-the-docs** (recherche intégrée, navigation latérale, mode mobile).
+- 14 pages : accueil, démarrage rapide, fiche par module (FAIA, RTS, Bëllegen Akt, eCDF, LBR, Templates DE, Banques, Calc), sources officielles, FAQ.
+- Lien `https://gregherbe76.github.io/Luxembourg-Paperasse/` ajouté en tête de README.
+
 ## [0.9.0] — 2026-05-11
 
 ### Ajouté — Bëllegen Akt (Lot #6) + RTS (Lot #5)
