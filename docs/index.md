@@ -6,6 +6,8 @@ nav_order: 1
 
 # Paperasse Lux
 
+[![Tests](https://github.com/gregherbe76/Luxembourg-Paperasse/actions/workflows/tests.yml/badge.svg)](https://github.com/gregherbe76/Luxembourg-Paperasse/actions/workflows/tests.yml)
+
 > **Des skills pour agents IA spécialisés dans la bureaucratie luxembourgeoise.**
 > Parce que la paperasse luxembourgeoise est aussi rigoureuse que les frites du Bouneweger Stuff sont fondantes.
 
