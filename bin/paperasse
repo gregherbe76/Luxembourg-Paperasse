@@ -48,6 +48,7 @@ const ROUTES = {
   'test:ecdf':    ['scripts/test-ecdf.js'],
   lbr:            ['scripts/lbr.js'],
   'test:lbr':     ['scripts/test-lbr.js'],
+  'test:faia':    ['scripts/test-faia.js'],
   de:             ['scripts/de.js'],
   'test:de':      ['scripts/test-templates-de.js'],
 };

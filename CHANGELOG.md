@@ -2,6 +2,28 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.8.0] — 2026-05-09
+
+### Ajouté — Module FAIA (Lot #3)
+
+- `lib/faia/index.js` — API `genererFAIA(input, options)` produisant un XML SAF-T LU 2.01 conforme au profil de l'Administration de l'Enregistrement, des Domaines et de la TVA (AED), exigible lors de tout contrôle TVA depuis 2011.
+- `lib/faia/validation.js` — `validerFAIAInput()` + `TAX_CODES_LU` (6 codes : STD 17 %, INT 14 %, RED 8 %, SUP 3 %, EXM, ZRO).
+- `lib/faia/xml.js` — constructeurs XML par section (Header, MasterFiles, GeneralLedgerEntries, SourceDocuments) avec échappement des 5 entités XML.
+- Validations strictes avant génération :
+  - format RCS LU (B/F/G/E/K/X + 1 à 7 chiffres) et matricule TVA LUxxxxxxxx
+  - dates ISO YYYY-MM-DD réelles (rejette 2025-02-30)
+  - équilibre comptable D = C par écriture (tolérance 0,005 €)
+  - rejet des lignes ayant à la fois débit et crédit (ou aucun des deux)
+  - rejet des écritures à moins de 2 lignes
+  - avertissement sur AccountID orphelin (référencé mais absent du plan comptable)
+- `scripts/generate-faia.js` réécrit en CLI moderne (mode `--validate-only` + mode legacy 2 fichiers conservé).
+- `scripts/test-faia.js` — 24 tests (12 validation + 12 génération XML).
+- `examples/faia-input.json` — exemple complet documentant le format d'entrée.
+- Section **SourceDocuments** ajoutée (SalesInvoices, PurchaseInvoices, Payments) — absente de l'ancienne version.
+- Route CLI `paperasse test:faia` + script `npm run test:faia`.
+
+**Tests cumulés : 128** (19 calc + 18 bank + 24 eCDF + 25 LBR + 18 templates DE + 24 FAIA).
+
 ## [0.7.5] — 2026-05-09
 
 ### Corrigé

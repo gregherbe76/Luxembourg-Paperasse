@@ -1,6 +1,6 @@
 {
   "name": "paperasse-lux",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "Skills et outils pour la bureaucratie luxembourgeoise",
   "private": true,
   "type": "module",
@@ -10,12 +10,13 @@
   "scripts": {
     "calc": "node scripts/calc.js",
     "tva": "node scripts/calc-tva-declaration.js",
-    "test": "node scripts/test-deterministic-calculations.js && node scripts/test-bank-parsers.js && node scripts/test-ecdf.js && node scripts/test-lbr.js && node scripts/test-templates-de.js",
+    "test": "node scripts/test-deterministic-calculations.js && node scripts/test-bank-parsers.js && node scripts/test-ecdf.js && node scripts/test-lbr.js && node scripts/test-templates-de.js && node scripts/test-faia.js",
     "test:calc": "node scripts/test-deterministic-calculations.js",
     "test:bank": "node scripts/test-bank-parsers.js",
     "test:ecdf": "node scripts/test-ecdf.js",
     "test:lbr": "node scripts/test-lbr.js",
     "test:de": "node scripts/test-templates-de.js",
+    "test:faia": "node scripts/test-faia.js",
     "bank": "node scripts/parse-bank-statement.js",
     "ecdf": "node scripts/generate-ecdf.js",
     "lbr": "node scripts/lbr.js",
