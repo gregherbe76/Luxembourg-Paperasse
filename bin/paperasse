@@ -51,6 +51,10 @@ const ROUTES = {
   'test:faia':    ['scripts/test-faia.js'],
   de:             ['scripts/de.js'],
   'test:de':      ['scripts/test-templates-de.js'],
+  'bellegen-akt': ['scripts/bellegen-akt.js'],
+  'test:bellegen-akt': ['scripts/test-bellegen-akt.js'],
+  rts:            ['scripts/rts.js'],
+  'test:rts':     ['scripts/test-rts.js'],
 };
 
 function showHelp() {

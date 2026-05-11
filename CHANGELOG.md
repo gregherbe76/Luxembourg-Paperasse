@@ -2,6 +2,31 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.9.0] — 2026-05-11
+
+### Ajouté — Bëllegen Akt (Lot #6) + RTS (Lot #5)
+
+**Module `lib/bellegen-akt/`** — calculateur des droits d'enregistrement immobiliers et du crédit d'impôt « Bëllegen Akt » pour résidence principale.
+
+- `calculerBellegenAkt({ prix, nbAcquereurs, luxVille, bellegenAkt, dateActe })` → décomposition complète (droits, abattement, honoraires, TVA, total).
+- Constantes : `TAUX_DROITS_LU` (6 % enregistrement, 1 % transcription, 3 % surtaxe Luxembourg-Ville), `ABATTEMENT_BELLEGEN_AKT_PAR_PERSONNE = 40 000 €`.
+- Gère le changement de plafond du 1er octobre 2024 (loi du 22 mai 2024) : 30 000 €/personne avant, 40 000 €/personne depuis.
+- L'abattement est plafonné aux droits dus (pas de remboursement).
+- CLI : `paperasse bellegen-akt --prix 600000 --acquereurs 2 --lux-ville`.
+- 17 tests (constantes, droits nominaux, abattement, honoraires, validation).
+
+**Module `lib/rts/`** — calcul de la retenue à la source sur traitements et salaires (LU 2025).
+
+- `calculerRTS({ salaireBrutMensuel, classe, cisActif, cimActif })` → CSSS, IRPP, contribution dépendance, net mensuel, taux effectif.
+- Barème IRPP 2025 complet (23 tranches, taux marginal 0 % à 42 %, mis à jour par la loi du 19 décembre 2024 — adaptation à l'inflation, +2,5 indice).
+- Classes 1, 1a (abattement extra-professionnel), 2 (splitting).
+- Crédits d'impôt CIS (70 €/mois) et CIM monoparental (188 €/mois), bornés à 0 €.
+- Cotisations CSSS salarié 10,80 % (2,80 % maladie + 8,00 % pension) + contribution dépendance 1,40 % avec abattement.
+- CLI : `paperasse rts --brut 5000 --classe 1`.
+- 20 tests (barème, classes, cas concrets SMIC/cadre/haut salaire, crédits, cohérence net = brut − retenues).
+
+**Tests cumulés : 165** (19 calc + 18 bank + 24 eCDF + 25 LBR + 18 templates DE + 24 FAIA + 17 Bëllegen Akt + 20 RTS).
+
 ## [0.8.0] — 2026-05-09
 
 ### Ajouté — Module FAIA (Lot #3)
