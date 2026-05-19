@@ -79,7 +79,7 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "marked": "^15.0.0"
+    "marked": "^18.0.4"
   },
   "optionalDependencies": {
     "pdf-lib": "^1.17.1",
