@@ -83,7 +83,7 @@
   },
   "optionalDependencies": {
     "pdf-lib": "^1.17.1",
-    "puppeteer": "^24.0.0",
+    "puppeteer": "^25.0.4",
     "stripe": "^17.0.0"
   },
   "engines": {
