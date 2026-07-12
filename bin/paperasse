@@ -59,6 +59,8 @@ const ROUTES = {
   'test:frontalier': ['scripts/test-frontalier.js'],
   statec:         ['scripts/statec.js'],
   'test:statec':  ['scripts/test-statec.js'],
+  diagnostic:     ['scripts/diagnostic.js'],
+  'test:diagnostic': ['scripts/test-diagnostic.js'],
 };
 
 function showHelp() {
@@ -85,6 +87,7 @@ Commandes :
   open-data       Recherche/téléchargement depuis data.public.lu (search|dataset|fetch)
   rts             Calcul de la retenue à la source LU (RTS) sur salaire mensuel
   frontalier      Net réel d'un frontalier FR/BE/DE travaillant au LU
+  diagnostic      Moteur de diagnostic administratif (obligations|profil|societe)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

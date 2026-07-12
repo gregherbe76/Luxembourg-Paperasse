@@ -2,6 +2,29 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.12.0] — 2026-07-12
+
+### Ajouté — Administrative Diagnostic Engine (Milestone 1 : socle & modèle de données)
+
+Premier jalon de l'évolution de Paperasse Lux vers un **assistant administratif**
+luxembourgeois : socle technique reliant une *situation* à ses *obligations*, sans
+jamais afficher une règle sans source.
+
+**Module `lib/diagnostic/`** — zéro-dépendance, ESM, purement additif (aucun module existant modifié).
+
+- `entities.js` — 5 fabriques normalisées et validées : `creerProfilUtilisateur`, `creerProfilSociete`, `creerDossier`, `creerDocument`, `creerObligation` (ids et horodatages injectables → tests déterministes).
+- `provenance.js` — traçabilité **obligatoire** : `creerProvenance({ source, dateVerification, niveauConfiance, validationHumaineRequise })`, niveaux `officiel/derive/estimation/incertain`, `evaluerFraicheur()` (« à revérifier au-delà de 365 jours »).
+- `engine.js` — moteur `diagnostiquer(profil, catalogue)` (applicables / informations manquantes / non applicables), conditions déclaratives `{champ, operateur, valeur}`, `calculerEcheance()` déterministe (mensuelle/trimestrielle/annuelle), `dossierDepuisObligation()`.
+- `store.js` — persistance JSON locale isolée par propriétaire (ids déterministes, export/suppression → prépare le RGPD).
+
+**Données & schémas** — `data/obligations.json` : 7 obligations **sourcées** (TVA mensuelle/trimestrielle/annuelle, dépôt comptes RCS, RBE, déclaration d'arrivée commune, IRPP modèle 100). Schémas ajoutés : `obligations`, `user-profile`, `company-profile`, `administrative-case`, `uploaded-document`.
+
+**CLI** — `paperasse diagnostic obligations | profil | societe [--json '{...}'] [--date YYYY-MM-DD]`. Lecture seule, aucune action externe.
+
+**Documentation** — `docs/assistant-administratif.md` : audit d'architecture + feuille de route des 15 milestones.
+
+- 29 tests (`test:diagnostic`). **Tests cumulés : 286.**
+
 ## [0.11.0] — 2026-05-11
 
 ### Ajouté — Indice STATEC + SSM, prép npm publish, veille Légilux

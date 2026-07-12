@@ -1,0 +1,181 @@
+{
+  "as_of": "2026-06-15",
+  "description": "Catalogue d'obligations administratives, fiscales et sociales luxembourgeoises. Chaque entrée est sourcée (source + dateVerification + niveauConfiance) — le moteur de diagnostic n'invente jamais une obligation. Amorce Milestone 1 : à enrichir domaine par domaine (M4 TVA, M5 sociétés, M6 particuliers, M7 résidence...).",
+  "url_source": "https://guichet.public.lu",
+  "obligations": [
+    {
+      "id": "obl_tva_declaration_mensuelle",
+      "nom": "Déclaration TVA mensuelle",
+      "categorie": "tva",
+      "populationConcernee": ["societe", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "regimeTVA", "operateur": "different", "valeur": "non_assujetti" },
+        { "champ": "frequenceTVA", "operateur": "egal", "valeur": "mensuelle" }
+      ],
+      "frequence": "mensuelle",
+      "dateLimite": "jour:15",
+      "autoriteCompetente": "Administration de l'Enregistrement, des Domaines et de la TVA (AED)",
+      "piecesRequises": [
+        "Chiffre d'affaires de la période",
+        "TVA collectée",
+        "TVA déductible",
+        "Acquisitions intracommunautaires"
+      ],
+      "penalites": "Amende pour dépôt tardif et intérêts de retard ; taxation d'office possible en l'absence de déclaration.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/fiscalite/tva/declaration-paiement/declaration-tva.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel",
+        "note": "Déclaration à déposer via eCDF pour le 15 du mois suivant la période."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_tva_declaration_trimestrielle",
+      "nom": "Déclaration TVA trimestrielle",
+      "categorie": "tva",
+      "populationConcernee": ["societe", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "regimeTVA", "operateur": "different", "valeur": "non_assujetti" },
+        { "champ": "frequenceTVA", "operateur": "egal", "valeur": "trimestrielle" }
+      ],
+      "frequence": "trimestrielle",
+      "dateLimite": "jour:15",
+      "autoriteCompetente": "Administration de l'Enregistrement, des Domaines et de la TVA (AED)",
+      "piecesRequises": [
+        "Chiffre d'affaires du trimestre",
+        "TVA collectée",
+        "TVA déductible"
+      ],
+      "penalites": "Amende pour dépôt tardif et intérêts de retard ; taxation d'office possible.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/fiscalite/tva/declaration-paiement/declaration-tva.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel"
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_tva_declaration_annuelle",
+      "nom": "Déclaration TVA annuelle récapitulative",
+      "categorie": "tva",
+      "populationConcernee": ["societe", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "regimeTVA", "operateur": "different", "valeur": "non_assujetti" }
+      ],
+      "frequence": "annuelle",
+      "dateLimite": "05-01",
+      "autoriteCompetente": "Administration de l'Enregistrement, des Domaines et de la TVA (AED)",
+      "piecesRequises": [
+        "Récapitulatif annuel du chiffre d'affaires",
+        "Régularisations TVA de l'exercice"
+      ],
+      "penalites": "Amende et intérêts de retard en cas de dépôt tardif.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/fiscalite/tva/declaration-paiement/declaration-tva.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "derive",
+        "note": "Échéance indicative du 1er mai à confirmer selon le régime ; à revérifier avant usage."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_rcs_depot_comptes_annuels",
+      "nom": "Dépôt des comptes annuels au RCS",
+      "categorie": "societe",
+      "populationConcernee": ["societe"],
+      "conditionsApplicabilite": [
+        { "champ": "statut", "operateur": "egal", "valeur": "actif" }
+      ],
+      "frequence": "annuelle",
+      "dateLimite": "08-31",
+      "autoriteCompetente": "Luxembourg Business Registers (RCS)",
+      "piecesRequises": [
+        "Comptes annuels approuvés (bilan, compte de profits et pertes, annexe)",
+        "Rapport de gestion le cas échéant",
+        "Procès-verbal de l'assemblée générale approuvant les comptes"
+      ],
+      "penalites": "Dépôt tardif majoré ; injonction et amende administrative possibles.",
+      "provenance": {
+        "source": "https://www.lbr.lu",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "derive",
+        "note": "Dépôt dans le mois de l'AG, elle-même dans les 6 mois de la clôture (≈ 7 mois). Échéance 31/08 valable pour un exercice clôturé au 31/12 — à revérifier avant usage."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_rbe_mise_a_jour",
+      "nom": "Mise à jour du Registre des Bénéficiaires Effectifs (RBE)",
+      "categorie": "societe",
+      "populationConcernee": ["societe"],
+      "conditionsApplicabilite": [
+        { "champ": "statut", "operateur": "egal", "valeur": "actif" }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "Luxembourg Business Registers (RBE)",
+      "piecesRequises": [
+        "Identité des bénéficiaires effectifs",
+        "Justificatif de la nature et de l'étendue des intérêts détenus"
+      ],
+      "penalites": "Amende pénale en cas de défaut ou d'inscription de données inexactes.",
+      "provenance": {
+        "source": "https://www.lbr.lu/mjrcs-rbe",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel",
+        "note": "Inscription/mise à jour dans le mois suivant tout changement de bénéficiaire effectif."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_commune_declaration_arrivee",
+      "nom": "Déclaration d'arrivée à la commune",
+      "categorie": "residence",
+      "populationConcernee": ["particulier", "nouvel_arrivant"],
+      "conditionsApplicabilite": [
+        { "champ": "dateArriveeLux", "operateur": "present" }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "Administration communale du lieu de résidence",
+      "piecesRequises": [
+        "Pièce d'identité ou passeport en cours de validité",
+        "Justificatif de logement (bail, acte, attestation d'hébergement)"
+      ],
+      "penalites": "Régularisation exigée ; démarches ultérieures (sécurité sociale, impôts) bloquées sans inscription communale.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/citoyens/immigration/citoyen-ue-plus-3-mois/enregistrement-communal.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel",
+        "note": "Déclaration à effectuer à la commune dans les jours suivant l'arrivée (délai variable selon la commune et la nationalité)."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_irpp_declaration_modele100",
+      "nom": "Déclaration d'impôt sur le revenu (modèle 100)",
+      "categorie": "fiscalite_personnelle",
+      "populationConcernee": ["particulier", "salarie", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "statutProfessionnel", "operateur": "present" }
+      ],
+      "frequence": "annuelle",
+      "dateLimite": "12-31",
+      "autoriteCompetente": "Administration des Contributions Directes (ACD)",
+      "piecesRequises": [
+        "Certificat de rémunération / fiche de retenue d'impôt",
+        "Justificatifs de déductions (intérêts, assurances, garde d'enfants)",
+        "Revenus étrangers le cas échéant"
+      ],
+      "penalites": "Majoration pour dépôt tardif ; taxation d'office possible.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/citoyens/impots-taxes/activite-salariee-resident/declaration-impot/declaration-impot.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "derive",
+        "note": "Obligation de déclarer non systématique : dépend des revenus et de la situation. Date limite du 31/12 de l'année suivante — à revérifier avant usage."
+      },
+      "statut": "actif"
+    }
+  ]
+}
