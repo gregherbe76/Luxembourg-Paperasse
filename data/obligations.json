@@ -176,6 +176,159 @@
         "note": "Obligation de déclarer non systématique : dépend des revenus et de la situation. Date limite du 31/12 de l'année suivante — à revérifier avant usage."
       },
       "statut": "actif"
+    },
+    {
+      "id": "obl_autorisation_etablissement",
+      "nom": "Autorisation d'établissement",
+      "categorie": "creation",
+      "populationConcernee": ["societe", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "statut", "operateur": "egal", "valeur": "actif" },
+        { "champ": "formeJuridique", "operateur": "different", "valeur": "ASBL" }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "Ministère de l'Économie — Direction générale des classes moyennes",
+      "piecesRequises": [
+        "Preuve de qualification / diplôme le cas échéant",
+        "Extrait de casier judiciaire du dirigeant",
+        "Justificatif d'un établissement fixe au Luxembourg"
+      ],
+      "penalites": "Exercice illégal d'une activité commerciale ; sanctions et fermeture possibles.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/creation-developpement/autorisation-etablissement.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel",
+        "note": "Préalable à l'immatriculation pour toute activité commerciale, artisanale ou libérale réglementée."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_affiliation_ccss_independant",
+      "nom": "Affiliation à la sécurité sociale (indépendant)",
+      "categorie": "social",
+      "populationConcernee": ["independant"],
+      "conditionsApplicabilite": [
+        { "champ": "statutProfessionnel", "operateur": "egal", "valeur": "independant" }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "Centre commun de la sécurité sociale (CCSS)",
+      "piecesRequises": [
+        "Autorisation d'établissement ou preuve de l'activité",
+        "Pièce d'identité",
+        "Date de début d'activité"
+      ],
+      "penalites": "Régularisation rétroactive des cotisations ; majorations possibles.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/ressources-humaines/obligations-employeur/affiliation-securite-sociale.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel",
+        "note": "Déclaration d'affiliation à effectuer dès le début de l'activité indépendante."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_irc_declaration",
+      "nom": "Déclaration d'impôt des collectivités (IRC / ICC / IF — modèle 500)",
+      "categorie": "fiscalite_entreprise",
+      "populationConcernee": ["societe"],
+      "conditionsApplicabilite": [
+        { "champ": "statut", "operateur": "egal", "valeur": "actif" },
+        { "champ": "formeJuridique", "operateur": "different", "valeur": "entreprise_individuelle" }
+      ],
+      "frequence": "annuelle",
+      "dateLimite": "12-31",
+      "autoriteCompetente": "Administration des Contributions Directes (ACD)",
+      "piecesRequises": [
+        "Comptes annuels de l'exercice",
+        "Bilan fiscal et tableau de passage",
+        "Détail des réintégrations / déductions extra-comptables"
+      ],
+      "penalites": "Majoration pour dépôt tardif ; taxation d'office ; intérêts de retard.",
+      "provenance": {
+        "source": "https://impotsdirects.public.lu",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "derive",
+        "note": "Concerne les sociétés opaques soumises à l'IRC (SARL, SA…). Les sociétés fiscalement transparentes relèvent d'un autre régime. Date limite indicative — à revérifier."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_acomptes_irc_icc",
+      "nom": "Acomptes trimestriels IRC / ICC",
+      "categorie": "fiscalite_entreprise",
+      "populationConcernee": ["societe"],
+      "conditionsApplicabilite": [
+        { "champ": "statut", "operateur": "egal", "valeur": "actif" },
+        { "champ": "formeJuridique", "operateur": "different", "valeur": "entreprise_individuelle" }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "Administration des Contributions Directes (ACD)",
+      "piecesRequises": [
+        "Avis d'acompte de l'ACD",
+        "Estimation du bénéfice imposable"
+      ],
+      "penalites": "Intérêts de retard sur acomptes non versés.",
+      "provenance": {
+        "source": "https://impotsdirects.public.lu",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "derive",
+        "note": "Acomptes fixés par l'ACD, généralement exigibles les 10 mars, 10 juin, 10 septembre et 10 décembre — à confirmer sur l'avis reçu."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_employeur_declaration_entree",
+      "nom": "Déclaration d'entrée d'un salarié (CCSS)",
+      "categorie": "employeur",
+      "populationConcernee": ["societe", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "nbSalaries", "operateur": "superieur", "valeur": 0 }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "Centre commun de la sécurité sociale (CCSS)",
+      "piecesRequises": [
+        "Contrat de travail ou date d'embauche",
+        "Matricule / identité du salarié",
+        "Matricule employeur"
+      ],
+      "penalites": "Amende pour déclaration tardive ou absente.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/ressources-humaines/obligations-employeur/affiliation-securite-sociale.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "officiel",
+        "note": "Déclaration d'entrée à effectuer sans délai auprès du CCSS lors de toute embauche."
+      },
+      "statut": "actif"
+    },
+    {
+      "id": "obl_cessation_radiation",
+      "nom": "Cessation d'activité et radiation (RCS / TVA / CCSS)",
+      "categorie": "cessation",
+      "populationConcernee": ["societe", "independant"],
+      "conditionsApplicabilite": [
+        { "champ": "statut", "operateur": "different", "valeur": "actif" }
+      ],
+      "frequence": "ponctuelle",
+      "dateLimite": null,
+      "autoriteCompetente": "LBR / AED / CCSS",
+      "piecesRequises": [
+        "Décision de cessation / dissolution",
+        "Dernière déclaration TVA et clôture du compte TVA",
+        "Radiation CCSS des salariés et de l'employeur",
+        "Réquisition de radiation au RCS"
+      ],
+      "penalites": "Maintien des obligations déclaratives tant que la radiation n'est pas effective.",
+      "provenance": {
+        "source": "https://guichet.public.lu/fr/entreprises/cessation-activite.html",
+        "dateVerification": "2026-06-15",
+        "niveauConfiance": "derive",
+        "note": "Enchaînement des radiations (TVA, CCSS, RCS) — ordre et pièces à confirmer selon la forme juridique."
+      },
+      "statut": "actif"
     }
   ]
 }

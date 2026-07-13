@@ -63,6 +63,8 @@ const ROUTES = {
   'test:diagnostic': ['scripts/test-diagnostic.js'],
   'tva-suivi':    ['scripts/tva-suivi.js'],
   'test:tva-suivi': ['scripts/test-tva.js'],
+  entreprise:     ['scripts/entreprise.js'],
+  'test:entreprise': ['scripts/test-entreprise.js'],
 };
 
 function showHelp() {
@@ -91,6 +93,7 @@ Commandes :
   frontalier      Net réel d'un frontalier FR/BE/DE travaillant au LU
   diagnostic      Moteur de diagnostic administratif (obligations|profil|societe|questionnaire|dashboard|document)
   tva-suivi       Suivi TVA : calendrier, périodes manquantes, cohérence, courrier AED
+  entreprise      Cycle de vie société/indépendant (parcours par phase, création)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

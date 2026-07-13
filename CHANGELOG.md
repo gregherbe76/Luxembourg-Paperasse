@@ -2,6 +2,29 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.16.0] — 2026-07-13
+
+### Ajouté — Indépendants & sociétés (Milestone 5)
+
+Cinquième jalon : couvrir le cycle de vie d'une activité professionnelle et
+présenter à un dirigeant toutes ses obligations, ordonnées et classées par
+société. Réutilise les checklists et le calendrier de dépôts RCS (`lib/lbr`).
+Purement additif.
+
+**Catalogue `data/obligations.json`** — 6 obligations société/indépendant ajoutées (13 au total), toutes sourcées :
+
+- Autorisation d'établissement, affiliation CCSS (indépendant), déclaration IRC/ICC/IF (modèle 500), acomptes trimestriels IRC/ICC, déclaration d'entrée d'un salarié (CCSS), cessation d'activité et radiation.
+
+**Module `lib/entreprise/`**
+
+- `parcoursEntreprise(situation, catalogue)` — regroupe les obligations applicables par **phase** (création → vie sociale → fiscalité → employeur → cessation), triées chronologiquement ; intègre le calendrier de dépôts RCS (AG, comptes annuels, eCDF) via `lib/lbr` quand la clôture d'exercice est connue ; identifie les **pièces manquantes**.
+- `echeancesParSociete()` — échéances classées par société.
+- `checklistCreation()` — réutilise `CHECKLISTS_LBR` (SARL, SA, ASBL…).
+
+**CLI** — `paperasse entreprise parcours [--json …] [--exercice …]` et `paperasse entreprise creation --op creation_sarl`.
+
+- 12 tests (`test:entreprise`). **Tests cumulés : 345.**
+
 ## [0.15.0] — 2026-07-13
 
 ### Ajouté — Module TVA complet (Milestone 4)
