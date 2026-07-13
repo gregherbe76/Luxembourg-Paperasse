@@ -98,7 +98,7 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 | 7 | Résidence & immigration | `lib/residence/` : parcours « Je m'installe au Luxembourg » (5 phases, UE / hors UE, échéances depuis l'arrivée) ✅ |
 | 8 | Logement | `lib/logement/` : parcours locataire/acheteur/propriétaire/vendeur, intègre Bëllegen Akt + garantie locative ✅ |
 | 9 | Génération de courriers | `lib/courriers/` : 9 types de courriers-projets + pré-remplissage depuis analyse (M3) + dossier récap ✅ |
-| 10 | Calendrier & rappels | Statuts + alertes couleur sur `Dossier.echeance` |
+| 10 | Calendrier & rappels | `lib/rappels/` : alertes couleur (rouge/orange/jaune/vert), rappels avant échéance, documents manquants, calendrier trié ✅ |
 | 11 | Base de connaissances | `data/obligations.json` enrichi + historique de modifications |
 | 12 | Sécurité & RGPD | Chiffrement du store, export/suppression (helpers déjà amorcés) |
 | 13 | Interface & i18n | Skills FR/EN/DE/LB |

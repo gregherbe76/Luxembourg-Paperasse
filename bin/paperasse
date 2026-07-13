@@ -73,6 +73,8 @@ const ROUTES = {
   'test:logement': ['scripts/test-logement.js'],
   courriers:      ['scripts/courriers.js'],
   'test:courriers': ['scripts/test-courriers.js'],
+  rappels:        ['scripts/rappels.js'],
+  'test:rappels': ['scripts/test-rappels.js'],
 };
 
 function showHelp() {
@@ -106,6 +108,7 @@ Commandes :
   residence       Parcours « Je m'installe au Luxembourg » (chronologique, UE / hors UE)
   logement        Parcours logement (locataire/acheteur/propriétaire, Bëllegen Akt, garantie)
   courriers       Génération de courriers-projets (réponse, délai, contestation, dossier récap)
+  rappels         Calendrier & surveillance : alertes couleur, rappels avant échéance
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

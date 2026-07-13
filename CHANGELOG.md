@@ -2,6 +2,24 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.21.0] — 2026-07-13
+
+### Ajouté — Calendrier, rappels & surveillance (Milestone 10)
+
+Dixième jalon : suivi proactif des dossiers, adossé aux `Dossier.echeance` /
+`Dossier.statut` produits par tous les modules. Purement additif.
+
+**Module `lib/rappels/`**
+
+- `niveauAlerte(dossier)` — couleur d'alerte : **rouge** (échéance dépassée), **orange** (< 7 jours), **jaune** (< 30 jours), **vert** (terminé), neutre (au-delà / sans échéance).
+- `genererRappels(dossiers)` — rappels triés du plus urgent au moins urgent : retard, préavis (30/7/1 jours), informations manquantes, documents requis non reçus, statuts en attente, rappels récurrents.
+- `calendrierDossiers()` — regroupement par couleur + chronologie triée + compteurs.
+- `prochainesEcheances()`, `filtrerParStatut()` (8 statuts), `prochainRappel()` (échéance − préavis).
+
+**CLI** — `paperasse rappels societe | fichier` (alertes couleur, rappels, calendrier).
+
+- 17 tests (`test:rappels`). **Tests cumulés : 402.**
+
 ## [0.20.0] — 2026-07-13
 
 ### Ajouté — Génération de courriers et dossiers (Milestone 9)
