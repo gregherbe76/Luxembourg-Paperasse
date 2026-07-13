@@ -2,6 +2,27 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.17.0] — 2026-07-13
+
+### Ajouté — Particuliers, salariés & frontaliers (Milestone 6)
+
+Sixième jalon : assistant des démarches fiscales et sociales personnelles.
+Réutilise les calculateurs `lib/rts` (net, classes 1/1a/2) et `lib/frontaliers`
+(net réel FR/BE/DE, seuils de jours). Purement additif.
+
+**Catalogue `data/obligations.json`** — 5 obligations particulier/frontalier/famille ajoutées (18 au total), sourcées : mise à jour de la fiche de retenue (classe d'impôt), allocations familiales (Zukunftskeess), congé parental, déclaration des revenus dans le pays de résidence, surveillance du seuil de télétravail.
+
+**Module `lib/particulier/`**
+
+- `determinerClasseImpot(profil)` — classe 1 / 1a / 2 selon la situation familiale (tracé, à valider).
+- `parcoursParticulier(profil, catalogue)` — obligations par **domaine** (fiscalité, salarié, frontalier, famille), triées chronologiquement, avec la classe d'impôt déduite.
+- `analyseFrontalier()` — adapte au pays de résidence, calcule le net réel (`lib/frontaliers`) et **alerte au dépassement du seuil de jours** (34 j FR/BE/DE).
+- `analyseFichePaie()` — recalcule le net mensuel (`lib/rts`) et signale un écart avec le net affiché.
+
+**CLI** — `paperasse particulier parcours | classe | frontalier | fiche-paie`.
+
+- 13 tests (`test:particulier`). **Tests cumulés : 358.**
+
 ## [0.16.0] — 2026-07-13
 
 ### Ajouté — Indépendants & sociétés (Milestone 5)

@@ -94,7 +94,7 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 | 3 | Analyse documentaire | `lib/documents/` : classification, dates/montants/références/échéance/action/conséquences → résumé + checklist + projet de réponse + Dossier ✅ |
 | 4 | Module TVA complet | `lib/tva/` : calendrier, périodes/déclarations manquantes, contrôle de cohérence (réutilise `calc-tva-declaration`), rapprochement courrier AED ✅ |
 | 5 | Indépendants & sociétés | `lib/entreprise/` : parcours par phase (création→vie→fiscalité→employeur→cessation), pièces manquantes, échéances par société ; réutilise `lib/lbr` ✅ |
-| 6 | Particuliers & frontaliers | Obligations IRPP/famille, réutilise `lib/rts`, `lib/frontaliers` |
+| 6 | Particuliers & frontaliers | `lib/particulier/` : parcours par domaine, classe d'impôt, analyse frontalière + fiche de paie ; réutilise `lib/rts`, `lib/frontaliers` ✅ |
 | 7 | Résidence & immigration | Parcours « Je m'installe au Luxembourg » (checklist chronologique) |
 | 8 | Logement | Intègre Bëllegen Akt, bail, aides dans un parcours |
 | 9 | Génération de courriers | `lib/courriers/` réutilisant `lib/templates-de` (extension FR) |

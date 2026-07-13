@@ -78,10 +78,10 @@ test('le questionnaire se termine (plus aucune question) une fois les champs per
 });
 
 test('aucune question n\'est posée sur un champ dont aucune obligation ne dépend', () => {
-  // Le catalogue amorce ne conditionne rien sur nombreEnfants → jamais demandé
-  // tant qu'aucune obligation ne l'utilise.
+  // Aucune obligation du catalogue ne conditionne sur statutLogement → jamais
+  // demandé tant qu'aucune obligation ne l'utilise.
   const champs = questionsRestantes({}, obligations).map((q) => q.champ);
-  eq(champs.includes('nombreEnfants'), false);
+  eq(champs.includes('statutLogement'), false);
 });
 
 console.log('=== Tableau de bord ===');
