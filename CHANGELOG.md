@@ -2,6 +2,20 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.29.0] — 2026-07-13
+
+### Ajouté — Qualité, explicabilité & observabilité (`lib/evaluation`)
+
+Le moteur produisait une mission ; il sait désormais la **juger** et la rendre
+**auditable**. Purement additif.
+
+- `evaluerMission(mission)` — rapport automatique : **confiance globale** (score pondéré par la fiabilité des sources des étapes), **informations manquantes** (documents attendus non fournis), **hypothèses** (défauts non confirmés : résidence principale, conjoint sans activité, nationalité UE…), **risques** (pénalités, échéances proches/dépassées), **points bloquants** (prérequis non satisfaits, étapes en échec), **sources**.
+- `traceMission(mission)` — trace d'exécution auditable : événement détecté → règle appliquée → obligation créée → étape ajoutée → connecteur sélectionné, chaque règle reliée à sa source (débogage, audit, confiance).
+
+**CLI** — `paperasse evaluation rapport | trace --evenements ...`.
+
+- 8 tests (`test:evaluation`). **Tests cumulés : 512.**
+
 ## [0.28.0] — 2026-07-13
 
 ### Ajouté — Workflow Engine & Missions (`lib/workflows`)

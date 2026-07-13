@@ -141,6 +141,13 @@ Chaîne complète : `Knowledge Graph → Reasoner → Planner → Workflow Engin
 Les « agents » (Analyse, Planification, Documents, Exécution) sont des interfaces
 sur ces capacités communes — pas des silos.
 
+## 4 sexies. Qualité, explicabilité & observabilité (`lib/evaluation`)
+
+Le moteur produit une mission ; cette couche la **juge** et la **rend auditable**.
+
+- `evaluerMission(mission)` — rapport : **confiance globale** (score pondéré par la fiabilité des sources), **informations manquantes**, **hypothèses** (défauts non confirmés), **risques** (pénalités, échéances), **points bloquants** (prérequis non satisfaits), **sources**. Ex. *« Installation → confiance 79 %, 3 documents manquants, déclaration d'arrivée bloquante »*.
+- `traceMission(mission)` — trace d'exécution auditable : `événement détecté → règle appliquée → obligation créée → étape ajoutée → connecteur sélectionné`, chaque règle reliée à sa source. Précieux pour le débogage, les audits et la confiance.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).
