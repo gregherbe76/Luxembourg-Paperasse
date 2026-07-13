@@ -83,12 +83,14 @@ const ROUTES = {
   evenement:      ['scripts/evenement.js'],
   plan:           ['scripts/plan.js'],
   reasoning:      ['scripts/reasoning.js'],
+  mission:        ['scripts/mission.js'],
   'test:i18n':    ['scripts/test-i18n.js'],
   'test:conversation': ['scripts/test-conversation.js'],
   'test:scenarios': ['scripts/test-scenarios.js'],
   'test:evenements': ['scripts/test-evenements.js'],
   'test:orchestration': ['scripts/test-orchestration.js'],
   'test:reasoning': ['scripts/test-reasoning.js'],
+  'test:workflows': ['scripts/test-workflows.js'],
 };
 
 function showHelp() {
@@ -129,6 +131,7 @@ Commandes :
   evenement       Ontologie des événements de vie (naissance, arrivée, perte d'emploi, achat…)
   plan            Planification multi-événements (dépendances, docs mutualisés, explications)
   reasoning       Change Impact & simulation « et si… » (propagation traçable dans le graphe)
+  mission         Workflow Engine : dérouler une mission (étapes, dépendances, validations)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

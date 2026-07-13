@@ -124,6 +124,23 @@ d'un changement d'état dans le graphe (comme un moteur de dépendances).
 Les futurs agents (Analyse, Planification, Documents, Exécution) deviennent des
 **interfaces** sur ce moteur commun, au lieu de silos par domaine.
 
+## 4 quinquies. Workflow Engine & Missions (`lib/workflows`)
+
+L'utilisateur ne veut pas « un formulaire » : il veut un **résultat** (« créer
+une société »). Une **Mission** modélise ce résultat — objectif, étapes
+ordonnées (du planificateur), dépendances, échéances, risques, avancement,
+historique — reprenable après interruption.
+
+Chaîne complète : `Knowledge Graph → Reasoner → Planner → Workflow Engine → Connecteurs`.
+
+- API : `createMission`, `advanceMission`, `pauseMission`, `resumeMission`, `completeMission` (+ `reessayerEtape`, `avancement`, `prochaineEtape`).
+- **Séparation stricte des actions** : `recommandation` (aucune action) → `preparation` (l'utilisateur valide) → `execution` (envoi **après confirmation explicite**, via connecteur).
+- **Connecteurs = plugins** (`creerRegistreConnecteurs`) : ajouter un portail (guichet, eCDF, Peppol, email, PDF, OCR, calendar) sans modifier le moteur. Le connecteur par défaut « manuel » ne transmet rien à l'extérieur.
+- Missions sérialisables (JSON) → reprise après interruption ; gestion des erreurs et réessais.
+
+Les « agents » (Analyse, Planification, Documents, Exécution) sont des interfaces
+sur ces capacités communes — pas des silos.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).

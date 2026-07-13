@@ -2,6 +2,24 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.28.0] — 2026-07-13
+
+### Ajouté — Workflow Engine & Missions (`lib/workflows`)
+
+Dernière couche de la chaîne `Graph → Reasoner → Planner → Workflow Engine →
+Connecteurs`. Modélise le vrai besoin : **atteindre un résultat administratif**,
+pas générer un document. Purement additif.
+
+- **Mission** : objectif, étapes ordonnées (du planificateur), dépendances, échéances, risques, avancement, historique — sérialisable et reprenable après interruption.
+- API : `createMission`, `advanceMission`, `pauseMission`, `resumeMission`, `completeMission`, `reessayerEtape`, `avancement`, `prochaineEtape`, `definirTypeAction`.
+- **Séparation stricte des actions** (confiance) : `recommandation` (aucune action) → `preparation` (l'utilisateur valide) → `execution` (envoi **uniquement après confirmation explicite**, via connecteur).
+- **Connecteurs = plugins** : `creerRegistreConnecteurs()` permet d'ajouter un portail (guichet, eCDF, Peppol, email, PDF, OCR, calendar) sans modifier le moteur. Le connecteur « manuel » par défaut ne transmet rien à l'extérieur.
+- Gestion des erreurs (étape en échec bloque la suite, `reessayerEtape`) et du suivi d'avancement.
+
+**CLI** — `paperasse mission creer | derouler --evenements ...`.
+
+- 13 tests (`test:workflows`). **Tests cumulés : 504.**
+
 ## [0.27.0] — 2026-07-13
 
 ### Ajouté — Moteur de raisonnement & Change Impact (`lib/reasoning`)
