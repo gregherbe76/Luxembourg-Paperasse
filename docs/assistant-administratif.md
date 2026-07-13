@@ -95,6 +95,20 @@ Les agents métier (TVA, CNS, Frontaliers…) deviennent alors de simples **vues
 sur ce graphe. C'est ce qui permet à une phrase comme « je m'installe avec ma
 femme et deux enfants » d'ouvrir la bonne chaîne d'administrations.
 
+## 4 ter. Couche d'orchestration (langage naturel → plan)
+
+Au-dessus du graphe, une couche d'orchestration **déterministe** (le LLM reste
+dans la couche agent, pas dans la bibliothèque) :
+
+```
+Conversation → [LLM: extraction] → lib/extraction → événements + profil
+             → lib/planification (raisonnement) → plan ordonné + explications
+```
+
+- **`lib/extraction`** — contrat de la sortie LLM (`{events, entities, confidence}`), validation, et ingestion : résolution des événements + normalisation d'un profil. *Le LLM traduit, il ne décide pas.*
+- **`lib/memoire`** — dossier administratif persistant (famille, employeurs, sociétés, véhicules, immobilier, documents, obligations réalisées, historique), sous consentement RGPD ; évite de reposer les mêmes questions.
+- **`lib/planification`** — moteur multi-événements : fusionne les démarches, exclut le déjà-fait (mémoire), détecte les **documents mutualisés**, ordonne par **dépendances** (« commencer par ce qui débloque »), puis par urgence, et **explique** chaque étape. Ex. *Installation + Naissance + Création d'entreprise → « 12 démarches, 1 pièce mutualisée, commencer par… »*.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).

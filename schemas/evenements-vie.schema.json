@@ -33,7 +33,7 @@
             "items": {
               "type": "object",
               "required": ["nom", "source"],
-              "properties": { "nom": { "type": "string" }, "source": { "type": "string", "pattern": "^https?://" } }
+              "properties": { "id": { "type": "string" }, "nom": { "type": "string" }, "source": { "type": "string", "pattern": "^https?://" } }
             }
           },
           "documents": { "type": "array", "items": { "type": "string" } },

@@ -2,6 +2,30 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.26.0] — 2026-07-13
+
+### Ajouté — Couche d'orchestration : extraction, mémoire, planification
+
+Au-dessus du graphe des événements, une couche d'orchestration **déterministe**.
+Le LLM reste dans la couche agent (traduction du langage naturel en données) ;
+la bibliothèque garde le raisonnement, testable et hors-ligne. Purement additif.
+
+**`lib/extraction/`** — frontière langage naturel → graphe.
+
+- `SCHEMA_EXTRACTION`, `validerExtraction`, `entitesVersProfil`, `ingererExtraction(struct)` : valide la sortie du LLM (`{events, entities, confidence}`), résout les événements (ids ou texte libre), normalise un profil, signale la confiance faible et les événements inconnus. *Le LLM traduit, il ne décide pas des obligations.*
+
+**`lib/memoire/`** — dossier administratif persistant (sous consentement RGPD).
+
+- `creerMemoire`, `ajouter`, `fusionnerProfil`, `marquerRealisee`/`estRealisee`, `questionsAEviter`, `historique` : conserve le contexte (famille, employeurs, sociétés, véhicules, immobilier, documents, obligations réalisées) pour éviter de reposer les mêmes questions.
+
+**`lib/planification/`** — moteur de raisonnement multi-événements.
+
+- `planifier(evenements, { profil, memoire })` : fusionne les démarches, exclut le déjà-réalisé, détecte les **documents mutualisés**, ordonne par **dépendances** (« commencer par ce qui débloque ») puis par urgence, et **explique** chaque étape (déclencheur, échéance, ce qu'elle débloque, source). Ex. *Installation + Naissance + Création d'entreprise → 12 démarches, 1 pièce mutualisée, 3 démarches à faire en premier*.
+
+**CLI** — `paperasse plan <ev...>` ou `paperasse plan --extraction fichier.json` (sortie LLM).
+
+- 13 tests (`test:orchestration`). **Tests cumulés : 482.**
+
 ## [0.25.0] — 2026-07-13
 
 ### Ajouté — Ontologie des événements de vie (couche « cerveau »)
