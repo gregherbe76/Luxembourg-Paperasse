@@ -2,6 +2,24 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.19.0] — 2026-07-13
+
+### Ajouté — Logement & immobilier (Milestone 8)
+
+Huitième jalon : parcours logement intégrant les calculateurs existants
+(`lib/bellegen-akt`) et proposant automatiquement les démarches selon la
+situation. Purement additif.
+
+**Module `lib/logement/`**
+
+- `parcoursLogement(profil, opts)` — démarches proposées selon la situation (locataire / acheteur / propriétaire / vendeur), avec calculs intégrés quand les montants sont fournis. Chaque étape est sourcée (guichet.lu).
+- `analyseAcquisition()` — réutilise `calculerBellegenAkt` + `estimerHonoraires` : droits d'enregistrement, crédit Bëllegen Akt, honoraires de notaire, frais totaux.
+- `garantieLocativeMax(loyer)` — options 2 / 3 mois de loyer, avec avertissement explicite sur la valeur du plafond légal à revérifier (réformes récentes).
+
+**CLI** — `paperasse logement locataire | acheteur | proprietaire | vendeur | garantie`.
+
+- 10 tests (`test:logement`). **Tests cumulés : 377.**
+
 ## [0.18.0] — 2026-07-13
 
 ### Ajouté — Résidence, immigration & commune (Milestone 7)

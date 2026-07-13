@@ -69,6 +69,8 @@ const ROUTES = {
   'test:particulier': ['scripts/test-particulier.js'],
   residence:      ['scripts/residence.js'],
   'test:residence': ['scripts/test-residence.js'],
+  logement:       ['scripts/logement.js'],
+  'test:logement': ['scripts/test-logement.js'],
 };
 
 function showHelp() {
@@ -100,6 +102,7 @@ Commandes :
   entreprise      Cycle de vie société/indépendant (parcours par phase, création)
   particulier     Démarches personnelles (parcours, classe d'impôt, frontalier, fiche de paie)
   residence       Parcours « Je m'installe au Luxembourg » (chronologique, UE / hors UE)
+  logement        Parcours logement (locataire/acheteur/propriétaire, Bëllegen Akt, garantie)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide
