@@ -79,6 +79,10 @@ const ROUTES = {
   'test:connaissances': ['scripts/test-connaissances.js'],
   rgpd:           ['scripts/rgpd.js'],
   'test:rgpd':    ['scripts/test-rgpd.js'],
+  assistant:      ['scripts/assistant.js'],
+  'test:i18n':    ['scripts/test-i18n.js'],
+  'test:conversation': ['scripts/test-conversation.js'],
+  'test:scenarios': ['scripts/test-scenarios.js'],
 };
 
 function showHelp() {
@@ -115,6 +119,7 @@ Commandes :
   rappels         Calendrier & surveillance : alertes couleur, rappels avant échéance
   connaissances   Base de connaissances officielle (rapport, chercher, citer, revalider, sources)
   rgpd            Confidentialité : chiffrement, masquage, durées de conservation
+  assistant       Assistant conversationnel (intention → obligations → action, avec sources)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

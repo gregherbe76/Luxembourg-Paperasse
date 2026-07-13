@@ -2,6 +2,32 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.24.0] — 2026-07-13
+
+### Ajouté — Interface multilingue, assistant conversationnel & scénarios (Milestones 13, 14, 15)
+
+Trois derniers jalons de la feuille de route de l'assistant administratif.
+Purement additif.
+
+**Milestone 13 — Interface & multilingue (`lib/i18n/`)**
+
+- Libellés d'interface (navigation, colonnes du tableau de bord, statuts, couleurs d'alerte) en **français, anglais, allemand et luxembourgeois**, avec repli sur le français.
+- `traduire`, `traducteur`, `libelles`, `normaliserLangue`. Le tableau de bord CLI accepte `--langue`.
+- 7 tests (`test:i18n`).
+
+**Milestone 14 — Intelligence conversationnelle (`lib/conversation/` + `SKILL.md`)**
+
+- `classifierIntention(texte)` — reconnaît l'intention (courrier, TVA, création de société, frontalier, achat immobilier, comptes non déposés, cessation, déclaration fiscale, installation, diagnostic).
+- `repondre(texte, contexte)` — identifie l'intention, consulte le profil, remonte les obligations **sourcées**, demande les informations manquantes, propose checklist et action. **Garde-fou : ne prétend jamais avoir effectué une démarche.**
+- `SKILL.md` — skill d'orchestration de l'assistant administratif luxembourgeois.
+- CLI `paperasse assistant "..."`. 11 tests (`test:conversation`).
+
+**Milestone 15 — Tests & qualité (`scripts/test-scenarios.js`)**
+
+- 15 scénarios de bout en bout (indépendant TVA manquante, société sans dépôt, frontalier télétravail, salarié marié, arrivant UE / non-UE, achat immobilier, locataire aidé, courriers AED/CCSS, cessation, changement de dirigeant, titre de séjour expirant, déclaration incomplète, facture non conforme).
+
+**Tests cumulés : 459.** La feuille de route des 15 milestones est complète.
+
 ## [0.23.0] — 2026-07-13
 
 ### Ajouté — Sécurité, confidentialité & conformité RGPD (Milestone 12)

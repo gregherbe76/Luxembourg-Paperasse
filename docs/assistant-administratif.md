@@ -101,9 +101,9 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 | 10 | Calendrier & rappels | `lib/rappels/` : alertes couleur (rouge/orange/jaune/vert), rappels avant échéance, documents manquants, calendrier trié ✅ |
 | 11 | Base de connaissances | `lib/connaissances/` : base unifiée requêtable, registre de sources élargi, fraîcheur, citation garde-fou ✅ |
 | 12 | Sécurité & RGPD | `lib/rgpd/` : chiffrement AES-256-GCM, masquage, journal d'accès, consentement, conservation/purge, store sécurisé ✅ |
-| 13 | Interface & i18n | Skills FR/EN/DE/LB |
-| 14 | Conversationnel | Skill agent orchestrant profil → diagnostic → dossier |
-| 15 | Tests & qualité | 15 scénarios de bout en bout |
+| 13 | Interface & i18n | `lib/i18n/` : libellés fr/en/de/lb, tableau de bord localisé ✅ |
+| 14 | Conversationnel | `lib/conversation/` + `SKILL.md` : intention → profil → obligations → action, jamais de démarche ✅ |
+| 15 | Tests & qualité | `scripts/test-scenarios.js` : 15 scénarios de bout en bout ✅ |
 
 ## 7. Fichiers créés / modifiés (Milestone 1)
 

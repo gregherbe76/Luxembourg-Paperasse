@@ -27,6 +27,7 @@ import {
   construireTableauDeBord,
 } from '../lib/diagnostic/index.js';
 import { analyserDocument } from '../lib/documents/index.js';
+import { traduire } from '../lib/i18n/index.js';
 import { readFileSync } from 'node:fs';
 
 function arg(nom) {
@@ -146,14 +147,10 @@ switch (sousCommande) {
     const { obligations, as_of } = chargerCatalogue();
     const situation = arg('--json') ? JSON.parse(arg('--json')) : {};
     const { colonnes, compteurs } = construireTableauDeBord(situation, obligations, { aujourdhui });
+    const langue = arg('--langue') || 'fr';
     console.log(`\nTableau de bord des obligations (catalogue as_of ${as_of})\n`);
-    const titres = {
-      obligatoire_maintenant: 'OBLIGATOIRE MAINTENANT',
-      a_faire_prochainement: 'À FAIRE PROCHAINEMENT',
-      a_surveiller: 'À SURVEILLER',
-      informations_manquantes: 'INFORMATIONS MANQUANTES',
-      non_applicable: 'NON APPLICABLE',
-    };
+    const ordre = ['obligatoire_maintenant', 'a_faire_prochainement', 'a_surveiller', 'informations_manquantes', 'non_applicable'];
+    const titres = Object.fromEntries(ordre.map((c) => [c, traduire('colonnes', c, langue).toUpperCase()]));
     for (const [cle, titre] of Object.entries(titres)) {
       const items = colonnes[cle];
       console.log(`=== ${titre} (${compteurs[cle]}) ===`);
