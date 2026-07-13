@@ -2,6 +2,28 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.15.0] — 2026-07-13
+
+### Ajouté — Module TVA complet (Milestone 4)
+
+Quatrième jalon : suivi TVA de bout en bout — calendrier, détection des
+déclarations manquantes, contrôle de cohérence et rapprochement des courriers
+AED. Réutilise le calculateur existant (`scripts/calc-tva-declaration.js`) et les
+seuils sourcés (`comptable/data/tva-taux.json`). **Aucune déclaration n'est
+envoyée** : suivi et contrôle uniquement.
+
+**Module `lib/tva/`** (purement additif)
+
+- `determinerFrequence(caAnnuelHT)` — mensuelle / trimestrielle / annuelle selon les seuils AED (tracé : source + niveau de confiance).
+- `periodesAttendues()` / `calendrierTVA()` — périodes écoulées depuis l'assujettissement, ventilées **en retard** vs **à préparer**, avec prochaine déclaration et prochaine échéance de paiement.
+- `controleCoherence()` — recalcule la TVA collectée (calcul traçable) et signale : périodes manquantes, incohérence collectée déclarée/recalculée, numéro TVA absent/mal formé, factures non conformes, doublons, taux invalides, écart factures ↔ déclaration.
+- `checklistDeclaration()` — données nécessaires à la préparation (CA, ventes nationales/intracom, achats, TVA collectée/déductible, acquisitions intracom, importations, régularisations, notes de crédit).
+- `rapprocherCourrierAED()` — relie un courrier AED analysé (M3) à la période concernée du calendrier et crée un `Dossier` (provenance incertaine → validation humaine).
+
+**CLI** — `paperasse tva-suivi calendrier | frequence | checklist | coherence | courrier`.
+
+- 14 tests (`test:tva-suivi`). **Tests cumulés : 333.**
+
 ## [0.14.0] — 2026-07-13
 
 ### Ajouté — Analyse de courriers et documents officiels (Milestone 3)

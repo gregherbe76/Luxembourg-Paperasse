@@ -61,6 +61,8 @@ const ROUTES = {
   'test:statec':  ['scripts/test-statec.js'],
   diagnostic:     ['scripts/diagnostic.js'],
   'test:diagnostic': ['scripts/test-diagnostic.js'],
+  'tva-suivi':    ['scripts/tva-suivi.js'],
+  'test:tva-suivi': ['scripts/test-tva.js'],
 };
 
 function showHelp() {
@@ -87,7 +89,8 @@ Commandes :
   open-data       Recherche/téléchargement depuis data.public.lu (search|dataset|fetch)
   rts             Calcul de la retenue à la source LU (RTS) sur salaire mensuel
   frontalier      Net réel d'un frontalier FR/BE/DE travaillant au LU
-  diagnostic      Moteur de diagnostic administratif (obligations|profil|societe)
+  diagnostic      Moteur de diagnostic administratif (obligations|profil|societe|questionnaire|dashboard|document)
+  tva-suivi       Suivi TVA : calendrier, périodes manquantes, cohérence, courrier AED
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide
