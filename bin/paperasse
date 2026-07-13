@@ -96,6 +96,7 @@ const ROUTES = {
   'test:evaluation': ['scripts/test-evaluation.js'],
   'test:outputs': ['scripts/test-outputs.js'],
   'test:knowledge': ['scripts/test-knowledge.js'],
+  'test:governance': ['scripts/test-governance.js'],
 };
 
 function showHelp() {

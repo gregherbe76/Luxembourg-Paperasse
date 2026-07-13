@@ -2,6 +2,21 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.32.0] — 2026-07-13
+
+### Ajouté — Gouvernance de la connaissance (« fiche de vie » des règles)
+
+Au-delà du versioning : chaque règle a désormais une **fiche de vie** — qui l'a
+ajoutée, son statut, quand la revoir, son historique. Ce n'est plus seulement du
+versioning, c'est de la **gouvernance**. Purement additif.
+
+- **Bloc `gouvernance`** sur chaque obligation : `owner`, `status` (draft/verified/a_revoir/deprecated), `reviewFrequency`, `lastVerified`, `nextReview`, `changeLog`.
+- `lib/connaissances` : `ficheDeVie()`, `revuesDues()` (règles dont la revue est due), `verifierGouvernance()` (cohérence des fiches), `enregistrerRevue()` (met à jour + journalise), `ajouterDelai()` (calcul déterministe de la prochaine revue).
+- **Trois niveaux de qualité** suivis séparément (`tableauQualite()`) : 1) moteur (tests), 2) connaissance (QA, versioning, gouvernance), 3) réponses (benchmark, à venir).
+- CLI : `paperasse connaissances gouvernance [--id …]`, `paperasse connaissances qualite`.
+
+- 9 tests (`test:governance`). **Tests cumulés : 545.**
+
 ## [0.31.0] — 2026-07-13
 
 ### Ajouté — Connaissance : versioning réglementaire, Knowledge QA, glossaire (`knowledge/`)

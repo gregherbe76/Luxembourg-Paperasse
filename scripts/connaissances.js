@@ -15,6 +15,7 @@
 import {
   chargerSources, baseConnaissances, rechercher, reglesARevalider, citer, verifierSourcesConnues, rapport,
   catalogueEnVigueur, chargerGlossaire, expliquer,
+  ficheDeVie, revuesDues, verifierGouvernance, tableauQualite,
 } from '../lib/connaissances/index.js';
 import { chargerCatalogue, ceJourISO } from '../lib/diagnostic/index.js';
 
@@ -58,6 +59,37 @@ switch (sous) {
     console.log(`\n⚠ Réponse valable pour les règles en vigueur au ${date}.`);
     break;
   }
+  case 'gouvernance': {
+    const date = arg('--date') || ceJourISO();
+    const { obligations } = chargerCatalogue();
+    if (arg('--id')) {
+      const o = obligations.find((x) => x.id === arg('--id'));
+      if (!o) { console.log(`Règle inconnue : ${arg('--id')}`); break; }
+      const f = ficheDeVie(o, { aujourdhui: date });
+      console.log(`Fiche de vie — ${f.nom}`);
+      console.log(`  Owner : ${f.owner} | statut : ${f.status}`);
+      console.log(`  Vérifié le ${f.lastVerified} | prochaine revue ${f.nextReview}${f.revueDue ? ' ⚠ DUE' : ''} (tous les ${f.reviewFrequency})`);
+      console.log('  Historique :');
+      for (const c of f.changeLog) console.log(`    - ${c.date} : ${c.reason}${c.author ? ` (${c.author})` : ''}`);
+      break;
+    }
+    const ctrl = verifierGouvernance(obligations, { aujourdhui: date });
+    const dues = revuesDues(obligations, { aujourdhui: date });
+    console.log(`Gouvernance de la connaissance (au ${date}) :`);
+    console.log(`  Règles gouvernées : ${obligations.length} | fiches cohérentes : ${ctrl.ok ? 'oui' : 'non (' + ctrl.problemes.length + ')'}`);
+    console.log(`  Revues dues : ${dues.length}`);
+    for (const f of dues) console.log(`    ⚠ ${f.nom} — revue prévue le ${f.nextReview}`);
+    break;
+  }
+  case 'qualite': {
+    const { obligations } = chargerCatalogue();
+    const q = tableauQualite(obligations, { aujourdhui: arg('--date') || ceJourISO() });
+    console.log('Trois niveaux de qualité :');
+    console.log(`  1. Moteur       : ${q.moteur.mesure} (${q.moteur.reference})`);
+    console.log(`  2. Connaissance : ${q.connaissance.regles} règles, ${q.connaissance.versionnees} versionnées, gouvernance ${q.connaissance.gouvernanceComplete ? 'complète' : 'incomplète'}, ${q.connaissance.revuesDues} revue(s) due(s)`);
+    console.log(`  3. Réponses     : ${q.reponses.mesure} — ${q.reponses.statut}`);
+    break;
+  }
   case 'glossaire': {
     if (arg('--terme')) {
       const t = expliquer(arg('--terme'));
@@ -83,6 +115,8 @@ switch (sous) {
   paperasse connaissances citer    --id <obligationId>
   paperasse connaissances revalider [--seuil 365]
   paperasse connaissances envigueur [--date YYYY-MM-DD] [--juridiction LU]
+  paperasse connaissances gouvernance [--id <obligationId>] [--date YYYY-MM-DD]
+  paperasse connaissances qualite
   paperasse connaissances glossaire [--terme CCSS]
   paperasse connaissances sources`);
     process.exit(sous ? 1 : 0);

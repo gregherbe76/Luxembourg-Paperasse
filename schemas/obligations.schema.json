@@ -66,6 +66,29 @@
               "version": { "type": "string" },
               "lastVerified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
             }
+          },
+          "gouvernance": {
+            "type": "object",
+            "required": ["owner", "status", "reviewFrequency", "lastVerified", "nextReview"],
+            "properties": {
+              "owner": { "type": "string" },
+              "status": { "type": "string", "enum": ["draft", "verified", "a_revoir", "deprecated"] },
+              "reviewFrequency": { "type": "string" },
+              "lastVerified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+              "nextReview": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+              "changeLog": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["date", "reason"],
+                  "properties": {
+                    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+                    "reason": { "type": "string" },
+                    "author": { "type": "string" }
+                  }
+                }
+              }
+            }
           }
         }
       }

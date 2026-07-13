@@ -51,6 +51,34 @@ dans `lib/connaissances`, et `paperasse connaissances envigueur --date …`.
 `scripts/test-knowledge.js` les rejoue comme une **suite de non-régression de la
 connaissance** — plus précieuse que de gagner des tests purement techniques.
 
+## Gouvernance de la connaissance (fiche de vie)
+
+Au-delà du versioning, chaque règle porte une **fiche de vie** (`gouvernance`) :
+qui l'a ajoutée, son statut, à quelle fréquence la revoir, quand elle a été
+vérifiée, quand la revoir, et son historique de changements.
+
+```json
+"gouvernance": {
+  "owner": "Paperasse Lux",
+  "status": "verified",
+  "reviewFrequency": "6 months",
+  "lastVerified": "2026-06-15",
+  "nextReview": "2026-12-15",
+  "changeLog": [{ "date": "2026-06-15", "reason": "Création de la fiche", "author": "Paperasse Lux" }]
+}
+```
+
+`ficheDeVie()`, `revuesDues()`, `verifierGouvernance()`, `enregistrerRevue()`
+dans `lib/connaissances`. CLI : `paperasse connaissances gouvernance [--id …]`.
+
+## Trois niveaux de qualité (suivis séparément)
+
+1. **Moteur** — tests unitaires & intégration (`npm test`).
+2. **Connaissance** — Knowledge QA, versioning, gouvernance (`paperasse connaissances qualite`).
+3. **Réponses** — benchmark face à d'autres assistants (à construire).
+
+Ces dimensions évoluent à des rythmes différents et se mesurent séparément.
+
 ## Principe
 
 Le moteur ne contient **aucune règle en dur**. Ajouter/mettre à jour une règle,
