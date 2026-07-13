@@ -2,6 +2,25 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.20.0] — 2026-07-13
+
+### Ajouté — Génération de courriers et dossiers (Milestone 9)
+
+Neuvième jalon : transformer les diagnostics en documents concrets. Purement additif.
+
+**Module `lib/courriers/`**
+
+- `genererCourrier(type, donnees)` — 9 types (réponse à une administration, demande de délai, demande d'information, contestation, transmission de pièces, déclaration de changement, courriers propriétaire / employeur / comptable). Chaque courrier porte expéditeur, destinataire, objet, références, faits, demande, pièces jointes, date, formule de politesse, et un rendu texte.
+- `courrierDepuisAnalyse(analyse)` — pré-remplit une réponse à partir d'une analyse de document (M3) : destinataire, références, période, échéance.
+- `checklistRendezVous(type)` — checklist de préparation (administration / notaire / banque / comptable).
+- `genererDossierRecap()` — dossier récapitulatif au format Markdown (le PDF reste une couche optionnelle).
+
+**RÈGLE STRICTE** — tout courrier est produit à l'état de **PROJET** ; aucun envoi n'est déclenché, la validation humaine est rappelée.
+
+**CLI** — `paperasse courriers types | generer | reponse | rdv`.
+
+- 8 tests (`test:courriers`). **Tests cumulés : 385.**
+
 ## [0.19.0] — 2026-07-13
 
 ### Ajouté — Logement & immobilier (Milestone 8)

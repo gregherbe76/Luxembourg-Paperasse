@@ -97,7 +97,7 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 | 6 | Particuliers & frontaliers | `lib/particulier/` : parcours par domaine, classe d'impôt, analyse frontalière + fiche de paie ; réutilise `lib/rts`, `lib/frontaliers` ✅ |
 | 7 | Résidence & immigration | `lib/residence/` : parcours « Je m'installe au Luxembourg » (5 phases, UE / hors UE, échéances depuis l'arrivée) ✅ |
 | 8 | Logement | `lib/logement/` : parcours locataire/acheteur/propriétaire/vendeur, intègre Bëllegen Akt + garantie locative ✅ |
-| 9 | Génération de courriers | `lib/courriers/` réutilisant `lib/templates-de` (extension FR) |
+| 9 | Génération de courriers | `lib/courriers/` : 9 types de courriers-projets + pré-remplissage depuis analyse (M3) + dossier récap ✅ |
 | 10 | Calendrier & rappels | Statuts + alertes couleur sur `Dossier.echeance` |
 | 11 | Base de connaissances | `data/obligations.json` enrichi + historique de modifications |
 | 12 | Sécurité & RGPD | Chiffrement du store, export/suppression (helpers déjà amorcés) |

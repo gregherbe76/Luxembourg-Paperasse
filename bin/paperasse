@@ -71,6 +71,8 @@ const ROUTES = {
   'test:residence': ['scripts/test-residence.js'],
   logement:       ['scripts/logement.js'],
   'test:logement': ['scripts/test-logement.js'],
+  courriers:      ['scripts/courriers.js'],
+  'test:courriers': ['scripts/test-courriers.js'],
 };
 
 function showHelp() {
@@ -103,6 +105,7 @@ Commandes :
   particulier     Démarches personnelles (parcours, classe d'impôt, frontalier, fiche de paie)
   residence       Parcours « Je m'installe au Luxembourg » (chronologique, UE / hors UE)
   logement        Parcours logement (locataire/acheteur/propriétaire, Bëllegen Akt, garantie)
+  courriers       Génération de courriers-projets (réponse, délai, contestation, dossier récap)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide
