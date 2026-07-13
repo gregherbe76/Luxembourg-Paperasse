@@ -148,6 +148,22 @@ Le moteur produit une mission ; cette couche la **juge** et la **rend auditable*
 - `evaluerMission(mission)` — rapport : **confiance globale** (score pondéré par la fiabilité des sources), **informations manquantes**, **hypothèses** (défauts non confirmés), **risques** (pénalités, échéances), **points bloquants** (prérequis non satisfaits), **sources**. Ex. *« Installation → confiance 79 %, 3 documents manquants, déclaration d'arrivée bloquante »*.
 - `traceMission(mission)` — trace d'exécution auditable : `événement détecté → règle appliquée → obligation créée → étape ajoutée → connecteur sélectionné`, chaque règle reliée à sa source. Précieux pour le débogage, les audits et la confiance.
 
+## 4 septies. Couche Outputs (artefacts métier & adaptateurs) — `lib/outputs`
+
+Le moteur ne « se connecte » pas à des services : il **produit des artefacts
+métier** et des **adaptateurs** les exportent. Ajouter une sortie (app, API,
+MyGuichet, PDF, email…) = ajouter un adaptateur, sans toucher au moteur.
+
+```
+Mission → Outputs → { Timeline, DocumentPackage, Reminders, Report } → adaptateurs (.ics, Markdown, texte, JSON…)
+```
+
+- `timeline(mission)` → `TimelineEvent[]` (titre, échéance, priorité, bloquant, source, statut) ; adaptateur `.ics` (RFC 5545, VEVENT + VALARM, zéro dépendance).
+- `documentPackage(mission)` → pièces à réunir (avec source) ; adaptateur Markdown.
+- `reminders(mission)` → rappels avant échéance ; adaptateur texte.
+- `report(mission)` → réutilise `evaluerMission` ; adaptateur Markdown.
+- `produire(mission, { type, format })` + registre `ADAPTATEURS` (`enregistrerAdaptateur`) : le `.ics` n'est qu'un export parmi d'autres (demain Google/Outlook/Apple, PDF/ZIP/Peppol, email/SMS/push).
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).
