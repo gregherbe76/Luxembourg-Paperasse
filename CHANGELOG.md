@@ -2,6 +2,26 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.30.0] — 2026-07-13
+
+### Ajouté — Couche Outputs : artefacts métier & adaptateurs (`lib/outputs`)
+
+Recadrage architectural : le moteur ne « se connecte » pas à des services, il
+**produit des artefacts métier** (Timeline, DocumentPackage, Reminders, Report)
+que des **adaptateurs** exportent. Ajouter une sortie = ajouter un adaptateur,
+sans modifier le moteur. Purement additif.
+
+- `timeline(mission)` → `TimelineEvent[]` (titre, échéance, priorité, bloquant, source, statut).
+- **Adaptateur `.ics`** (`timelineVersICS`) — iCalendar RFC 5545 (VEVENT + VALARM de rappel), zéro dépendance, échappement des caractères spéciaux.
+- `documentPackage(mission)` → pièces à réunir (avec source) ; adaptateur Markdown.
+- `reminders(mission)` → rappels avant échéance (triés) ; adaptateur texte.
+- `report(mission)` → réutilise `evaluerMission` ; adaptateur Markdown.
+- `produire(mission, { type, format })` + registre `ADAPTATEURS` extensible (`enregistrerAdaptateur`) : le `.ics` n'est qu'un export parmi d'autres (demain Google/Outlook/Apple, PDF/ZIP/Peppol, email/SMS/push).
+
+**CLI** — `paperasse output timeline|documents|notifications|report --format ... [--out fichier]`.
+
+- 12 tests (`test:outputs`). **Tests cumulés : 524.**
+
 ## [0.29.0] — 2026-07-13
 
 ### Ajouté — Qualité, explicabilité & observabilité (`lib/evaluation`)

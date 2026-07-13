@@ -85,6 +85,7 @@ const ROUTES = {
   reasoning:      ['scripts/reasoning.js'],
   mission:        ['scripts/mission.js'],
   evaluation:     ['scripts/evaluation.js'],
+  output:         ['scripts/output.js'],
   'test:i18n':    ['scripts/test-i18n.js'],
   'test:conversation': ['scripts/test-conversation.js'],
   'test:scenarios': ['scripts/test-scenarios.js'],
@@ -93,6 +94,7 @@ const ROUTES = {
   'test:reasoning': ['scripts/test-reasoning.js'],
   'test:workflows': ['scripts/test-workflows.js'],
   'test:evaluation': ['scripts/test-evaluation.js'],
+  'test:outputs': ['scripts/test-outputs.js'],
 };
 
 function showHelp() {
@@ -135,6 +137,7 @@ Commandes :
   reasoning       Change Impact & simulation « et si… » (propagation traçable dans le graphe)
   mission         Workflow Engine : dérouler une mission (étapes, dépendances, validations)
   evaluation      Qualité & observabilité d'une mission (rapport de confiance, trace d'exécution)
+  output          Artefacts métier → adaptateurs (timeline .ics, documents, rappels, rapport)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide
