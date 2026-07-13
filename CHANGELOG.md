@@ -2,6 +2,25 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.18.0] — 2026-07-13
+
+### Ajouté — Résidence, immigration & commune (Milestone 7)
+
+Septième jalon : parcours chronologique « Je m'installe au Luxembourg »,
+adapté à la nationalité (ressortissant UE/EEE/CH vs hors UE) et à la situation.
+Purement additif.
+
+**Données `data/installation-luxembourg.json`** (+ schéma) — 10 étapes sourcées, ventilées par phase (avant l'arrivée → première semaine → premier mois → trois mois → annuel) et par public : vérification du droit de séjour, état civil, déclaration d'arrivée, enregistrement UE, titre de séjour, compte bancaire, immatriculation véhicule, échange de permis, renouvellement de titre, inscription électorale.
+
+**Module `lib/residence/`**
+
+- `classeNationalite(profil)` — 'ue' / 'hors_ue' / 'inconnu'.
+- `parcoursInstallation(profil)` — étapes filtrées (public + conditions), regroupées par phase chronologique, avec **échéances indicatives** calculées depuis la date d'arrivée ; avertit si la nationalité ou la date d'arrivée manque.
+
+**CLI** — `paperasse residence installation --nationalite FR --arrivee 2026-03-01 [--vehicule]`.
+
+- 9 tests (`test:residence`). **Tests cumulés : 367.**
+
 ## [0.17.0] — 2026-07-13
 
 ### Ajouté — Particuliers, salariés & frontaliers (Milestone 6)

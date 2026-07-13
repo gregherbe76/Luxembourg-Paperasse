@@ -95,7 +95,7 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 | 4 | Module TVA complet | `lib/tva/` : calendrier, périodes/déclarations manquantes, contrôle de cohérence (réutilise `calc-tva-declaration`), rapprochement courrier AED ✅ |
 | 5 | Indépendants & sociétés | `lib/entreprise/` : parcours par phase (création→vie→fiscalité→employeur→cessation), pièces manquantes, échéances par société ; réutilise `lib/lbr` ✅ |
 | 6 | Particuliers & frontaliers | `lib/particulier/` : parcours par domaine, classe d'impôt, analyse frontalière + fiche de paie ; réutilise `lib/rts`, `lib/frontaliers` ✅ |
-| 7 | Résidence & immigration | Parcours « Je m'installe au Luxembourg » (checklist chronologique) |
+| 7 | Résidence & immigration | `lib/residence/` : parcours « Je m'installe au Luxembourg » (5 phases, UE / hors UE, échéances depuis l'arrivée) ✅ |
 | 8 | Logement | Intègre Bëllegen Akt, bail, aides dans un parcours |
 | 9 | Génération de courriers | `lib/courriers/` réutilisant `lib/templates-de` (extension FR) |
 | 10 | Calendrier & rappels | Statuts + alertes couleur sur `Dossier.echeance` |
