@@ -75,6 +75,8 @@ const ROUTES = {
   'test:courriers': ['scripts/test-courriers.js'],
   rappels:        ['scripts/rappels.js'],
   'test:rappels': ['scripts/test-rappels.js'],
+  connaissances:  ['scripts/connaissances.js'],
+  'test:connaissances': ['scripts/test-connaissances.js'],
 };
 
 function showHelp() {
@@ -109,6 +111,7 @@ Commandes :
   logement        Parcours logement (locataire/acheteur/propriétaire, Bëllegen Akt, garantie)
   courriers       Génération de courriers-projets (réponse, délai, contestation, dossier récap)
   rappels         Calendrier & surveillance : alertes couleur, rappels avant échéance
+  connaissances   Base de connaissances officielle (rapport, chercher, citer, revalider, sources)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

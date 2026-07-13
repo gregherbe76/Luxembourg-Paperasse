@@ -2,6 +2,26 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.22.0] — 2026-07-13
+
+### Ajouté — Base de connaissances officielle (Milestone 11)
+
+Onzième jalon : une base réglementaire unifiée et requêtable, chaque règle
+reliée à sa source officielle et à sa fraîcheur. Purement additif.
+
+**Registre `data/sources.json`** — élargi aux administrations prioritaires : CCSS, CNS, ITM, Zukunftskeess (CAE), SNCA, Direction de l'immigration (16 sources au total).
+
+**Module `lib/connaissances/`**
+
+- `baseConnaissances()` — agrège obligations + étapes d'installation en une base unique (id, titre, catégorie, population, source, date de vérification, niveau de confiance, statut, fraîcheur).
+- `rechercher(terme)`, `reglesARevalider()`, `rapport()`.
+- `citer(id)` — renvoie une règle avec sa source ; **lève une erreur si la règle n'a pas de source** (garde-fou anti-« sans source ») et ajoute l'avertissement « à revérifier » si la fraîcheur est dépassée.
+- `verifierSourcesConnues()` — contrôle que chaque source d'obligation appartient au registre officiel (0 hors registre).
+
+**CLI** — `paperasse connaissances rapport | chercher | citer | revalider | sources`.
+
+- 11 tests (`test:connaissances`). **Tests cumulés : 413.**
+
 ## [0.21.0] — 2026-07-13
 
 ### Ajouté — Calendrier, rappels & surveillance (Milestone 10)
