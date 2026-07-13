@@ -2,6 +2,84 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.28.0] — 2026-07-13
+
+### Ajouté — Workflow Engine & Missions (`lib/workflows`)
+
+Dernière couche de la chaîne `Graph → Reasoner → Planner → Workflow Engine →
+Connecteurs`. Modélise le vrai besoin : **atteindre un résultat administratif**,
+pas générer un document. Purement additif.
+
+- **Mission** : objectif, étapes ordonnées (du planificateur), dépendances, échéances, risques, avancement, historique — sérialisable et reprenable après interruption.
+- API : `createMission`, `advanceMission`, `pauseMission`, `resumeMission`, `completeMission`, `reessayerEtape`, `avancement`, `prochaineEtape`, `definirTypeAction`.
+- **Séparation stricte des actions** (confiance) : `recommandation` (aucune action) → `preparation` (l'utilisateur valide) → `execution` (envoi **uniquement après confirmation explicite**, via connecteur).
+- **Connecteurs = plugins** : `creerRegistreConnecteurs()` permet d'ajouter un portail (guichet, eCDF, Peppol, email, PDF, OCR, calendar) sans modifier le moteur. Le connecteur « manuel » par défaut ne transmet rien à l'extérieur.
+- Gestion des erreurs (étape en échec bloque la suite, `reessayerEtape`) et du suivi d'avancement.
+
+**CLI** — `paperasse mission creer | derouler --evenements ...`.
+
+- 13 tests (`test:workflows`). **Tests cumulés : 504.**
+
+## [0.27.0] — 2026-07-13
+
+### Ajouté — Moteur de raisonnement & Change Impact (`lib/reasoning`)
+
+La brique qui fait passer d'orchestrateur à **système expert d'aide à la
+décision** : au lieu de réexécuter les règles, on **propage** les conséquences
+d'un changement d'état dans le graphe. Déterministe, traçable, hors-ligne.
+Purement additif.
+
+- `computeDelta(avant, après)` — différence champ à champ entre deux situations.
+- `computeImpact(état, changement)` — obligations qui apparaissent / disparaissent (avec la **cause** : la condition déclenchée), valeurs dérivées modifiées (ex. **classe d'impôt 1→2**, sourcée), événements et domaines impactés. « Je me marie », « je m'installe », « je crée une société » → conséquences calculées immédiatement.
+- `simulateScenario(état, scénario)` — « et si… ? » **sans modifier le dossier** (changements et/ou événements → impact et/ou plan). Outil de décision.
+- `explainReasoning(impact)` — explication **traçable** : chaque conclusion reliée à sa cause et à sa source.
+- `transition(état, changement)` — machine à états : ancien → nouvel état, date, impact propagé.
+
+**CLI** — `paperasse reasoning impact` et `paperasse reasoning simuler`.
+
+- 9 tests (`test:reasoning`). **Tests cumulés : 491.**
+
+## [0.26.0] — 2026-07-13
+
+### Ajouté — Couche d'orchestration : extraction, mémoire, planification
+
+Au-dessus du graphe des événements, une couche d'orchestration **déterministe**.
+Le LLM reste dans la couche agent (traduction du langage naturel en données) ;
+la bibliothèque garde le raisonnement, testable et hors-ligne. Purement additif.
+
+**`lib/extraction/`** — frontière langage naturel → graphe.
+
+- `SCHEMA_EXTRACTION`, `validerExtraction`, `entitesVersProfil`, `ingererExtraction(struct)` : valide la sortie du LLM (`{events, entities, confidence}`), résout les événements (ids ou texte libre), normalise un profil, signale la confiance faible et les événements inconnus. *Le LLM traduit, il ne décide pas des obligations.*
+
+**`lib/memoire/`** — dossier administratif persistant (sous consentement RGPD).
+
+- `creerMemoire`, `ajouter`, `fusionnerProfil`, `marquerRealisee`/`estRealisee`, `questionsAEviter`, `historique` : conserve le contexte (famille, employeurs, sociétés, véhicules, immobilier, documents, obligations réalisées) pour éviter de reposer les mêmes questions.
+
+**`lib/planification/`** — moteur de raisonnement multi-événements.
+
+- `planifier(evenements, { profil, memoire })` : fusionne les démarches, exclut le déjà-réalisé, détecte les **documents mutualisés**, ordonne par **dépendances** (« commencer par ce qui débloque ») puis par urgence, et **explique** chaque étape (déclencheur, échéance, ce qu'elle débloque, source). Ex. *Installation + Naissance + Création d'entreprise → 12 démarches, 1 pièce mutualisée, 3 démarches à faire en premier*.
+
+**CLI** — `paperasse plan <ev...>` ou `paperasse plan --extraction fichier.json` (sortie LLM).
+
+- 13 tests (`test:orchestration`). **Tests cumulés : 482.**
+
+## [0.25.0] — 2026-07-13
+
+### Ajouté — Ontologie des événements de vie (couche « cerveau »)
+
+Couche transverse au-dessus du catalogue d'obligations : un événement de vie
+déclenche une **chaîne** conséquences → administrations → obligations →
+documents → délais → exceptions → checklist. Les obligations sont **reliées par
+identifiant** au catalogue (source de vérité unique, aucune duplication). Les
+agents métier deviennent des vues sur ce graphe. Purement additif.
+
+- `data/evenements-vie.json` (+ schéma) : 8 événements sourcés — naissance, mariage/PACS, installation au Luxembourg, perte d'emploi (ADEM), achat immobilier, création d'entreprise, cessation d'activité, décès/succession.
+- `data/sources.json` : +3 administrations (ADEM, commune, Ministère de l'Économie) — 19 sources.
+- `lib/evenements/` : `identifierEvenement(texte)`, `resoudreEvenement(id|texte)` (relie les obligations au catalogue avec échéance + source), `verifierIntegrite()` (aucune référence pendante), `listerEvenements()`.
+- `lib/conversation` : la réponse de l'assistant attache désormais la chaîne de l'événement détecté (`evenementVie`) — « je m'installe avec ma femme et deux enfants » ouvre la bonne chaîne d'administrations.
+- CLI `paperasse evenement liste | <id-ou-texte>`.
+- 10 tests (`test:evenements`). **Tests cumulés : 469.**
+
 ## [0.24.0] — 2026-07-13
 
 ### Ajouté — Interface multilingue, assistant conversationnel & scénarios (Milestones 13, 14, 15)

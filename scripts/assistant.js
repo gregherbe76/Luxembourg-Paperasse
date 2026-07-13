@@ -29,6 +29,10 @@ const contexte = {
 const r = repondre(texte, contexte);
 
 console.log(`\nIntention : ${r.intention}`);
+if (r.evenementVie) {
+  console.log(`\n🔵 Événement de vie détecté : ${r.evenementVie.nom}`);
+  console.log(`   Administrations : ${r.evenementVie.administrations.join(', ')}`);
+}
 if (r.comprehension) console.log(`\nCe que je comprends : ${r.comprehension}`);
 if (r.avertissement) console.log(`\n⚠ ${r.avertissement}`);
 if (r.obligations.length) {

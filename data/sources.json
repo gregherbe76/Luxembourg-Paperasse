@@ -96,6 +96,24 @@
       "name": "Direction de l'immigration (MAEE)",
       "url": "https://maee.gouvernement.lu",
       "description": "Titres et autorisations de séjour, visas, regroupement familial, naturalisation"
+    },
+    {
+      "id": "adem",
+      "name": "Agence pour le développement de l'emploi (ADEM)",
+      "url": "https://adem.public.lu",
+      "description": "Inscription des demandeurs d'emploi, indemnité de chômage, aides à l'embauche"
+    },
+    {
+      "id": "commune",
+      "name": "Administration communale",
+      "url": "https://guichet.public.lu",
+      "description": "État civil, déclaration d'arrivée/départ, certificat de résidence, listes électorales"
+    },
+    {
+      "id": "economie",
+      "name": "Ministère de l'Économie — Direction générale des classes moyennes",
+      "url": "https://guichet.public.lu",
+      "description": "Autorisation d'établissement, aides et subventions aux entreprises"
     }
   ],
   "textesReference": [

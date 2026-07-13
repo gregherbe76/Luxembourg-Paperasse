@@ -77,6 +77,70 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 
 **Provenance** (transversale, `lib/diagnostic/provenance.js`) : `{ source, dateVerification, niveauConfiance ∈ {officiel, derive, estimation, incertain}, validationHumaineRequise }` + helper `evaluerFraicheur()` qui déclenche « à revérifier avant utilisation » au-delà de 365 jours ou si `incertain`.
 
+## 4 bis. Couche « événements de vie » (le cerveau)
+
+Au-dessus du catalogue d'obligations, une **ontologie des événements de vie**
+(`data/evenements-vie.json` + `lib/evenements/`) transforme le catalogue plat en
+**graphe** :
+
+```
+Événement → Conséquences → Administrations → Obligations → Documents → Délais → Exceptions → Checklist
+```
+
+Les obligations du graphe sont **reliées par identifiant** au catalogue
+(`data/obligations.json`, source de vérité unique) : le graphe orchestre, il ne
+duplique pas les règles. `resoudreEvenement(id|texte)` renvoie la chaîne
+complète ; `identifierEvenement(texte)` détecte l'événement en langage naturel.
+Les agents métier (TVA, CNS, Frontaliers…) deviennent alors de simples **vues**
+sur ce graphe. C'est ce qui permet à une phrase comme « je m'installe avec ma
+femme et deux enfants » d'ouvrir la bonne chaîne d'administrations.
+
+## 4 ter. Couche d'orchestration (langage naturel → plan)
+
+Au-dessus du graphe, une couche d'orchestration **déterministe** (le LLM reste
+dans la couche agent, pas dans la bibliothèque) :
+
+```
+Conversation → [LLM: extraction] → lib/extraction → événements + profil
+             → lib/planification (raisonnement) → plan ordonné + explications
+```
+
+- **`lib/extraction`** — contrat de la sortie LLM (`{events, entities, confidence}`), validation, et ingestion : résolution des événements + normalisation d'un profil. *Le LLM traduit, il ne décide pas.*
+- **`lib/memoire`** — dossier administratif persistant (famille, employeurs, sociétés, véhicules, immobilier, documents, obligations réalisées, historique), sous consentement RGPD ; évite de reposer les mêmes questions.
+- **`lib/planification`** — moteur multi-événements : fusionne les démarches, exclut le déjà-fait (mémoire), détecte les **documents mutualisés**, ordonne par **dépendances** (« commencer par ce qui débloque »), puis par urgence, et **explique** chaque étape. Ex. *Installation + Naissance + Création d'entreprise → « 12 démarches, 1 pièce mutualisée, commencer par… »*.
+
+## 4 quater. Moteur de raisonnement & Change Impact (`lib/reasoning`)
+
+Le planificateur répond « que faire ? » ; le reasoner répond « **qu'est-ce qui
+change ?** ». On ne réexécute pas les règles : on **propage** les conséquences
+d'un changement d'état dans le graphe (comme un moteur de dépendances).
+
+- `computeDelta(avant, après)` — ce qui change entre deux situations.
+- `computeImpact(état, changement)` — obligations qui apparaissent/disparaissent, valeurs dérivées modifiées (ex. classe d'impôt 1→2), domaines et événements impactés. Ex. *« je me marie » → impact fiscal (classe 1→2, sourcé) + domaines commune/ACD*.
+- `simulateScenario(état, scénario)` — « et si… ? » **sans modifier le dossier** (outil de décision).
+- `explainReasoning(impact)` — explication **traçable** : chaque conclusion reliée à sa cause (le champ modifié) et à sa source.
+- `transition(état, changement)` — machine à états : ancien → nouvel état + impact propagé.
+
+Les futurs agents (Analyse, Planification, Documents, Exécution) deviennent des
+**interfaces** sur ce moteur commun, au lieu de silos par domaine.
+
+## 4 quinquies. Workflow Engine & Missions (`lib/workflows`)
+
+L'utilisateur ne veut pas « un formulaire » : il veut un **résultat** (« créer
+une société »). Une **Mission** modélise ce résultat — objectif, étapes
+ordonnées (du planificateur), dépendances, échéances, risques, avancement,
+historique — reprenable après interruption.
+
+Chaîne complète : `Knowledge Graph → Reasoner → Planner → Workflow Engine → Connecteurs`.
+
+- API : `createMission`, `advanceMission`, `pauseMission`, `resumeMission`, `completeMission` (+ `reessayerEtape`, `avancement`, `prochaineEtape`).
+- **Séparation stricte des actions** : `recommandation` (aucune action) → `preparation` (l'utilisateur valide) → `execution` (envoi **après confirmation explicite**, via connecteur).
+- **Connecteurs = plugins** (`creerRegistreConnecteurs`) : ajouter un portail (guichet, eCDF, Peppol, email, PDF, OCR, calendar) sans modifier le moteur. Le connecteur par défaut « manuel » ne transmet rien à l'extérieur.
+- Missions sérialisables (JSON) → reprise après interruption ; gestion des erreurs et réessais.
+
+Les « agents » (Analyse, Planification, Documents, Exécution) sont des interfaces
+sur ces capacités communes — pas des silos.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).
