@@ -15,6 +15,7 @@
 <p align="center">
   <a href="https://github.com/gregherbe76/Luxembourg-Paperasse/stargazers"><img src="https://img.shields.io/github/stars/gregherbe76/Luxembourg-Paperasse" alt="GitHub stars"></a>
   <img src="https://img.shields.io/badge/skills-6-red" alt="6 skills">
+  <img src="https://img.shields.io/badge/assistant-administratif-ED2939" alt="Assistant administratif">
   <img src="https://img.shields.io/badge/pays-Luxembourg-ED2939" alt="Pays Luxembourg">
   <img src="https://img.shields.io/badge/veille-Légilux_RSS-008751" alt="Veille Légilux RSS">
   <a href="https://github.com/gregherbe76/Luxembourg-Paperasse/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gregherbe76/Luxembourg-Paperasse?style=flat&color=blue" alt="License"></a>
@@ -36,6 +37,40 @@ Chaque skill transforme votre agent en copilote expert d'un métier de la papera
 Les skills connaissent les textes (LIR, LITL, LCC, loi modifiée du 12 février 1979 sur la TVA, loi du 10 août 1915 sur les sociétés commerciales, loi du 19 décembre 2002 RCS, loi du 16 mai 1975 copropriété), les formulaires, les échéances, et ne se trompent pas de case dans la déclaration eCDF.
 
 Les skills sont du Markdown. Ils fonctionnent avec tout agent ou outil capable de lire des fichiers. Paperasse Lux inclut aussi un **flux de veille du Journal Officiel** (4 RSS Légilux : Mémorial A, B, A+B, projets de loi) pour rester à jour des publications légales en temps réel.
+
+---
+
+## Assistant administratif
+
+Au-delà des calculateurs, Paperasse Lux embarque un **assistant administratif** (skill racine [`SKILL.md`](SKILL.md)) qui relie une *situation* ou un *courrier* à ses **obligations**, échéances, risques et **sources officielles**, puis propose checklist, courrier-projet et rappels. Il **n'effectue jamais de démarche** : il aide à comprendre et à préparer, l'utilisateur valide et agit.
+
+Principe cardinal : **aucune obligation, aucun délai, aucun montant n'est affiché sans source + date de vérification + niveau de confiance** ; toute information incertaine est signalée comme à revérifier.
+
+```bash
+# Assistant conversationnel
+paperasse assistant "J'ai reçu une lettre de l'AED, que faire ?" --doc courrier.txt
+paperasse assistant "Je suis frontalier français et je télétravaille 2 jours/semaine" --profil '{"paysResidence":"FR","joursHorsLU":40}'
+
+# Diagnostic, questionnaire dynamique, tableau de bord (fr/en/de/lb)
+paperasse diagnostic questionnaire
+paperasse diagnostic dashboard --json '{"regimeTVA":"normal","frequenceTVA":"mensuelle","statut":"actif"}' --langue en
+
+# Parcours métier
+paperasse tva-suivi calendrier --freq mensuelle --debut 2026-01-15
+paperasse entreprise parcours --exercice 2025-12-31
+paperasse particulier frontalier --pays FR --brut 5000 --jours 40
+paperasse residence installation --nationalite US --arrivee 2026-03-01
+paperasse logement acheteur --prix 600000 --acquereurs 2
+
+# Analyse de courrier, courriers-projets, rappels, base de connaissances, RGPD
+paperasse diagnostic document --file courrier-aed.txt
+paperasse courriers reponse --file courrier-aed.txt --json '{"expediteur":"Jean Test"}'
+paperasse rappels societe
+paperasse connaissances citer --id obl_tva_declaration_mensuelle
+paperasse rgpd masquer --file donnees.json
+```
+
+Le moteur (`lib/diagnostic`, `lib/documents`, `lib/tva`, `lib/entreprise`, `lib/particulier`, `lib/residence`, `lib/logement`, `lib/courriers`, `lib/rappels`, `lib/connaissances`, `lib/rgpd`, `lib/i18n`, `lib/conversation`) est **zéro-dépendance** et couvert par une suite de tests déterministes (dont 15 scénarios de bout en bout). Voir la [feuille de route de l'assistant](https://gregherbe76.github.io/Luxembourg-Paperasse/assistant-administratif.html).
 
 ---
 
