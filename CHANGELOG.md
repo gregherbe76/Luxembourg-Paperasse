@@ -2,6 +2,27 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.14.0] — 2026-07-13
+
+### Ajouté — Analyse de courriers et documents officiels (Milestone 3)
+
+Troisième jalon de l'assistant : importer un courrier administratif et comprendre
+ce qu'il signifie, ce qui est demandé, pour quand, et avec quels risques. Cœur
+zéro-dépendance opérant sur du **texte extrait** (OCR/PDF = couche optionnelle future).
+
+**Module `lib/documents/`** (purement additif)
+
+- `analyserDocument(texte)` — pipeline complet : administration émettrice → type → dates → montants → références (TVA, RCS, n° dossier) → période → action demandée → échéance → conséquences → résumé (« Ce document signifie ») → checklist → projet de réponse → entité `Document`.
+- Extracteurs unitaires exportés : `detecterDates` (JJ/MM/AAAA, JJ.MM.AAAA, mois en lettres, dates impossibles rejetées), `detecterMontants` (format LU 1.234,56 €), `detecterReferences`, `detecterPeriode`, `detecterEcheance` (marqueurs « au plus tard le » + délais relatifs « endéans N jours »).
+- `dossierDepuisDocument()` — crée un `Dossier` avec provenance **incertaine** (donnée issue d'un document, pas d'une source officielle).
+- `lexique.js` — dictionnaires de reconnaissance (9 administrations, 10 types de documents). Le type générique « courrier » est un fallback.
+
+**Règle stricte** — un document importé n'est jamais « officiel » ; dès qu'un élément clé manque ou est ambigu, l'analyse affiche : « Certaines informations n'ont pas pu être vérifiées. Une validation humaine est nécessaire. »
+
+**CLI** — `paperasse diagnostic document --file courrier.txt`. Exemple : `examples/documents/courrier-aed-tva.txt`.
+
+- 20 tests (`test:documents`). **Tests cumulés : 319.**
+
 ## [0.13.0] — 2026-07-13
 
 ### Ajouté — Diagnostic administratif universel (Milestone 2 : questionnaire dynamique + tableau de bord)

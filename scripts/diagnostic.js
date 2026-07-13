@@ -26,6 +26,8 @@ import {
   appliquerReponse,
   construireTableauDeBord,
 } from '../lib/diagnostic/index.js';
+import { analyserDocument } from '../lib/documents/index.js';
+import { readFileSync } from 'node:fs';
 
 function arg(nom) {
   const i = process.argv.indexOf(nom);
@@ -112,6 +114,34 @@ switch (sousCommande) {
     console.log(`  paperasse diagnostic dashboard --json '{"regimeTVA":"normal","frequenceTVA":"mensuelle","statut":"actif"}'`);
     break;
   }
+  case 'document': {
+    // Analyse d'un courrier officiel à partir de son TEXTE (fichier .txt).
+    // L'extraction PDF/OCR sera une couche optionnelle ultérieure.
+    const fichier = arg('--file');
+    if (!fichier) { console.error('Usage : paperasse diagnostic document --file courrier.txt'); process.exit(1); }
+    const texte = readFileSync(fichier, 'utf8');
+    const a = analyserDocument(texte, { nom: fichier.split('/').pop(), aujourdhui });
+    console.log(`\n=== Analyse : ${a.nom} ===\n`);
+    if (a.avertissement) console.log(`⚠ ${a.avertissement}\n`);
+    console.log(`Ce document signifie : ${a.resume}\n`);
+    console.log(`Émetteur   : ${a.administration ? a.administration.nom : 'non identifié'}`);
+    console.log(`Type       : ${a.type ? a.type.nom : 'non identifié'}`);
+    console.log(`Période    : ${a.periode ? a.periode.libelle : '—'}`);
+    console.log(`Échéance   : ${a.echeance.iso || (a.echeance.relatif ? a.echeance.relatif + ' (à confirmer)' : '—')}`);
+    console.log(`Action     : ${a.action || '—'}`);
+    console.log(`Références  : ${a.references.map((r) => r.valeur).join(', ') || '—'}`);
+    console.log(`Montants   : ${a.montants.map((m) => m.brut).join(', ') || '—'}`);
+    console.log(`Risques    : ${a.consequences.join(', ') || '—'}`);
+    console.log(`Confiance  : ${a.niveauConfiance}${a.incertitudes.length ? ` (${a.incertitudes.join(', ')})` : ''}`);
+    console.log(`\nChecklist :`);
+    for (const c of a.checklist) console.log(`  ☐ ${c}`);
+    if (a.reponseProposee) {
+      console.log(`\nProjet de réponse (${a.reponseProposee.avertissement}) :`);
+      console.log(`  Objet : ${a.reponseProposee.objet}`);
+      console.log(a.reponseProposee.corps.split('\n\n').map((l) => '  ' + l).join('\n'));
+    }
+    break;
+  }
   case 'dashboard': {
     const { obligations, as_of } = chargerCatalogue();
     const situation = arg('--json') ? JSON.parse(arg('--json')) : {};
@@ -148,6 +178,7 @@ switch (sousCommande) {
   paperasse diagnostic obligations              Liste le catalogue sourcé
   paperasse diagnostic questionnaire [--json '{...}']  Prochaine question utile
   paperasse diagnostic dashboard     [--json '{...}']  Tableau de bord (5 colonnes)
+  paperasse diagnostic document      --file c.txt      Analyse un courrier officiel
   paperasse diagnostic profil        [--json '{...}']  Diagnostique un particulier
   paperasse diagnostic societe       [--json '{...}']  Diagnostique une société
   Option commune : --date YYYY-MM-DD (échéances déterministes)`);

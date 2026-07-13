@@ -91,7 +91,7 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 |---|---|---|
 | 1 | Socle & modèle de données | `lib/diagnostic/` (entités, provenance, moteur, store) + schémas + catalogue amorce ✅ |
 | 2 | Diagnostic universel | `questionnaire.js` (questions utiles uniquement) + `dashboard.js` (5 colonnes) ✅ |
-| 3 | Analyse documentaire | Pipeline `lib/documents/` (extraction → classification → dates/montants/échéance) |
+| 3 | Analyse documentaire | `lib/documents/` : classification, dates/montants/références/échéance/action/conséquences → résumé + checklist + projet de réponse + Dossier ✅ |
 | 4 | Module TVA complet | Catalogue TVA + détection de périodes manquantes, réutilise `calc-tva-declaration` |
 | 5 | Indépendants & sociétés | Obligations RCS/RBE/IRC/ICC/employeur, réutilise `lib/lbr`, calculateurs fiscaux |
 | 6 | Particuliers & frontaliers | Obligations IRPP/famille, réutilise `lib/rts`, `lib/frontaliers` |
