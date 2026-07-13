@@ -17,9 +17,11 @@ import {
   catalogueEnVigueur, chargerGlossaire, expliquer,
   ficheDeVie, revuesDues, verifierGouvernance, tableauQualite,
   chargerCasQA, casQAParRegle, tableauCouverture, metriquesConnaissance,
+  tableauMaturite, detteConnaissance,
 } from '../lib/connaissances/index.js';
 import { etatEditorial, transitionsAutorisees, historiqueEditorial, ETAPES_EDITORIALES } from '../lib/editorial/index.js';
 import { chargerCatalogue, ceJourISO } from '../lib/diagnostic/index.js';
+import { chargerEvenements } from '../lib/evenements/index.js';
 
 function arg(nom) { const i = process.argv.indexOf(nom); return i !== -1 ? process.argv[i + 1] : undefined; }
 const sous = process.argv[2];
@@ -95,6 +97,24 @@ switch (sous) {
     }
     break;
   }
+  case 'maturite': {
+    const { obligations } = chargerCatalogue();
+    const tm = tableauMaturite(obligations, chargerCasQA().cas, { aujourdhui: arg('--date') || ceJourISO() });
+    console.log('Score de maturité par domaine (0-100) :\n');
+    console.log('Domaine'.padEnd(22) + 'Couv.'.padEnd(7) + 'Frais.'.padEnd(8) + 'QA'.padEnd(6) + 'Maturité');
+    for (const d of tm) console.log(String(d.domaine).padEnd(22) + `${d.couverture}`.padEnd(7) + `${d.fraicheur}`.padEnd(8) + `${d.qa}`.padEnd(6) + d.maturite);
+    break;
+  }
+  case 'dette': {
+    const { obligations } = chargerCatalogue();
+    const dette = detteConnaissance(obligations, { cas: chargerCasQA().cas, evenements: chargerEvenements().evenements, aujourdhui: arg('--date') || ceJourISO() });
+    console.log(`Dette de connaissance (backlog) — ${dette.total} élément(s) :\n`);
+    for (const i of dette.items) {
+      console.log(`  [${i.gravite}] ${i.type} : ${i.total}`);
+      console.log(`     ${i.elements.slice(0, 8).join(', ')}${i.elements.length > 8 ? '…' : ''}`);
+    }
+    break;
+  }
   case 'editorial': {
     const { obligations } = chargerCatalogue();
     if (arg('--id')) {
@@ -155,6 +175,8 @@ switch (sous) {
   paperasse connaissances gouvernance [--id <obligationId>] [--date YYYY-MM-DD]
   paperasse connaissances editorial [--id <obligationId>]
   paperasse connaissances couverture [--date YYYY-MM-DD]
+  paperasse connaissances maturite
+  paperasse connaissances dette
   paperasse connaissances impact-regle --id <obligationId>
   paperasse connaissances qualite
   paperasse connaissances glossaire [--terme CCSS]

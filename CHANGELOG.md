@@ -2,6 +2,23 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.34.0] — 2026-07-13
+
+### Ajouté — Coverage-driven development : maturité, dette de connaissance & couverture pilotée
+
+Deuxième point d'inflexion : l'usine est construite, place à la **production**.
+Les métriques deviennent le moteur des priorités. Purement additif.
+
+**Score de maturité** (`tableauMaturite`, CLI `connaissances maturite`) — par domaine, un composite **couverture (0,40) × fraîcheur (0,20) × profondeur QA (0,40)**. Un domaine très couvert mais peu testé n'apparaît pas artificiellement mûr (ex. TVA : couverture 100, maturité 85).
+
+**Knowledge Debt** (`detteConnaissance`, CLI `connaissances dette`) — backlog **auto-généré** : règles sans QA, règles bientôt à réviser, règles à source unique / confiance faible (à corroborer), règles non reliées à un événement de vie, domaines à faible couverture.
+
+**Action coverage-driven** — 4 cas QA ajoutés là où le dashboard montrait un déficit : **TVA 67 → 100 %** (cas trimestriel, famille edge), **Cessation 0 → 100 %** (profil + événement), + un cas de la famille **regression** (non_assujetti avec fréquence mensuelle ⇒ aucune obligation TVA).
+
+**Deux roadmaps** documentées (produit vs connaissance).
+
+- 7 tests (`test:maturite`) ; Knowledge QA porté à 10 cas de référence. **Tests cumulés : 566.**
+
 ## [0.33.0] — 2026-07-13
 
 ### Ajouté — Workflow éditorial, couverture QA & Coverage Dashboard

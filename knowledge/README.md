@@ -99,6 +99,23 @@ pilote le développement par les **lacunes réelles** :
 | tva | 67 % | 3 | 1 | 28 j |
 | societe | 100 % | 2 | 4 | 28 j |
 
+## Coverage-driven development (le dashboard est le backlog)
+
+À partir d'ici, les **métriques guident le développement**, pas l'inverse.
+
+- **Score de maturité** par domaine (`tableauMaturite`, CLI `connaissances maturite`) : composite **couverture × fraîcheur × profondeur QA**. Un domaine très couvert mais peu testé n'apparaît pas artificiellement mûr.
+- **Knowledge Debt** (`detteConnaissance`, CLI `connaissances dette`) : backlog **auto-généré** — règles sans QA, règles bientôt à réviser, règles à source unique / confiance faible (à corroborer), règles non reliées à un événement de vie, domaines à faible couverture.
+
+Chaque cycle vise des **objectifs de couverture explicites** (ex. TVA 67 → 100 %,
+Cessation 0 → 100 %), traités par des cas des familles adaptées (edge, regression).
+
+## Deux roadmaps, en parallèle
+
+- **Roadmap produit** (ce que voit l'utilisateur) : nouveaux domaines, missions, documents, exports.
+- **Roadmap connaissance** (ce que voit l'équipe) : couverture, fraîcheur, QA, benchmark, gouvernance, dette de connaissance.
+
+Elles avancent ensemble mais ne poursuivent pas les mêmes objectifs.
+
 ## Trois niveaux de qualité (suivis séparément)
 
 1. **Moteur** — tests unitaires & intégration (`npm test`).

@@ -134,6 +134,86 @@
         "obl_rbe_mise_a_jour",
         "obl_affiliation_ccss_independant"
       ]
+    },
+    {
+      "id": "cessation_societe",
+      "description": "Société en cessation d'activité.",
+      "type": "profil_societe",
+      "input": {
+        "nom": "Gamma SARL",
+        "formeJuridique": "SARL",
+        "statut": "cessation"
+      },
+      "attendu": {
+        "obligationsApplicables": 1
+      },
+      "famille": "edge",
+      "regles": [
+        "obl_cessation_radiation"
+      ]
+    },
+    {
+      "id": "plan_cessation_activite",
+      "description": "Événement : cessation d'activité.",
+      "type": "evenements",
+      "input": [
+        "cessation_activite"
+      ],
+      "attendu": {
+        "demarches": 1
+      },
+      "famille": "golden",
+      "regles": [
+        "obl_cessation_radiation"
+      ]
+    },
+    {
+      "id": "societe_tva_trimestrielle",
+      "description": "Société assujettie TVA trimestrielle (cas edge : fréquence non mensuelle).",
+      "type": "profil_societe",
+      "input": {
+        "nom": "Delta SARL",
+        "formeJuridique": "SARL",
+        "statut": "actif",
+        "regimeTVA": "normal",
+        "frequenceTVA": "trimestrielle"
+      },
+      "attendu": {
+        "obligationsApplicables": 7
+      },
+      "famille": "edge",
+      "regles": [
+        "obl_tva_declaration_trimestrielle",
+        "obl_tva_declaration_annuelle",
+        "obl_rcs_depot_comptes_annuels",
+        "obl_rbe_mise_a_jour",
+        "obl_autorisation_etablissement",
+        "obl_irc_declaration",
+        "obl_acomptes_irc_icc"
+      ]
+    },
+    {
+      "id": "regression_non_assujetti_freq_mensuelle",
+      "description": "Régression : régime non_assujetti mais fréquence mensuelle renseignée — aucune obligation TVA ne doit se déclencher.",
+      "type": "profil_societe",
+      "input": {
+        "nom": "Epsilon SARL",
+        "formeJuridique": "SARL",
+        "statut": "actif",
+        "regimeTVA": "non_assujetti",
+        "frequenceTVA": "mensuelle"
+      },
+      "attendu": {
+        "obligationsApplicables": 5
+      },
+      "famille": "regression",
+      "regles": [
+        "obl_rcs_depot_comptes_annuels",
+        "obl_rbe_mise_a_jour",
+        "obl_autorisation_etablissement",
+        "obl_irc_declaration",
+        "obl_acomptes_irc_icc"
+      ]
     }
   ]
 }
