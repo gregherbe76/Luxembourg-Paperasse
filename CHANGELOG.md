@@ -2,6 +2,23 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.25.0] — 2026-07-13
+
+### Ajouté — Ontologie des événements de vie (couche « cerveau »)
+
+Couche transverse au-dessus du catalogue d'obligations : un événement de vie
+déclenche une **chaîne** conséquences → administrations → obligations →
+documents → délais → exceptions → checklist. Les obligations sont **reliées par
+identifiant** au catalogue (source de vérité unique, aucune duplication). Les
+agents métier deviennent des vues sur ce graphe. Purement additif.
+
+- `data/evenements-vie.json` (+ schéma) : 8 événements sourcés — naissance, mariage/PACS, installation au Luxembourg, perte d'emploi (ADEM), achat immobilier, création d'entreprise, cessation d'activité, décès/succession.
+- `data/sources.json` : +3 administrations (ADEM, commune, Ministère de l'Économie) — 19 sources.
+- `lib/evenements/` : `identifierEvenement(texte)`, `resoudreEvenement(id|texte)` (relie les obligations au catalogue avec échéance + source), `verifierIntegrite()` (aucune référence pendante), `listerEvenements()`.
+- `lib/conversation` : la réponse de l'assistant attache désormais la chaîne de l'événement détecté (`evenementVie`) — « je m'installe avec ma femme et deux enfants » ouvre la bonne chaîne d'administrations.
+- CLI `paperasse evenement liste | <id-ou-texte>`.
+- 10 tests (`test:evenements`). **Tests cumulés : 469.**
+
 ## [0.24.0] — 2026-07-13
 
 ### Ajouté — Interface multilingue, assistant conversationnel & scénarios (Milestones 13, 14, 15)

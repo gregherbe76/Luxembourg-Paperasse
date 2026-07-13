@@ -77,6 +77,24 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 
 **Provenance** (transversale, `lib/diagnostic/provenance.js`) : `{ source, dateVerification, niveauConfiance ∈ {officiel, derive, estimation, incertain}, validationHumaineRequise }` + helper `evaluerFraicheur()` qui déclenche « à revérifier avant utilisation » au-delà de 365 jours ou si `incertain`.
 
+## 4 bis. Couche « événements de vie » (le cerveau)
+
+Au-dessus du catalogue d'obligations, une **ontologie des événements de vie**
+(`data/evenements-vie.json` + `lib/evenements/`) transforme le catalogue plat en
+**graphe** :
+
+```
+Événement → Conséquences → Administrations → Obligations → Documents → Délais → Exceptions → Checklist
+```
+
+Les obligations du graphe sont **reliées par identifiant** au catalogue
+(`data/obligations.json`, source de vérité unique) : le graphe orchestre, il ne
+duplique pas les règles. `resoudreEvenement(id|texte)` renvoie la chaîne
+complète ; `identifierEvenement(texte)` détecte l'événement en langage naturel.
+Les agents métier (TVA, CNS, Frontaliers…) deviennent alors de simples **vues**
+sur ce graphe. C'est ce qui permet à une phrase comme « je m'installe avec ma
+femme et deux enfants » d'ouvrir la bonne chaîne d'administrations.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).

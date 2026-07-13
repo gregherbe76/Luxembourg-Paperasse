@@ -80,9 +80,11 @@ const ROUTES = {
   rgpd:           ['scripts/rgpd.js'],
   'test:rgpd':    ['scripts/test-rgpd.js'],
   assistant:      ['scripts/assistant.js'],
+  evenement:      ['scripts/evenement.js'],
   'test:i18n':    ['scripts/test-i18n.js'],
   'test:conversation': ['scripts/test-conversation.js'],
   'test:scenarios': ['scripts/test-scenarios.js'],
+  'test:evenements': ['scripts/test-evenements.js'],
 };
 
 function showHelp() {
@@ -120,6 +122,7 @@ Commandes :
   connaissances   Base de connaissances officielle (rapport, chercher, citer, revalider, sources)
   rgpd            Confidentialité : chiffrement, masquage, durées de conservation
   assistant       Assistant conversationnel (intention → obligations → action, avec sources)
+  evenement       Ontologie des événements de vie (naissance, arrivée, perte d'emploi, achat…)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide
