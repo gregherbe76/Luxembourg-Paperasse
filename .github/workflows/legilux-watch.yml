@@ -63,7 +63,7 @@ jobs:
 
       - name: Ouvrir une issue de veille
         if: steps.filter.outputs.found == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const today = new Date().toISOString().slice(0, 10);
