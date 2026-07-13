@@ -109,6 +109,21 @@ Conversation → [LLM: extraction] → lib/extraction → événements + profil
 - **`lib/memoire`** — dossier administratif persistant (famille, employeurs, sociétés, véhicules, immobilier, documents, obligations réalisées, historique), sous consentement RGPD ; évite de reposer les mêmes questions.
 - **`lib/planification`** — moteur multi-événements : fusionne les démarches, exclut le déjà-fait (mémoire), détecte les **documents mutualisés**, ordonne par **dépendances** (« commencer par ce qui débloque »), puis par urgence, et **explique** chaque étape. Ex. *Installation + Naissance + Création d'entreprise → « 12 démarches, 1 pièce mutualisée, commencer par… »*.
 
+## 4 quater. Moteur de raisonnement & Change Impact (`lib/reasoning`)
+
+Le planificateur répond « que faire ? » ; le reasoner répond « **qu'est-ce qui
+change ?** ». On ne réexécute pas les règles : on **propage** les conséquences
+d'un changement d'état dans le graphe (comme un moteur de dépendances).
+
+- `computeDelta(avant, après)` — ce qui change entre deux situations.
+- `computeImpact(état, changement)` — obligations qui apparaissent/disparaissent, valeurs dérivées modifiées (ex. classe d'impôt 1→2), domaines et événements impactés. Ex. *« je me marie » → impact fiscal (classe 1→2, sourcé) + domaines commune/ACD*.
+- `simulateScenario(état, scénario)` — « et si… ? » **sans modifier le dossier** (outil de décision).
+- `explainReasoning(impact)` — explication **traçable** : chaque conclusion reliée à sa cause (le champ modifié) et à sa source.
+- `transition(état, changement)` — machine à états : ancien → nouvel état + impact propagé.
+
+Les futurs agents (Analyse, Planification, Documents, Exécution) deviennent des
+**interfaces** sur ce moteur commun, au lieu de silos par domaine.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).

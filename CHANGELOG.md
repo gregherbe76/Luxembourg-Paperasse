@@ -2,6 +2,25 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.27.0] — 2026-07-13
+
+### Ajouté — Moteur de raisonnement & Change Impact (`lib/reasoning`)
+
+La brique qui fait passer d'orchestrateur à **système expert d'aide à la
+décision** : au lieu de réexécuter les règles, on **propage** les conséquences
+d'un changement d'état dans le graphe. Déterministe, traçable, hors-ligne.
+Purement additif.
+
+- `computeDelta(avant, après)` — différence champ à champ entre deux situations.
+- `computeImpact(état, changement)` — obligations qui apparaissent / disparaissent (avec la **cause** : la condition déclenchée), valeurs dérivées modifiées (ex. **classe d'impôt 1→2**, sourcée), événements et domaines impactés. « Je me marie », « je m'installe », « je crée une société » → conséquences calculées immédiatement.
+- `simulateScenario(état, scénario)` — « et si… ? » **sans modifier le dossier** (changements et/ou événements → impact et/ou plan). Outil de décision.
+- `explainReasoning(impact)` — explication **traçable** : chaque conclusion reliée à sa cause et à sa source.
+- `transition(état, changement)` — machine à états : ancien → nouvel état, date, impact propagé.
+
+**CLI** — `paperasse reasoning impact` et `paperasse reasoning simuler`.
+
+- 9 tests (`test:reasoning`). **Tests cumulés : 491.**
+
 ## [0.26.0] — 2026-07-13
 
 ### Ajouté — Couche d'orchestration : extraction, mémoire, planification
