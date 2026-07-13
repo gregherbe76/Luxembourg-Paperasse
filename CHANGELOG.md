@@ -2,6 +2,280 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.24.0] — 2026-07-13
+
+### Ajouté — Interface multilingue, assistant conversationnel & scénarios (Milestones 13, 14, 15)
+
+Trois derniers jalons de la feuille de route de l'assistant administratif.
+Purement additif.
+
+**Milestone 13 — Interface & multilingue (`lib/i18n/`)**
+
+- Libellés d'interface (navigation, colonnes du tableau de bord, statuts, couleurs d'alerte) en **français, anglais, allemand et luxembourgeois**, avec repli sur le français.
+- `traduire`, `traducteur`, `libelles`, `normaliserLangue`. Le tableau de bord CLI accepte `--langue`.
+- 7 tests (`test:i18n`).
+
+**Milestone 14 — Intelligence conversationnelle (`lib/conversation/` + `SKILL.md`)**
+
+- `classifierIntention(texte)` — reconnaît l'intention (courrier, TVA, création de société, frontalier, achat immobilier, comptes non déposés, cessation, déclaration fiscale, installation, diagnostic).
+- `repondre(texte, contexte)` — identifie l'intention, consulte le profil, remonte les obligations **sourcées**, demande les informations manquantes, propose checklist et action. **Garde-fou : ne prétend jamais avoir effectué une démarche.**
+- `SKILL.md` — skill d'orchestration de l'assistant administratif luxembourgeois.
+- CLI `paperasse assistant "..."`. 11 tests (`test:conversation`).
+
+**Milestone 15 — Tests & qualité (`scripts/test-scenarios.js`)**
+
+- 15 scénarios de bout en bout (indépendant TVA manquante, société sans dépôt, frontalier télétravail, salarié marié, arrivant UE / non-UE, achat immobilier, locataire aidé, courriers AED/CCSS, cessation, changement de dirigeant, titre de séjour expirant, déclaration incomplète, facture non conforme).
+
+**Tests cumulés : 459.** La feuille de route des 15 milestones est complète.
+
+## [0.23.0] — 2026-07-13
+
+### Ajouté — Sécurité, confidentialité & conformité RGPD (Milestone 12)
+
+Douzième jalon : briques de conformité RGPD, sans dépendance externe
+(chiffrement via `node:crypto` intégré). Purement additif.
+
+**Module `lib/rgpd/`**
+
+- `chiffrer` / `dechiffrer` — chiffrement au repos **AES-256-GCM**, clé dérivée par scrypt, paquet autoportant (sel + IV + tag) ; intégrité vérifiée (un mauvais mot de passe échoue). `chiffrerObjet` / `dechiffrerObjet` pour le JSON.
+- `masquer(obj)` — masquage récursif des champs sensibles (revenus, IBAN, TVA, matricule, e-mail…) sans modifier l'original.
+- `creerJournal()` — journalisation des accès (horodatage injectable).
+- `consentementValide` / `exigerConsentement` — consentement explicite.
+- `DUREES_CONSERVATION`, `estExpiree`, `purger` — durées de conservation par catégorie et purge (droit à l'oubli).
+- `creerStoreSecurise(store)` — enveloppe le store : isolation par propriétaire (M1) + **exige le consentement à l'ajout d'un profil** + journalise chaque accès.
+
+**CLI** — `paperasse rgpd chiffrer | dechiffrer | masquer | conservation`.
+
+- 13 tests (`test:rgpd`). **Tests cumulés : 426.**
+
+## [0.22.0] — 2026-07-13
+
+### Ajouté — Base de connaissances officielle (Milestone 11)
+
+Onzième jalon : une base réglementaire unifiée et requêtable, chaque règle
+reliée à sa source officielle et à sa fraîcheur. Purement additif.
+
+**Registre `data/sources.json`** — élargi aux administrations prioritaires : CCSS, CNS, ITM, Zukunftskeess (CAE), SNCA, Direction de l'immigration (16 sources au total).
+
+**Module `lib/connaissances/`**
+
+- `baseConnaissances()` — agrège obligations + étapes d'installation en une base unique (id, titre, catégorie, population, source, date de vérification, niveau de confiance, statut, fraîcheur).
+- `rechercher(terme)`, `reglesARevalider()`, `rapport()`.
+- `citer(id)` — renvoie une règle avec sa source ; **lève une erreur si la règle n'a pas de source** (garde-fou anti-« sans source ») et ajoute l'avertissement « à revérifier » si la fraîcheur est dépassée.
+- `verifierSourcesConnues()` — contrôle que chaque source d'obligation appartient au registre officiel (0 hors registre).
+
+**CLI** — `paperasse connaissances rapport | chercher | citer | revalider | sources`.
+
+- 11 tests (`test:connaissances`). **Tests cumulés : 413.**
+
+## [0.21.0] — 2026-07-13
+
+### Ajouté — Calendrier, rappels & surveillance (Milestone 10)
+
+Dixième jalon : suivi proactif des dossiers, adossé aux `Dossier.echeance` /
+`Dossier.statut` produits par tous les modules. Purement additif.
+
+**Module `lib/rappels/`**
+
+- `niveauAlerte(dossier)` — couleur d'alerte : **rouge** (échéance dépassée), **orange** (< 7 jours), **jaune** (< 30 jours), **vert** (terminé), neutre (au-delà / sans échéance).
+- `genererRappels(dossiers)` — rappels triés du plus urgent au moins urgent : retard, préavis (30/7/1 jours), informations manquantes, documents requis non reçus, statuts en attente, rappels récurrents.
+- `calendrierDossiers()` — regroupement par couleur + chronologie triée + compteurs.
+- `prochainesEcheances()`, `filtrerParStatut()` (8 statuts), `prochainRappel()` (échéance − préavis).
+
+**CLI** — `paperasse rappels societe | fichier` (alertes couleur, rappels, calendrier).
+
+- 17 tests (`test:rappels`). **Tests cumulés : 402.**
+
+## [0.20.0] — 2026-07-13
+
+### Ajouté — Génération de courriers et dossiers (Milestone 9)
+
+Neuvième jalon : transformer les diagnostics en documents concrets. Purement additif.
+
+**Module `lib/courriers/`**
+
+- `genererCourrier(type, donnees)` — 9 types (réponse à une administration, demande de délai, demande d'information, contestation, transmission de pièces, déclaration de changement, courriers propriétaire / employeur / comptable). Chaque courrier porte expéditeur, destinataire, objet, références, faits, demande, pièces jointes, date, formule de politesse, et un rendu texte.
+- `courrierDepuisAnalyse(analyse)` — pré-remplit une réponse à partir d'une analyse de document (M3) : destinataire, références, période, échéance.
+- `checklistRendezVous(type)` — checklist de préparation (administration / notaire / banque / comptable).
+- `genererDossierRecap()` — dossier récapitulatif au format Markdown (le PDF reste une couche optionnelle).
+
+**RÈGLE STRICTE** — tout courrier est produit à l'état de **PROJET** ; aucun envoi n'est déclenché, la validation humaine est rappelée.
+
+**CLI** — `paperasse courriers types | generer | reponse | rdv`.
+
+- 8 tests (`test:courriers`). **Tests cumulés : 385.**
+
+## [0.19.0] — 2026-07-13
+
+### Ajouté — Logement & immobilier (Milestone 8)
+
+Huitième jalon : parcours logement intégrant les calculateurs existants
+(`lib/bellegen-akt`) et proposant automatiquement les démarches selon la
+situation. Purement additif.
+
+**Module `lib/logement/`**
+
+- `parcoursLogement(profil, opts)` — démarches proposées selon la situation (locataire / acheteur / propriétaire / vendeur), avec calculs intégrés quand les montants sont fournis. Chaque étape est sourcée (guichet.lu).
+- `analyseAcquisition()` — réutilise `calculerBellegenAkt` + `estimerHonoraires` : droits d'enregistrement, crédit Bëllegen Akt, honoraires de notaire, frais totaux.
+- `garantieLocativeMax(loyer)` — options 2 / 3 mois de loyer, avec avertissement explicite sur la valeur du plafond légal à revérifier (réformes récentes).
+
+**CLI** — `paperasse logement locataire | acheteur | proprietaire | vendeur | garantie`.
+
+- 10 tests (`test:logement`). **Tests cumulés : 377.**
+
+## [0.18.0] — 2026-07-13
+
+### Ajouté — Résidence, immigration & commune (Milestone 7)
+
+Septième jalon : parcours chronologique « Je m'installe au Luxembourg »,
+adapté à la nationalité (ressortissant UE/EEE/CH vs hors UE) et à la situation.
+Purement additif.
+
+**Données `data/installation-luxembourg.json`** (+ schéma) — 10 étapes sourcées, ventilées par phase (avant l'arrivée → première semaine → premier mois → trois mois → annuel) et par public : vérification du droit de séjour, état civil, déclaration d'arrivée, enregistrement UE, titre de séjour, compte bancaire, immatriculation véhicule, échange de permis, renouvellement de titre, inscription électorale.
+
+**Module `lib/residence/`**
+
+- `classeNationalite(profil)` — 'ue' / 'hors_ue' / 'inconnu'.
+- `parcoursInstallation(profil)` — étapes filtrées (public + conditions), regroupées par phase chronologique, avec **échéances indicatives** calculées depuis la date d'arrivée ; avertit si la nationalité ou la date d'arrivée manque.
+
+**CLI** — `paperasse residence installation --nationalite FR --arrivee 2026-03-01 [--vehicule]`.
+
+- 9 tests (`test:residence`). **Tests cumulés : 367.**
+
+## [0.17.0] — 2026-07-13
+
+### Ajouté — Particuliers, salariés & frontaliers (Milestone 6)
+
+Sixième jalon : assistant des démarches fiscales et sociales personnelles.
+Réutilise les calculateurs `lib/rts` (net, classes 1/1a/2) et `lib/frontaliers`
+(net réel FR/BE/DE, seuils de jours). Purement additif.
+
+**Catalogue `data/obligations.json`** — 5 obligations particulier/frontalier/famille ajoutées (18 au total), sourcées : mise à jour de la fiche de retenue (classe d'impôt), allocations familiales (Zukunftskeess), congé parental, déclaration des revenus dans le pays de résidence, surveillance du seuil de télétravail.
+
+**Module `lib/particulier/`**
+
+- `determinerClasseImpot(profil)` — classe 1 / 1a / 2 selon la situation familiale (tracé, à valider).
+- `parcoursParticulier(profil, catalogue)` — obligations par **domaine** (fiscalité, salarié, frontalier, famille), triées chronologiquement, avec la classe d'impôt déduite.
+- `analyseFrontalier()` — adapte au pays de résidence, calcule le net réel (`lib/frontaliers`) et **alerte au dépassement du seuil de jours** (34 j FR/BE/DE).
+- `analyseFichePaie()` — recalcule le net mensuel (`lib/rts`) et signale un écart avec le net affiché.
+
+**CLI** — `paperasse particulier parcours | classe | frontalier | fiche-paie`.
+
+- 13 tests (`test:particulier`). **Tests cumulés : 358.**
+
+## [0.16.0] — 2026-07-13
+
+### Ajouté — Indépendants & sociétés (Milestone 5)
+
+Cinquième jalon : couvrir le cycle de vie d'une activité professionnelle et
+présenter à un dirigeant toutes ses obligations, ordonnées et classées par
+société. Réutilise les checklists et le calendrier de dépôts RCS (`lib/lbr`).
+Purement additif.
+
+**Catalogue `data/obligations.json`** — 6 obligations société/indépendant ajoutées (13 au total), toutes sourcées :
+
+- Autorisation d'établissement, affiliation CCSS (indépendant), déclaration IRC/ICC/IF (modèle 500), acomptes trimestriels IRC/ICC, déclaration d'entrée d'un salarié (CCSS), cessation d'activité et radiation.
+
+**Module `lib/entreprise/`**
+
+- `parcoursEntreprise(situation, catalogue)` — regroupe les obligations applicables par **phase** (création → vie sociale → fiscalité → employeur → cessation), triées chronologiquement ; intègre le calendrier de dépôts RCS (AG, comptes annuels, eCDF) via `lib/lbr` quand la clôture d'exercice est connue ; identifie les **pièces manquantes**.
+- `echeancesParSociete()` — échéances classées par société.
+- `checklistCreation()` — réutilise `CHECKLISTS_LBR` (SARL, SA, ASBL…).
+
+**CLI** — `paperasse entreprise parcours [--json …] [--exercice …]` et `paperasse entreprise creation --op creation_sarl`.
+
+- 12 tests (`test:entreprise`). **Tests cumulés : 345.**
+
+## [0.15.0] — 2026-07-13
+
+### Ajouté — Module TVA complet (Milestone 4)
+
+Quatrième jalon : suivi TVA de bout en bout — calendrier, détection des
+déclarations manquantes, contrôle de cohérence et rapprochement des courriers
+AED. Réutilise le calculateur existant (`scripts/calc-tva-declaration.js`) et les
+seuils sourcés (`comptable/data/tva-taux.json`). **Aucune déclaration n'est
+envoyée** : suivi et contrôle uniquement.
+
+**Module `lib/tva/`** (purement additif)
+
+- `determinerFrequence(caAnnuelHT)` — mensuelle / trimestrielle / annuelle selon les seuils AED (tracé : source + niveau de confiance).
+- `periodesAttendues()` / `calendrierTVA()` — périodes écoulées depuis l'assujettissement, ventilées **en retard** vs **à préparer**, avec prochaine déclaration et prochaine échéance de paiement.
+- `controleCoherence()` — recalcule la TVA collectée (calcul traçable) et signale : périodes manquantes, incohérence collectée déclarée/recalculée, numéro TVA absent/mal formé, factures non conformes, doublons, taux invalides, écart factures ↔ déclaration.
+- `checklistDeclaration()` — données nécessaires à la préparation (CA, ventes nationales/intracom, achats, TVA collectée/déductible, acquisitions intracom, importations, régularisations, notes de crédit).
+- `rapprocherCourrierAED()` — relie un courrier AED analysé (M3) à la période concernée du calendrier et crée un `Dossier` (provenance incertaine → validation humaine).
+
+**CLI** — `paperasse tva-suivi calendrier | frequence | checklist | coherence | courrier`.
+
+- 14 tests (`test:tva-suivi`). **Tests cumulés : 333.**
+
+## [0.14.0] — 2026-07-13
+
+### Ajouté — Analyse de courriers et documents officiels (Milestone 3)
+
+Troisième jalon de l'assistant : importer un courrier administratif et comprendre
+ce qu'il signifie, ce qui est demandé, pour quand, et avec quels risques. Cœur
+zéro-dépendance opérant sur du **texte extrait** (OCR/PDF = couche optionnelle future).
+
+**Module `lib/documents/`** (purement additif)
+
+- `analyserDocument(texte)` — pipeline complet : administration émettrice → type → dates → montants → références (TVA, RCS, n° dossier) → période → action demandée → échéance → conséquences → résumé (« Ce document signifie ») → checklist → projet de réponse → entité `Document`.
+- Extracteurs unitaires exportés : `detecterDates` (JJ/MM/AAAA, JJ.MM.AAAA, mois en lettres, dates impossibles rejetées), `detecterMontants` (format LU 1.234,56 €), `detecterReferences`, `detecterPeriode`, `detecterEcheance` (marqueurs « au plus tard le » + délais relatifs « endéans N jours »).
+- `dossierDepuisDocument()` — crée un `Dossier` avec provenance **incertaine** (donnée issue d'un document, pas d'une source officielle).
+- `lexique.js` — dictionnaires de reconnaissance (9 administrations, 10 types de documents). Le type générique « courrier » est un fallback.
+
+**Règle stricte** — un document importé n'est jamais « officiel » ; dès qu'un élément clé manque ou est ambigu, l'analyse affiche : « Certaines informations n'ont pas pu être vérifiées. Une validation humaine est nécessaire. »
+
+**CLI** — `paperasse diagnostic document --file courrier.txt`. Exemple : `examples/documents/courrier-aed-tva.txt`.
+
+- 20 tests (`test:documents`). **Tests cumulés : 319.**
+
+## [0.13.0] — 2026-07-13
+
+### Ajouté — Diagnostic administratif universel (Milestone 2 : questionnaire dynamique + tableau de bord)
+
+Deuxième jalon de l'assistant administratif : « Que dois-je faire administrativement ? ».
+Un questionnaire qui ne pose **que les questions utiles** et un tableau de bord des
+obligations à cinq colonnes. Purement additif (aucun module existant modifié).
+
+**Module `lib/diagnostic/questionnaire.js`**
+
+- `champsPertinents(situation, catalogue)` — champs encore décisifs : un champ n'est retenu que si au moins une obligation reste *possible* (toutes ses conditions déjà répondues sont vraies) et en dépend.
+- `prochaineQuestion()` / `questionsRestantes()` — proposent la question la plus discriminante (nombre d'obligations conditionnées), jamais une question inutile.
+- `appliquerReponse()` — coercition de type + validation d'énumération, immuable (permet la correction).
+- `QUESTIONS` — registre de formulations en français simple (acronymes explicités).
+
+**Module `lib/diagnostic/dashboard.js`**
+
+- `construireTableauDeBord()` — 5 colonnes : `obligatoire_maintenant`, `a_faire_prochainement`, `a_surveiller`, `non_applicable`, `informations_manquantes`.
+- Chaque carte porte : nom, raison d'application, administration, échéance, documents requis, risque, **source** (avec statut de fraîcheur), et actions « Commencer » / « Créer un rappel ».
+
+**CLI** — `paperasse diagnostic questionnaire [--json '{...}']` et `paperasse diagnostic dashboard [--json '{...}']`.
+
+- 13 tests (`test:diagnostic`). **Tests cumulés : 299.**
+
+## [0.12.0] — 2026-07-12
+
+### Ajouté — Administrative Diagnostic Engine (Milestone 1 : socle & modèle de données)
+
+Premier jalon de l'évolution de Paperasse Lux vers un **assistant administratif**
+luxembourgeois : socle technique reliant une *situation* à ses *obligations*, sans
+jamais afficher une règle sans source.
+
+**Module `lib/diagnostic/`** — zéro-dépendance, ESM, purement additif (aucun module existant modifié).
+
+- `entities.js` — 5 fabriques normalisées et validées : `creerProfilUtilisateur`, `creerProfilSociete`, `creerDossier`, `creerDocument`, `creerObligation` (ids et horodatages injectables → tests déterministes).
+- `provenance.js` — traçabilité **obligatoire** : `creerProvenance({ source, dateVerification, niveauConfiance, validationHumaineRequise })`, niveaux `officiel/derive/estimation/incertain`, `evaluerFraicheur()` (« à revérifier au-delà de 365 jours »).
+- `engine.js` — moteur `diagnostiquer(profil, catalogue)` (applicables / informations manquantes / non applicables), conditions déclaratives `{champ, operateur, valeur}`, `calculerEcheance()` déterministe (mensuelle/trimestrielle/annuelle), `dossierDepuisObligation()`.
+- `store.js` — persistance JSON locale isolée par propriétaire (ids déterministes, export/suppression → prépare le RGPD).
+
+**Données & schémas** — `data/obligations.json` : 7 obligations **sourcées** (TVA mensuelle/trimestrielle/annuelle, dépôt comptes RCS, RBE, déclaration d'arrivée commune, IRPP modèle 100). Schémas ajoutés : `obligations`, `user-profile`, `company-profile`, `administrative-case`, `uploaded-document`.
+
+**CLI** — `paperasse diagnostic obligations | profil | societe [--json '{...}'] [--date YYYY-MM-DD]`. Lecture seule, aucune action externe.
+
+**Documentation** — `docs/assistant-administratif.md` : audit d'architecture + feuille de route des 15 milestones.
+
+- 29 tests (`test:diagnostic`). **Tests cumulés : 286.**
+
 ## [0.11.0] — 2026-05-11
 
 ### Ajouté — Indice STATEC + SSM, prép npm publish, veille Légilux

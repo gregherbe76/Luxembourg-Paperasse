@@ -59,6 +59,30 @@ const ROUTES = {
   'test:frontalier': ['scripts/test-frontalier.js'],
   statec:         ['scripts/statec.js'],
   'test:statec':  ['scripts/test-statec.js'],
+  diagnostic:     ['scripts/diagnostic.js'],
+  'test:diagnostic': ['scripts/test-diagnostic.js'],
+  'tva-suivi':    ['scripts/tva-suivi.js'],
+  'test:tva-suivi': ['scripts/test-tva.js'],
+  entreprise:     ['scripts/entreprise.js'],
+  'test:entreprise': ['scripts/test-entreprise.js'],
+  particulier:    ['scripts/particulier.js'],
+  'test:particulier': ['scripts/test-particulier.js'],
+  residence:      ['scripts/residence.js'],
+  'test:residence': ['scripts/test-residence.js'],
+  logement:       ['scripts/logement.js'],
+  'test:logement': ['scripts/test-logement.js'],
+  courriers:      ['scripts/courriers.js'],
+  'test:courriers': ['scripts/test-courriers.js'],
+  rappels:        ['scripts/rappels.js'],
+  'test:rappels': ['scripts/test-rappels.js'],
+  connaissances:  ['scripts/connaissances.js'],
+  'test:connaissances': ['scripts/test-connaissances.js'],
+  rgpd:           ['scripts/rgpd.js'],
+  'test:rgpd':    ['scripts/test-rgpd.js'],
+  assistant:      ['scripts/assistant.js'],
+  'test:i18n':    ['scripts/test-i18n.js'],
+  'test:conversation': ['scripts/test-conversation.js'],
+  'test:scenarios': ['scripts/test-scenarios.js'],
 };
 
 function showHelp() {
@@ -85,6 +109,17 @@ Commandes :
   open-data       Recherche/téléchargement depuis data.public.lu (search|dataset|fetch)
   rts             Calcul de la retenue à la source LU (RTS) sur salaire mensuel
   frontalier      Net réel d'un frontalier FR/BE/DE travaillant au LU
+  diagnostic      Moteur de diagnostic administratif (obligations|profil|societe|questionnaire|dashboard|document)
+  tva-suivi       Suivi TVA : calendrier, périodes manquantes, cohérence, courrier AED
+  entreprise      Cycle de vie société/indépendant (parcours par phase, création)
+  particulier     Démarches personnelles (parcours, classe d'impôt, frontalier, fiche de paie)
+  residence       Parcours « Je m'installe au Luxembourg » (chronologique, UE / hors UE)
+  logement        Parcours logement (locataire/acheteur/propriétaire, Bëllegen Akt, garantie)
+  courriers       Génération de courriers-projets (réponse, délai, contestation, dossier récap)
+  rappels         Calendrier & surveillance : alertes couleur, rappels avant échéance
+  connaissances   Base de connaissances officielle (rapport, chercher, citer, revalider, sources)
+  rgpd            Confidentialité : chiffrement, masquage, durées de conservation
+  assistant       Assistant conversationnel (intention → obligations → action, avec sources)
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide
