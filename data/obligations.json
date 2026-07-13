@@ -7,10 +7,21 @@
       "id": "obl_tva_declaration_mensuelle",
       "nom": "Déclaration TVA mensuelle",
       "categorie": "tva",
-      "populationConcernee": ["societe", "independant"],
+      "populationConcernee": [
+        "societe",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "regimeTVA", "operateur": "different", "valeur": "non_assujetti" },
-        { "champ": "frequenceTVA", "operateur": "egal", "valeur": "mensuelle" }
+        {
+          "champ": "regimeTVA",
+          "operateur": "different",
+          "valeur": "non_assujetti"
+        },
+        {
+          "champ": "frequenceTVA",
+          "operateur": "egal",
+          "valeur": "mensuelle"
+        }
       ],
       "frequence": "mensuelle",
       "dateLimite": "jour:15",
@@ -28,16 +39,35 @@
         "niveauConfiance": "officiel",
         "note": "Déclaration à déposer via eCDF pour le 15 du mois suivant la période."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_tva_declaration_trimestrielle",
       "nom": "Déclaration TVA trimestrielle",
       "categorie": "tva",
-      "populationConcernee": ["societe", "independant"],
+      "populationConcernee": [
+        "societe",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "regimeTVA", "operateur": "different", "valeur": "non_assujetti" },
-        { "champ": "frequenceTVA", "operateur": "egal", "valeur": "trimestrielle" }
+        {
+          "champ": "regimeTVA",
+          "operateur": "different",
+          "valeur": "non_assujetti"
+        },
+        {
+          "champ": "frequenceTVA",
+          "operateur": "egal",
+          "valeur": "trimestrielle"
+        }
       ],
       "frequence": "trimestrielle",
       "dateLimite": "jour:15",
@@ -53,15 +83,30 @@
         "dateVerification": "2026-06-15",
         "niveauConfiance": "officiel"
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_tva_declaration_annuelle",
       "nom": "Déclaration TVA annuelle récapitulative",
       "categorie": "tva",
-      "populationConcernee": ["societe", "independant"],
+      "populationConcernee": [
+        "societe",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "regimeTVA", "operateur": "different", "valeur": "non_assujetti" }
+        {
+          "champ": "regimeTVA",
+          "operateur": "different",
+          "valeur": "non_assujetti"
+        }
       ],
       "frequence": "annuelle",
       "dateLimite": "05-01",
@@ -77,15 +122,29 @@
         "niveauConfiance": "derive",
         "note": "Échéance indicative du 1er mai à confirmer selon le régime ; à revérifier avant usage."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_rcs_depot_comptes_annuels",
       "nom": "Dépôt des comptes annuels au RCS",
       "categorie": "societe",
-      "populationConcernee": ["societe"],
+      "populationConcernee": [
+        "societe"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statut", "operateur": "egal", "valeur": "actif" }
+        {
+          "champ": "statut",
+          "operateur": "egal",
+          "valeur": "actif"
+        }
       ],
       "frequence": "annuelle",
       "dateLimite": "08-31",
@@ -102,15 +161,29 @@
         "niveauConfiance": "derive",
         "note": "Dépôt dans le mois de l'AG, elle-même dans les 6 mois de la clôture (≈ 7 mois). Échéance 31/08 valable pour un exercice clôturé au 31/12 — à revérifier avant usage."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_rbe_mise_a_jour",
       "nom": "Mise à jour du Registre des Bénéficiaires Effectifs (RBE)",
       "categorie": "societe",
-      "populationConcernee": ["societe"],
+      "populationConcernee": [
+        "societe"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statut", "operateur": "egal", "valeur": "actif" }
+        {
+          "champ": "statut",
+          "operateur": "egal",
+          "valeur": "actif"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -126,15 +199,29 @@
         "niveauConfiance": "officiel",
         "note": "Inscription/mise à jour dans le mois suivant tout changement de bénéficiaire effectif."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_commune_declaration_arrivee",
       "nom": "Déclaration d'arrivée à la commune",
       "categorie": "residence",
-      "populationConcernee": ["particulier", "nouvel_arrivant"],
+      "populationConcernee": [
+        "particulier",
+        "nouvel_arrivant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "dateArriveeLux", "operateur": "present" }
+        {
+          "champ": "dateArriveeLux",
+          "operateur": "present"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -150,15 +237,30 @@
         "niveauConfiance": "officiel",
         "note": "Déclaration à effectuer à la commune dans les jours suivant l'arrivée (délai variable selon la commune et la nationalité)."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_irpp_declaration_modele100",
       "nom": "Déclaration d'impôt sur le revenu (modèle 100)",
       "categorie": "fiscalite_personnelle",
-      "populationConcernee": ["particulier", "salarie", "independant"],
+      "populationConcernee": [
+        "particulier",
+        "salarie",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statutProfessionnel", "operateur": "present" }
+        {
+          "champ": "statutProfessionnel",
+          "operateur": "present"
+        }
       ],
       "frequence": "annuelle",
       "dateLimite": "12-31",
@@ -175,16 +277,35 @@
         "niveauConfiance": "derive",
         "note": "Obligation de déclarer non systématique : dépend des revenus et de la situation. Date limite du 31/12 de l'année suivante — à revérifier avant usage."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_autorisation_etablissement",
       "nom": "Autorisation d'établissement",
       "categorie": "creation",
-      "populationConcernee": ["societe", "independant"],
+      "populationConcernee": [
+        "societe",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statut", "operateur": "egal", "valeur": "actif" },
-        { "champ": "formeJuridique", "operateur": "different", "valeur": "ASBL" }
+        {
+          "champ": "statut",
+          "operateur": "egal",
+          "valeur": "actif"
+        },
+        {
+          "champ": "formeJuridique",
+          "operateur": "different",
+          "valeur": "ASBL"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -201,15 +322,29 @@
         "niveauConfiance": "officiel",
         "note": "Préalable à l'immatriculation pour toute activité commerciale, artisanale ou libérale réglementée."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_affiliation_ccss_independant",
       "nom": "Affiliation à la sécurité sociale (indépendant)",
       "categorie": "social",
-      "populationConcernee": ["independant"],
+      "populationConcernee": [
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statutProfessionnel", "operateur": "egal", "valeur": "independant" }
+        {
+          "champ": "statutProfessionnel",
+          "operateur": "egal",
+          "valeur": "independant"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -226,16 +361,34 @@
         "niveauConfiance": "officiel",
         "note": "Déclaration d'affiliation à effectuer dès le début de l'activité indépendante."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_irc_declaration",
       "nom": "Déclaration d'impôt des collectivités (IRC / ICC / IF — modèle 500)",
       "categorie": "fiscalite_entreprise",
-      "populationConcernee": ["societe"],
+      "populationConcernee": [
+        "societe"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statut", "operateur": "egal", "valeur": "actif" },
-        { "champ": "formeJuridique", "operateur": "different", "valeur": "entreprise_individuelle" }
+        {
+          "champ": "statut",
+          "operateur": "egal",
+          "valeur": "actif"
+        },
+        {
+          "champ": "formeJuridique",
+          "operateur": "different",
+          "valeur": "entreprise_individuelle"
+        }
       ],
       "frequence": "annuelle",
       "dateLimite": "12-31",
@@ -252,16 +405,34 @@
         "niveauConfiance": "derive",
         "note": "Concerne les sociétés opaques soumises à l'IRC (SARL, SA…). Les sociétés fiscalement transparentes relèvent d'un autre régime. Date limite indicative — à revérifier."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_acomptes_irc_icc",
       "nom": "Acomptes trimestriels IRC / ICC",
       "categorie": "fiscalite_entreprise",
-      "populationConcernee": ["societe"],
+      "populationConcernee": [
+        "societe"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statut", "operateur": "egal", "valeur": "actif" },
-        { "champ": "formeJuridique", "operateur": "different", "valeur": "entreprise_individuelle" }
+        {
+          "champ": "statut",
+          "operateur": "egal",
+          "valeur": "actif"
+        },
+        {
+          "champ": "formeJuridique",
+          "operateur": "different",
+          "valeur": "entreprise_individuelle"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -277,15 +448,30 @@
         "niveauConfiance": "derive",
         "note": "Acomptes fixés par l'ACD, généralement exigibles les 10 mars, 10 juin, 10 septembre et 10 décembre — à confirmer sur l'avis reçu."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_employeur_declaration_entree",
       "nom": "Déclaration d'entrée d'un salarié (CCSS)",
       "categorie": "employeur",
-      "populationConcernee": ["societe", "independant"],
+      "populationConcernee": [
+        "societe",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "nbSalaries", "operateur": "superieur", "valeur": 0 }
+        {
+          "champ": "nbSalaries",
+          "operateur": "superieur",
+          "valeur": 0
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -302,15 +488,30 @@
         "niveauConfiance": "officiel",
         "note": "Déclaration d'entrée à effectuer sans délai auprès du CCSS lors de toute embauche."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_cessation_radiation",
       "nom": "Cessation d'activité et radiation (RCS / TVA / CCSS)",
       "categorie": "cessation",
-      "populationConcernee": ["societe", "independant"],
+      "populationConcernee": [
+        "societe",
+        "independant"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "statut", "operateur": "different", "valeur": "actif" }
+        {
+          "champ": "statut",
+          "operateur": "different",
+          "valeur": "actif"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -328,15 +529,29 @@
         "niveauConfiance": "derive",
         "note": "Enchaînement des radiations (TVA, CCSS, RCS) — ordre et pièces à confirmer selon la forme juridique."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_fiche_retenue_maj",
       "nom": "Mise à jour de la fiche de retenue d'impôt (classe d'impôt)",
       "categorie": "fiscalite_personnelle",
-      "populationConcernee": ["particulier", "salarie"],
+      "populationConcernee": [
+        "particulier",
+        "salarie"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "situationFamiliale", "operateur": "present" }
+        {
+          "champ": "situationFamiliale",
+          "operateur": "present"
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -352,15 +567,30 @@
         "niveauConfiance": "officiel",
         "note": "À demander/mettre à jour lors de tout changement de situation influant sur la classe d'impôt."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_allocations_familiales",
       "nom": "Demande d'allocations familiales",
       "categorie": "famille",
-      "populationConcernee": ["particulier", "famille"],
+      "populationConcernee": [
+        "particulier",
+        "famille"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "nombreEnfants", "operateur": "superieur", "valeur": 0 }
+        {
+          "champ": "nombreEnfants",
+          "operateur": "superieur",
+          "valeur": 0
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -377,15 +607,31 @@
         "niveauConfiance": "officiel",
         "note": "Prestation versée par la CAE (Zukunftskeess) ; demande à l'arrivée d'un enfant ou lors de l'installation au Luxembourg."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_conge_parental",
       "nom": "Demande de congé parental",
       "categorie": "famille",
-      "populationConcernee": ["particulier", "salarie", "famille"],
+      "populationConcernee": [
+        "particulier",
+        "salarie",
+        "famille"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "nombreEnfants", "operateur": "superieur", "valeur": 0 }
+        {
+          "champ": "nombreEnfants",
+          "operateur": "superieur",
+          "valeur": 0
+        }
       ],
       "frequence": "ponctuelle",
       "dateLimite": null,
@@ -402,15 +648,28 @@
         "niveauConfiance": "derive",
         "note": "Conditions d'ancienneté et délais de demande à vérifier selon le type de congé (1er/2e parent)."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_frontalier_declaration_residence",
       "nom": "Déclaration des revenus luxembourgeois dans le pays de résidence",
       "categorie": "frontalier",
-      "populationConcernee": ["frontalier"],
+      "populationConcernee": [
+        "frontalier"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "frontalier", "operateur": "vrai" }
+        {
+          "champ": "frontalier",
+          "operateur": "vrai"
+        }
       ],
       "frequence": "annuelle",
       "dateLimite": "05-31",
@@ -427,15 +686,28 @@
         "niveauConfiance": "derive",
         "note": "Méthode d'exonération avec réserve de progressivité selon les conventions LU-FR/BE/DE. Date limite variable selon le pays — à revérifier."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     },
     {
       "id": "obl_frontalier_seuil_teletravail",
       "nom": "Surveillance du seuil de télétravail (fiscalité et sécurité sociale)",
       "categorie": "frontalier",
-      "populationConcernee": ["frontalier"],
+      "populationConcernee": [
+        "frontalier"
+      ],
       "conditionsApplicabilite": [
-        { "champ": "frontalier", "operateur": "vrai" }
+        {
+          "champ": "frontalier",
+          "operateur": "vrai"
+        }
       ],
       "frequence": "annuelle",
       "dateLimite": "12-31",
@@ -450,7 +722,15 @@
         "niveauConfiance": "derive",
         "note": "Seuils de tolérance fiscale (34 jours pour FR/BE/DE) et seuil sécurité sociale (< 25 % du temps de travail dans le pays de résidence). À revérifier — évolutif."
       },
-      "statut": "actif"
+      "statut": "actif",
+      "validite": {
+        "validFrom": "2025-01-01",
+        "validUntil": null,
+        "juridiction": "LU",
+        "langue": "fr",
+        "version": "2026.1",
+        "lastVerified": "2026-06-15"
+      }
     }
   ]
 }

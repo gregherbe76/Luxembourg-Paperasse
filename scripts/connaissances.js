@@ -14,7 +14,9 @@
 
 import {
   chargerSources, baseConnaissances, rechercher, reglesARevalider, citer, verifierSourcesConnues, rapport,
+  catalogueEnVigueur, chargerGlossaire, expliquer,
 } from '../lib/connaissances/index.js';
+import { chargerCatalogue, ceJourISO } from '../lib/diagnostic/index.js';
 
 function arg(nom) { const i = process.argv.indexOf(nom); return i !== -1 ? process.argv[i + 1] : undefined; }
 const sous = process.argv[2];
@@ -47,6 +49,27 @@ switch (sous) {
     for (const e of r) console.log(`  ⚠ ${e.titre} — vérifiée le ${e.dateVerification} (${e.fraicheur.joursDepuisVerification} j)`);
     break;
   }
+  case 'envigueur': {
+    const date = arg('--date') || ceJourISO();
+    const { obligations } = chargerCatalogue();
+    const enVigueur = catalogueEnVigueur(obligations, date, arg('--juridiction') ? { juridiction: arg('--juridiction') } : {});
+    console.log(`Règles en vigueur au ${date}${arg('--juridiction') ? ` (${arg('--juridiction')})` : ''} : ${enVigueur.length}/${obligations.length}\n`);
+    for (const o of enVigueur) console.log(`  • ${o.nom}  [v${o.validite ? o.validite.version : '?'}, depuis ${o.validite ? o.validite.validFrom : '?'}]`);
+    console.log(`\n⚠ Réponse valable pour les règles en vigueur au ${date}.`);
+    break;
+  }
+  case 'glossaire': {
+    if (arg('--terme')) {
+      const t = expliquer(arg('--terme'));
+      if (!t) { console.log(`Terme inconnu : ${arg('--terme')}`); break; }
+      console.log(`${t.sigle} — ${t.terme}\n${t.definition}\nSource : ${t.source}`);
+    } else {
+      const g = chargerGlossaire();
+      console.log(`Glossaire (${g.termes.length} termes) :\n`);
+      for (const t of g.termes) console.log(`  ${t.sigle} — ${t.terme}`);
+    }
+    break;
+  }
   case 'sources': {
     const s = chargerSources();
     console.log(`Registre des sources officielles (mis à jour ${s.lastUpdated}) :\n`);
@@ -59,6 +82,8 @@ switch (sous) {
   paperasse connaissances chercher --terme TVA
   paperasse connaissances citer    --id <obligationId>
   paperasse connaissances revalider [--seuil 365]
+  paperasse connaissances envigueur [--date YYYY-MM-DD] [--juridiction LU]
+  paperasse connaissances glossaire [--terme CCSS]
   paperasse connaissances sources`);
     process.exit(sous ? 1 : 0);
 }
