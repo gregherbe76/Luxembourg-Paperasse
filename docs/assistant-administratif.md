@@ -90,7 +90,7 @@ et **schémas JSON** (`schemas/*.schema.json`) :
 | # | Milestone | Traduction technique dans ce dépôt |
 |---|---|---|
 | 1 | Socle & modèle de données | `lib/diagnostic/` (entités, provenance, moteur, store) + schémas + catalogue amorce ✅ |
-| 2 | Diagnostic universel | Questionnaire dynamique piloté par les `conditionsApplicabilite` ; sortie tableau de bord |
+| 2 | Diagnostic universel | `questionnaire.js` (questions utiles uniquement) + `dashboard.js` (5 colonnes) ✅ |
 | 3 | Analyse documentaire | Pipeline `lib/documents/` (extraction → classification → dates/montants/échéance) |
 | 4 | Module TVA complet | Catalogue TVA + détection de périodes manquantes, réutilise `calc-tva-declaration` |
 | 5 | Indépendants & sociétés | Obligations RCS/RBE/IRC/ICC/employeur, réutilise `lib/lbr`, calculateurs fiscaux |

@@ -2,6 +2,30 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.13.0] — 2026-07-13
+
+### Ajouté — Diagnostic administratif universel (Milestone 2 : questionnaire dynamique + tableau de bord)
+
+Deuxième jalon de l'assistant administratif : « Que dois-je faire administrativement ? ».
+Un questionnaire qui ne pose **que les questions utiles** et un tableau de bord des
+obligations à cinq colonnes. Purement additif (aucun module existant modifié).
+
+**Module `lib/diagnostic/questionnaire.js`**
+
+- `champsPertinents(situation, catalogue)` — champs encore décisifs : un champ n'est retenu que si au moins une obligation reste *possible* (toutes ses conditions déjà répondues sont vraies) et en dépend.
+- `prochaineQuestion()` / `questionsRestantes()` — proposent la question la plus discriminante (nombre d'obligations conditionnées), jamais une question inutile.
+- `appliquerReponse()` — coercition de type + validation d'énumération, immuable (permet la correction).
+- `QUESTIONS` — registre de formulations en français simple (acronymes explicités).
+
+**Module `lib/diagnostic/dashboard.js`**
+
+- `construireTableauDeBord()` — 5 colonnes : `obligatoire_maintenant`, `a_faire_prochainement`, `a_surveiller`, `non_applicable`, `informations_manquantes`.
+- Chaque carte porte : nom, raison d'application, administration, échéance, documents requis, risque, **source** (avec statut de fraîcheur), et actions « Commencer » / « Créer un rappel ».
+
+**CLI** — `paperasse diagnostic questionnaire [--json '{...}']` et `paperasse diagnostic dashboard [--json '{...}']`.
+
+- 13 tests (`test:diagnostic`). **Tests cumulés : 299.**
+
 ## [0.12.0] — 2026-07-12
 
 ### Ajouté — Administrative Diagnostic Engine (Milestone 1 : socle & modèle de données)

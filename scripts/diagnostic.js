@@ -21,6 +21,10 @@ import {
   dossierDepuisObligation,
   evaluerFraicheur,
   ceJourISO,
+  prochaineQuestion,
+  questionsRestantes,
+  appliquerReponse,
+  construireTableauDeBord,
 } from '../lib/diagnostic/index.js';
 
 function arg(nom) {
@@ -85,11 +89,67 @@ switch (sousCommande) {
     diagnostic(c, 'societe');
     break;
   }
+  case 'questionnaire': {
+    // « Que dois-je faire administrativement ? » — parcours de questions restantes
+    // à partir d'une situation partielle (--json), sans rien demander d'inutile.
+    const { obligations } = chargerCatalogue();
+    const situation = arg('--json') ? JSON.parse(arg('--json')) : {};
+    const restantes = questionsRestantes(situation, obligations);
+    const suivante = prochaineQuestion(situation, obligations);
+    if (!suivante) {
+      console.log('Diagnostic complet : aucune question supplémentaire nécessaire.\n');
+    } else {
+      console.log(`Prochaine question (conditionne ${suivante.gated} obligation(s)) :`);
+      console.log(`  › ${suivante.label}`);
+      if (suivante.options) console.log(`    Réponses possibles : ${suivante.options.join(', ')}`);
+      if (suivante.aide) console.log(`    Aide : ${suivante.aide}`);
+    }
+    if (restantes.length) {
+      console.log(`\nQuestions restantes (${restantes.length}) :`);
+      for (const q of restantes) console.log(`  • [${q.gated}] ${q.champ} — ${q.label}`);
+    }
+    console.log('\nComplétez la situation puis relancez, ex :');
+    console.log(`  paperasse diagnostic dashboard --json '{"regimeTVA":"normal","frequenceTVA":"mensuelle","statut":"actif"}'`);
+    break;
+  }
+  case 'dashboard': {
+    const { obligations, as_of } = chargerCatalogue();
+    const situation = arg('--json') ? JSON.parse(arg('--json')) : {};
+    const { colonnes, compteurs } = construireTableauDeBord(situation, obligations, { aujourdhui });
+    console.log(`\nTableau de bord des obligations (catalogue as_of ${as_of})\n`);
+    const titres = {
+      obligatoire_maintenant: 'OBLIGATOIRE MAINTENANT',
+      a_faire_prochainement: 'À FAIRE PROCHAINEMENT',
+      a_surveiller: 'À SURVEILLER',
+      informations_manquantes: 'INFORMATIONS MANQUANTES',
+      non_applicable: 'NON APPLICABLE',
+    };
+    for (const [cle, titre] of Object.entries(titres)) {
+      const items = colonnes[cle];
+      console.log(`=== ${titre} (${compteurs[cle]}) ===`);
+      for (const c of items) {
+        console.log(`  • ${c.nom}${c.echeance ? `  ⏱ ${c.echeance}` : ''}`);
+        if (c.raison) console.log(`    Pourquoi : ${c.raison}`);
+        if (c.administration) console.log(`    Autorité : ${c.administration}`);
+        if (c.risque) console.log(`    Risque : ${c.risque}`);
+        if (c.manquantes) console.log(`    À renseigner : ${c.manquantes.join(', ')}`);
+        if (c.source && c.source.url) {
+          console.log(`    Source : ${c.source.url} (${c.source.niveauConfiance}, vérifié ${c.source.dateVerification})`);
+          if (c.source.aRevalider) console.log('    ⚠ Cette information doit être revérifiée avant utilisation.');
+        }
+        if (c.actions) console.log(`    Actions : ${c.actions.join(' | ')}`);
+      }
+      console.log('');
+    }
+    break;
+  }
   default:
     console.log(`Usage :
-  paperasse diagnostic obligations            Liste le catalogue sourcé
-  paperasse diagnostic profil  [--json '{...}']  Diagnostique un particulier
-  paperasse diagnostic societe [--json '{...}']  Diagnostique une société
+  paperasse diagnostic obligations              Liste le catalogue sourcé
+  paperasse diagnostic questionnaire [--json '{...}']  Prochaine question utile
+  paperasse diagnostic dashboard     [--json '{...}']  Tableau de bord (5 colonnes)
+  paperasse diagnostic profil        [--json '{...}']  Diagnostique un particulier
+  paperasse diagnostic societe       [--json '{...}']  Diagnostique une société
   Option commune : --date YYYY-MM-DD (échéances déterministes)`);
     process.exit(sousCommande ? 1 : 0);
 }
