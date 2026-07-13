@@ -164,6 +164,18 @@ Mission → Outputs → { Timeline, DocumentPackage, Reminders, Report } → ada
 - `report(mission)` → réutilise `evaluerMission` ; adaptateur Markdown.
 - `produire(mission, { type, format })` + registre `ADAPTATEURS` (`enregistrerAdaptateur`) : le `.ics` n'est qu'un export parmi d'autres (demain Google/Outlook/Apple, PDF/ZIP/Peppol, email/SMS/push).
 
+## 4 octies. La connaissance comme actif (`knowledge/`)
+
+Le moteur est mature ; le facteur limitant devient la **qualité et la fraîcheur
+de la connaissance réglementaire**. Le dossier `knowledge/` la sépare du code.
+
+- **Versioning réglementaire** : chaque obligation porte `validite` (`validFrom`, `validUntil`, `juridiction`, `langue`, `version`, `lastVerified`). `enVigueurLe()` / `catalogueEnVigueur()` → *« réponse valable pour les règles en vigueur au 1er janvier 2027 »*.
+- **Knowledge QA** (`knowledge/qa/`) : cas métier de référence (profil/événements → nombre attendu d'obligations/démarches), rejoués comme non-régression de la connaissance.
+- **Glossaire** (`knowledge/glossary.json`) : acronymes expliqués et sourcés.
+
+Prochains cycles à investir surtout ici : élargir les cas QA, un benchmark
+(exactitude/exhaustivité/traçabilité), puis un premier connecteur externe réel.
+
 ## 5. Plan de migration (évolution progressive, sans réécriture)
 
 1. **Ajouter** `lib/diagnostic/` **à côté** de l'existant — aucune modification des modules actuels (compatibilité totale, tests existants intacts).

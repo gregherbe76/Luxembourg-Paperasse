@@ -95,6 +95,7 @@ const ROUTES = {
   'test:workflows': ['scripts/test-workflows.js'],
   'test:evaluation': ['scripts/test-evaluation.js'],
   'test:outputs': ['scripts/test-outputs.js'],
+  'test:knowledge': ['scripts/test-knowledge.js'],
 };
 
 function showHelp() {

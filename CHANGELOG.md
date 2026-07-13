@@ -2,6 +2,26 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.31.0] — 2026-07-13
+
+### Ajouté — Connaissance : versioning réglementaire, Knowledge QA, glossaire (`knowledge/`)
+
+Point d'inflexion : le moteur est mature ; la valeur suivante est la
+**connaissance** (fraîcheur, vérifiabilité, versioning). Nouveau dossier
+`knowledge/` — la connaissance devient un actif à part entière. Purement additif.
+
+**Versioning réglementaire.** Chaque obligation porte désormais un bloc `validite` (`validFrom`, `validUntil`, `juridiction`, `langue`, `version`, `lastVerified`). Le moteur peut répondre **« valable pour les règles en vigueur au <date> »** :
+- `enVigueurLe(obligation, date, { juridiction })` et `catalogueEnVigueur(obligations, date)` dans `lib/connaissances` ;
+- CLI `paperasse connaissances envigueur --date 2027-01-01 [--juridiction LU]`.
+
+**Knowledge QA** (`knowledge/qa/cas-reference.json`) — cas métier de référence (profil ou événements → nombre d'obligations/démarches attendu), rejoués comme **suite de non-régression de la connaissance** (`scripts/test-knowledge.js`). Plus précieux que des tests purement techniques.
+
+**Glossaire** (`knowledge/glossary.json`) — 17 acronymes expliqués et sourcés (AED, ACD, CCSS, CNS, RCS, RBE, TVA, ADEM, CAE…) ; `expliquer(sigle)` + CLI `paperasse connaissances glossaire [--terme CCSS]`.
+
+**`knowledge/README.md`** — philosophie « code → connaissance → règles → LLM » et cartographie de la connaissance.
+
+- 12 tests (`test:knowledge`). **Tests cumulés : 536.**
+
 ## [0.30.0] — 2026-07-13
 
 ### Ajouté — Couche Outputs : artefacts métier & adaptateurs (`lib/outputs`)
