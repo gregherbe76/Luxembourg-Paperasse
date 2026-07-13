@@ -97,6 +97,7 @@ const ROUTES = {
   'test:outputs': ['scripts/test-outputs.js'],
   'test:knowledge': ['scripts/test-knowledge.js'],
   'test:governance': ['scripts/test-governance.js'],
+  'test:editorial': ['scripts/test-editorial.js'],
 };
 
 function showHelp() {

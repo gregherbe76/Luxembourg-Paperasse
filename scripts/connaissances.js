@@ -16,7 +16,9 @@ import {
   chargerSources, baseConnaissances, rechercher, reglesARevalider, citer, verifierSourcesConnues, rapport,
   catalogueEnVigueur, chargerGlossaire, expliquer,
   ficheDeVie, revuesDues, verifierGouvernance, tableauQualite,
+  chargerCasQA, casQAParRegle, tableauCouverture, metriquesConnaissance,
 } from '../lib/connaissances/index.js';
+import { etatEditorial, transitionsAutorisees, historiqueEditorial, ETAPES_EDITORIALES } from '../lib/editorial/index.js';
 import { chargerCatalogue, ceJourISO } from '../lib/diagnostic/index.js';
 
 function arg(nom) { const i = process.argv.indexOf(nom); return i !== -1 ? process.argv[i + 1] : undefined; }
@@ -81,6 +83,41 @@ switch (sous) {
     for (const f of dues) console.log(`    ⚠ ${f.nom} — revue prévue le ${f.nextReview}`);
     break;
   }
+  case 'couverture': {
+    const { obligations } = chargerCatalogue();
+    const tc = tableauCouverture(obligations, chargerCasQA().cas, { aujourdhui: arg('--date') || ceJourISO() });
+    const m = metriquesConnaissance(obligations, chargerCasQA().cas, { aujourdhui: arg('--date') || ceJourISO() });
+    console.log(`Coverage Dashboard — ${m.regles} règles, ${m.casQA} cas QA, ${m.domaines} domaines`);
+    console.log(`Couverture réglementaire globale : ${m.couvertureReglementaire} % | fraîcheur moyenne : ${m.fraicheurMoyenneJours} j\n`);
+    console.log('Domaine'.padEnd(22) + 'Couv.'.padEnd(8) + 'Règles'.padEnd(8) + 'Cas QA'.padEnd(8) + 'Dern. revue');
+    for (const d of tc) {
+      console.log(String(d.domaine).padEnd(22) + `${d.couverture}%`.padEnd(8) + String(d.regles).padEnd(8) + String(d.casQA).padEnd(8) + (d.derniereRevue || '—') + (d.ageRevueJours != null ? ` (${d.ageRevueJours} j)` : ''));
+    }
+    break;
+  }
+  case 'editorial': {
+    const { obligations } = chargerCatalogue();
+    if (arg('--id')) {
+      const o = obligations.find((x) => x.id === arg('--id'));
+      if (!o) { console.log(`Règle inconnue : ${arg('--id')}`); break; }
+      console.log(`${o.nom}\n  Étape éditoriale : ${etatEditorial(o)}`);
+      console.log(`  Transitions possibles : ${transitionsAutorisees(etatEditorial(o)).join(', ') || 'aucune (archivée)'}`);
+      const hist = historiqueEditorial(o);
+      console.log(`  Historique éditorial (${hist.length}) :`);
+      for (const h of hist) console.log(`    - ${h.date} → ${h.etape} : ${h.reason}${h.author ? ` (${h.author})` : ''}`);
+    } else {
+      console.log('Cycle de vie éditorial d\'une règle :');
+      console.log('  ' + ETAPES_EDITORIALES.join(' → '));
+      console.log('\nUtilisez --id <obligationId> pour l\'étape et l\'historique d\'une règle.');
+    }
+    break;
+  }
+  case 'impact-regle': {
+    const impactes = casQAParRegle(arg('--id') || '');
+    console.log(`Cas QA à réviser si « ${arg('--id')} » change : ${impactes.length}`);
+    for (const c of impactes) console.log(`  • ${c.id} [${c.famille || '?'}] — ${c.description}`);
+    break;
+  }
   case 'qualite': {
     const { obligations } = chargerCatalogue();
     const q = tableauQualite(obligations, { aujourdhui: arg('--date') || ceJourISO() });
@@ -116,6 +153,9 @@ switch (sous) {
   paperasse connaissances revalider [--seuil 365]
   paperasse connaissances envigueur [--date YYYY-MM-DD] [--juridiction LU]
   paperasse connaissances gouvernance [--id <obligationId>] [--date YYYY-MM-DD]
+  paperasse connaissances editorial [--id <obligationId>]
+  paperasse connaissances couverture [--date YYYY-MM-DD]
+  paperasse connaissances impact-regle --id <obligationId>
   paperasse connaissances qualite
   paperasse connaissances glossaire [--terme CCSS]
   paperasse connaissances sources`);

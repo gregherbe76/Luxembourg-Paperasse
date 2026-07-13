@@ -2,6 +2,31 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.33.0] — 2026-07-13
+
+### Ajouté — Workflow éditorial, couverture QA & Coverage Dashboard
+
+Le projet gère désormais un **cycle de vie éditorial de la connaissance** — pas
+seulement un moteur et des règles. Purement additif.
+
+**Workflow éditorial** (`lib/editorial`) — une règle suit un cycle de vie :
+veille → proposition → analyse → validation → publication → surveillance →
+révision → archivage. `appliquerTransition()` trace chaque passage (pourquoi,
+par qui, source, date, **cas QA impactés**) ; transitions contrôlées ;
+`etatEditorial()`, `historiqueEditorial()`.
+
+**Couverture QA (traçabilité QA ↔ règle)** — chaque cas QA déclare sa **famille**
+(golden / edge / regression / real-world / generated) et les **règles qu'il
+couvre**. `casQAParRegle(regleId)` répond « quels cas réviser si cette règle
+change » (CLI `connaissances impact-regle`).
+
+**Coverage Dashboard métier** (`tableauCouverture`, CLI `connaissances couverture`)
+— par domaine : couverture %, règles, cas QA, âge de la dernière revue. Pilote le
+développement par les lacunes réelles (ex. `cessation` à 0 %). `metriquesConnaissance()`
+ajoute couverture réglementaire globale, fraîcheur moyenne, périmètre — bases d'un futur benchmark.
+
+- 10 tests (`test:editorial`). **Tests cumulés : 555.**
+
 ## [0.32.0] — 2026-07-13
 
 ### Ajouté — Gouvernance de la connaissance (« fiche de vie » des règles)

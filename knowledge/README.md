@@ -71,6 +71,34 @@ vérifiée, quand la revoir, et son historique de changements.
 `ficheDeVie()`, `revuesDues()`, `verifierGouvernance()`, `enregistrerRevue()`
 dans `lib/connaissances`. CLI : `paperasse connaissances gouvernance [--id …]`.
 
+## Workflow éditorial (cycle de vie d'une règle)
+
+Une règle suit un cycle de vie, chaque transition laissant une trace (pourquoi,
+par qui, source, date, **cas QA impactés**) :
+
+```
+Veille → Proposition → Analyse → Validation → Publication → Surveillance → Révision → Archivage
+```
+
+`lib/editorial` : `etatEditorial()`, `transitionsAutorisees()`, `appliquerTransition()`
+(trace le changement), `historiqueEditorial()`. CLI : `paperasse connaissances editorial [--id …]`.
+
+## Couverture QA (traçabilité QA ↔ règle) & Coverage Dashboard
+
+Chaque cas QA déclare sa **famille** (golden / edge / regression / real-world /
+generated) et les **règles qu'il couvre**. Quand une règle évolue, on identifie
+immédiatement les cas à réviser : `casQAParRegle(regleId)` — CLI
+`paperasse connaissances impact-regle --id …`.
+
+Le **Coverage Dashboard** (`tableauCouverture()`, CLI `connaissances couverture`)
+pilote le développement par les **lacunes réelles** :
+
+| Domaine | Couverture | Règles | Cas QA | Dernière revue |
+|---|---|---|---|---|
+| cessation | 0 % | 1 | 0 | 28 j |
+| tva | 67 % | 3 | 1 | 28 j |
+| societe | 100 % | 2 | 4 | 28 j |
+
 ## Trois niveaux de qualité (suivis séparément)
 
 1. **Moteur** — tests unitaires & intégration (`npm test`).
