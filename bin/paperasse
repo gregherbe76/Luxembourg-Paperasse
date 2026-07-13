@@ -77,6 +77,8 @@ const ROUTES = {
   'test:rappels': ['scripts/test-rappels.js'],
   connaissances:  ['scripts/connaissances.js'],
   'test:connaissances': ['scripts/test-connaissances.js'],
+  rgpd:           ['scripts/rgpd.js'],
+  'test:rgpd':    ['scripts/test-rgpd.js'],
 };
 
 function showHelp() {
@@ -112,6 +114,7 @@ Commandes :
   courriers       Génération de courriers-projets (réponse, délai, contestation, dossier récap)
   rappels         Calendrier & surveillance : alertes couleur, rappels avant échéance
   connaissances   Base de connaissances officielle (rapport, chercher, citer, revalider, sources)
+  rgpd            Confidentialité : chiffrement, masquage, durées de conservation
   test:rts        Tests du module RTS
   test:frontalier Tests du module Frontaliers
   help            Cette aide

@@ -2,6 +2,26 @@
 
 Toutes les évolutions notables du projet Paperasse Lux. Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [0.23.0] — 2026-07-13
+
+### Ajouté — Sécurité, confidentialité & conformité RGPD (Milestone 12)
+
+Douzième jalon : briques de conformité RGPD, sans dépendance externe
+(chiffrement via `node:crypto` intégré). Purement additif.
+
+**Module `lib/rgpd/`**
+
+- `chiffrer` / `dechiffrer` — chiffrement au repos **AES-256-GCM**, clé dérivée par scrypt, paquet autoportant (sel + IV + tag) ; intégrité vérifiée (un mauvais mot de passe échoue). `chiffrerObjet` / `dechiffrerObjet` pour le JSON.
+- `masquer(obj)` — masquage récursif des champs sensibles (revenus, IBAN, TVA, matricule, e-mail…) sans modifier l'original.
+- `creerJournal()` — journalisation des accès (horodatage injectable).
+- `consentementValide` / `exigerConsentement` — consentement explicite.
+- `DUREES_CONSERVATION`, `estExpiree`, `purger` — durées de conservation par catégorie et purge (droit à l'oubli).
+- `creerStoreSecurise(store)` — enveloppe le store : isolation par propriétaire (M1) + **exige le consentement à l'ajout d'un profil** + journalise chaque accès.
+
+**CLI** — `paperasse rgpd chiffrer | dechiffrer | masquer | conservation`.
+
+- 13 tests (`test:rgpd`). **Tests cumulés : 426.**
+
 ## [0.22.0] — 2026-07-13
 
 ### Ajouté — Base de connaissances officielle (Milestone 11)
